@@ -10,3 +10,5 @@ to make up good graphs so I definitely need some real data.
 
 The next thing to do is to create my own data structures to replace the existing ones. It would also be nice if my program would 
 actually do something so I have to start thinking more about the software logic, user interface etc.
+
+Time spent: 20 hours

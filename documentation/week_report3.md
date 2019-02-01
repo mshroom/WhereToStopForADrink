@@ -16,3 +16,5 @@ I also created a simple text UI and added a possibility to test and compare the 
 The testing and comparing features will be more interesting once I get more graphs and hopefully real data. 
 That will be one of the things I need to concentrate on next week. I have tried to keep my code well tested and 
 documented with Javadoc, but next week I also have to start writing the required testing and implementation documents.
+
+Time spent: 15 hours

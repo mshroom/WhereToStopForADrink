@@ -1,4 +1,4 @@
-package domain;
+package control;
 
 import algorithms.AStar;
 import algorithms.Bfs;

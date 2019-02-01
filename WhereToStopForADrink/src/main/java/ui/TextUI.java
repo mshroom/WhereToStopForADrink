@@ -1,6 +1,6 @@
 package ui;
 
-import domain.AlgorithmController;
+import control.AlgorithmController;
 import io.IO;
 import java.util.logging.Level;
 import java.util.logging.Logger;

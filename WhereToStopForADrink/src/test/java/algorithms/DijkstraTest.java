@@ -28,7 +28,7 @@ public class DijkstraTest {
     }
     
     @Test
-    public void dijkstraPrintsShortestPathCorrectlyWithSmallInput() {
+    public void dijkstraPrintsShortestPathCorrectlyWithSmallInput() throws Throwable {
         this.dijkstraSmall.calculateShortestPath();
         assertEquals("0 > 1 > 4 > 5 > 6", this.dijkstraSmall.getShortestPath(6));
     }
@@ -40,7 +40,7 @@ public class DijkstraTest {
     }
     
     @Test
-    public void dijkstraPrintsShortestPathCorrectlyWithBigInput() {
+    public void dijkstraPrintsShortestPathCorrectlyWithBigInput() throws Throwable {
         this.dijkstraBig.calculateShortestPath();
         assertEquals("0 > 99", this.dijkstraBig.getShortestPath(99));
     }
@@ -52,7 +52,7 @@ public class DijkstraTest {
     }
     
     @Test
-    public void noPathMessageIsPrintedWhenThereIsNoPath() {
+    public void noPathMessageIsPrintedWhenThereIsNoPath() throws Throwable {
         this.dijkstraNoPath.calculateShortestPath();
         assertEquals("There is no path", this.dijkstraNoPath.getShortestPath(6));
     }

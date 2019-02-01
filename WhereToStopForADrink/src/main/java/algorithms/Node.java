@@ -1,13 +1,18 @@
 package algorithms;
 
 /**
- *
+ * Node object represents a node in a graph.
  * @author mshroom
  */
-public class Node implements Comparable<Node> {
+public class Node {
     int index;
     int distance;
     
+    /**
+     * Create a new Node object.
+     * @param index The index of the node must be unique.
+     * @param distance The distance from the starting node.
+     */
     public Node(int index, int distance) {
         this.index = index;
         this.distance = distance;
@@ -21,11 +26,11 @@ public class Node implements Comparable<Node> {
         return this.distance;
     }
     
-    @Override
-    public int compareTo(Node n) {
-        if (this.distance < n.distance) {
-            return -1;
-        }
-        return 1;
+    public int getEstimate() {
+        return 0;
+    }
+    
+    public boolean smaller(Node n) {
+        return this.distance < n.getDistance();
     }
 }

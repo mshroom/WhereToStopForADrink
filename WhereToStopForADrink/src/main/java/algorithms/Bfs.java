@@ -1,8 +1,6 @@
 package algorithms;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
+import dataStructures.Queue;
 
 /**
  * Bfs algorithm finds the path with the least edges between node 0 and all
@@ -10,9 +8,9 @@ import java.util.List;
  *
  * @author mshroom
  */
-public class Bfs extends PathFinder {
+public class Bfs extends ShortestPath {
 
-    List<Integer>[] neighbours;
+    Queue[] neighbours;
 
     public Bfs(int[][] graph) {
         super(graph);
@@ -27,9 +25,9 @@ public class Bfs extends PathFinder {
      */
     @Override
     protected void convertGraph(int[][] graph) {
-        List<Integer>[] n = new List[graph.length];
+        Queue[] n = new Queue[graph.length];
         for (int i = 0; i < graph.length; i++) {
-            ArrayList<Integer> nodes = new ArrayList<>();
+            Queue nodes = new Queue(10);
             for (int j = 0; j < graph.length; j++) {
                 if (i != j && graph[i][j] >= 0) {
                     nodes.add(j);
@@ -51,18 +49,19 @@ public class Bfs extends PathFinder {
      * nodes.
      */
     @Override
-    public void calculateShortestPath() {
+    public void calculateShortestPath() throws Throwable {
         this.initialize();
-        ArrayDeque<Integer> queue = new ArrayDeque<>();
+        Queue queue = new Queue(this.neighbours.length);
         queue.add(0);
         while (!queue.isEmpty()) {
-            int node = queue.pollFirst();
-            for (Integer i : neighbours[node]) {
-                if (visited[i] == 0) {
-                    visited[i] = 1;
-                    distance[i] = distance[node] + 1;
-                    path[i] = node;
-                    queue.addLast(i);
+            int node = queue.poll();
+            while (!neighbours[node].isEmpty()) {
+                int neighbour = neighbours[node].poll();
+                if (visited[neighbour] == 0) {
+                    visited[neighbour] = 1;
+                    distance[neighbour] = distance[node] + 1;
+                    path[neighbour] = node;
+                    queue.add(neighbour);
                 }
             }
         }

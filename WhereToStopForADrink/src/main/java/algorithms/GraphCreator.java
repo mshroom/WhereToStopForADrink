@@ -1,4 +1,6 @@
 package algorithms;
+
+
 /**
  * Class contains a set of graphs for testing purposes.
  * 
@@ -40,8 +42,12 @@ public class GraphCreator {
                 }
             }
         }
+        big[0][1] = 1;
+        big[1][0] = 1;
         big[0][99] = 90;
         big[99][0] = 90;
+        big[99][98] = 1;
+        big[98][99] = 1;
         return big;
     }
     /**

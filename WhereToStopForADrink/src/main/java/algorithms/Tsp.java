@@ -1,7 +1,5 @@
 package algorithms;
 
-import java.util.*;
-
 /**
  * Class calculates the shortest route that visits all nodes in a graph and returns home.
  * @author mshroom

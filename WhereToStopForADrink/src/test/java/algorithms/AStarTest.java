@@ -29,7 +29,7 @@ public class AStarTest {
     }
     
     @Test
-    public void aStarPrintsShortestPathCorrectlyWithSmallInput() {
+    public void aStarPrintsShortestPathCorrectlyWithSmallInput() throws Throwable {
         this.aStarSmall.calculateShortestPath();
         assertEquals("0 > 1 > 2 > 3", this.aStarSmall.getShortestPath(3));
     }
@@ -42,7 +42,7 @@ public class AStarTest {
     }
     
     @Test
-    public void aStarPrintsShortestPathCorrectlyWithBigInput() {
+    public void aStarPrintsShortestPathCorrectlyWithBigInput() throws Throwable {
         this.aStarBig.calculateShortestPath();
         assertEquals("0 > 99", this.aStarBig.getShortestPath(99));
     }
@@ -54,7 +54,7 @@ public class AStarTest {
     }
     
     @Test
-    public void noPathMessageIsPrintedWhenThereIsNoPath() {
+    public void noPathMessageIsPrintedWhenThereIsNoPath() throws Throwable {
         this.aStarNoPath.calculateShortestPath();
         assertEquals("There is no path", this.aStarNoPath.getShortestPath(6));
     }

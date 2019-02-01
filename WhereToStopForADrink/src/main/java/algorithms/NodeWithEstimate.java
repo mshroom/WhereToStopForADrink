@@ -1,32 +1,30 @@
 package algorithms;
 
 /**
- *
+ * NodeWithEstimate object represents a node in a graph with additional estimate property.
  * @author mshroom
  */
-public class NodeWithEstimate implements Comparable<NodeWithEstimate> {
-    int index;
-    int fromStart;
+public class NodeWithEstimate extends Node {
     int estimate;
     
-    public NodeWithEstimate(int index, int fromStart, int estimate) {
-        this.index = index;
-        this.fromStart = fromStart;
-    }
-    
-    public int getIndex() {
-        return this.index;
-    }
-    
-    public int getDistance() {
-        return this.fromStart;
+    /**
+     * Create a new NodeWithEstimate object.
+     * @param index The index of the node must be unique.
+     * @param distance The distance from the starting node.
+     * @param estimate The estimated distance from the goal node.
+     */
+    public NodeWithEstimate(int index, int distance, int estimate) {
+        super(index, distance);
+        this.estimate = estimate;
     }
     
     @Override
-    public int compareTo(NodeWithEstimate n) {
-        if (this.fromStart + this.estimate < n.fromStart + n.estimate) {
-            return -1;
-        }
-        return 1;
+    public int getEstimate() {
+        return this.estimate;
+    }
+    
+    @Override
+    public boolean smaller(Node n) {
+        return this.distance + this.estimate < n.getDistance() + n.getEstimate();
     }
 }

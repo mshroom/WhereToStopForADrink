@@ -1,23 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package algorithms;
 
-import java.util.ArrayDeque;
+import dataStructures.Queue;
 
 /**
- *
+ * An abstract class for algorithms that find the shortest path between two nodes in a graph.
  * @author mshroom
  */
-public abstract class PathFinder {
+public abstract class ShortestPath {
 
     int[] distance;
     int[] path;
     int[] visited;
 
-    public PathFinder(int[][] graph) {
+    public ShortestPath(int[][] graph) {
         this.distance = new int[graph.length];
         this.path = new int[graph.length];
         this.visited = new int[graph.length];
@@ -34,7 +29,7 @@ public abstract class PathFinder {
         distance[0] = 0;
     }
 
-    public abstract void calculateShortestPath();
+    public abstract void calculateShortestPath() throws Throwable;
 
     /**
      * Method returns the length of the shortest path
@@ -50,19 +45,19 @@ public abstract class PathFinder {
      * @param goal The index of the node at the end of the path.
      * @return A String describing the path.
      */
-    public String getShortestPath(int goal) {
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
+    public String getShortestPath(int goal) throws Throwable {
+        Queue stack = new Queue(10);
         int previous = path[goal];
         if (previous == -1) {
             return "There is no path";
         }
         while (previous != 0) {
-            stack.addFirst(previous);
+            stack.push(previous);
             previous = path[previous];
         }
         String ret = "0 > ";
         while (!stack.isEmpty()) {
-            ret = ret + (stack.removeFirst() + " > ");
+            ret = ret + (stack.poll() + " > ");
         }
         return "" + ret + goal;
     }

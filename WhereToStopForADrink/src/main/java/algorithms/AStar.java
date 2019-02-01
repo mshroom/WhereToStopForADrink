@@ -1,22 +1,21 @@
 package algorithms;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
+import dataStructures.MinHeap;
+import dataStructures.NodeQueue;
+import dataStructures.Queue;
 
 /**
  * AStar algorithm calculates the shortest path to a specific node in a graph.
  *
  * @author mshroom
  */
-public class AStar extends PathFinder {
+public class AStar extends ShortestPath {
 
     private int[][] graph;
     private int[] distanceSaved;
     private int[] distanceEstimate;
     private int[] pathSaved;
-    private List<NodeWithEstimate>[] neighbours;
+    private NodeQueue[] neighbours;
     private int goal;
 
     /**
@@ -53,17 +52,15 @@ public class AStar extends PathFinder {
 
     /**
      * Method converts the graph to an adjacency list.
-     *
      * @param graph the original graph in the form of a two-dimensional array
      */
     @Override
     protected void convertGraph(int[][] graph) {
-        List<NodeWithEstimate>[] n = new List[graph.length];
+        NodeQueue[] n = new NodeQueue[graph.length];
         for (int i = 0; i < graph.length; i++) {
-            ArrayList<NodeWithEstimate> nodes = new ArrayList<>();
+            NodeQueue nodes = new NodeQueue(10);
             for (int j = 0; j < graph.length; j++) {
                 if (i != j && graph[i][j] >= 0) {
-                    System.out.println(distanceEstimate[j]);
                     nodes.add(new NodeWithEstimate(j, graph[i][j], distanceEstimate[j]));
                 }
             }
@@ -78,16 +75,18 @@ public class AStar extends PathFinder {
     @Override
     public void calculateShortestPath() {
         this.initialize();
-        PriorityQueue<NodeWithEstimate> heap = new PriorityQueue<>();
+        NodeQueue[] neighboursCopy = this.neighbours.clone();
+        MinHeap heap = new MinHeap(neighbours.length * neighbours.length);
         heap.add(new NodeWithEstimate(0, 0, 0));
         while (!heap.isEmpty()) {
-            NodeWithEstimate smallest = heap.poll();
+            Node smallest = heap.poll();
             if (smallest.getIndex() == goal) {
                 break;
             }
             if (visited[smallest.getIndex()] == 0) {
                 visited[smallest.getIndex()] = 1;
-                for (NodeWithEstimate node : neighbours[smallest.getIndex()]) {
+                while (!neighboursCopy[smallest.getIndex()].isEmpty()) {
+                    Node node = neighboursCopy[smallest.getIndex()].poll(); 
                     if (distance[node.getIndex()] == -1 || distance[node.getIndex()] > distance[smallest.getIndex()] + node.getDistance()) {
                         distance[node.getIndex()] = distance[smallest.getIndex()] + node.getDistance();
                         path[node.getIndex()] = smallest.getIndex();
@@ -123,8 +122,8 @@ public class AStar extends PathFinder {
      * found.
      */
     @Override
-    public String getShortestPath(int node) {
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
+    public String getShortestPath(int node) throws Throwable {
+        Queue stack = new Queue(10);
         int previous = pathSaved[node];
         if (previous == -1) {
             return "Algorithm has not yet searched a path to this node."
@@ -133,19 +132,18 @@ public class AStar extends PathFinder {
             return "There is no path";
         }
         while (previous != 0) {
-            stack.addFirst(previous);
+            stack.push(previous);
             previous = path[previous];
         }
         String ret = "0 > ";
         while (!stack.isEmpty()) {
-            ret = ret + (stack.removeFirst() + " > ");
+            ret = ret + (stack.poll() + " > ");
         }
         return "" + ret + node;
     }
 
     /**
      * Method returns the shortest distance to the given node.
-     *
      *
      * @param node the index of the goal node
      * @return the length of the path, -2 if there is no path to the node and -1
@@ -158,7 +156,6 @@ public class AStar extends PathFinder {
 
     /**
      * Method makes another search for the shortest path to the given node.
-     *
      *
      * @param node The index of the goal node.
      * @param distanceEstimate An array containing distance estimates between

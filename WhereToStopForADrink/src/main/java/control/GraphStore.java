@@ -1,4 +1,4 @@
-package algorithms;
+package control;
 
 
 /**
@@ -6,7 +6,7 @@ package algorithms;
  * 
  * @author mshroom
  */
-public class GraphCreator {
+public class GraphStore {
 
     /**
      * Creates a small graph for path-finding algorithms.

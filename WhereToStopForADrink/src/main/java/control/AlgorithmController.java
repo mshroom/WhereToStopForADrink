@@ -3,7 +3,6 @@ package control;
 import algorithms.AStar;
 import algorithms.Bfs;
 import algorithms.Dijkstra;
-import algorithms.GraphCreator;
 import algorithms.ShortestPath;
 import algorithms.ShortestRoute;
 import algorithms.Tsp;
@@ -16,10 +15,10 @@ import algorithms.TspNn;
  */
 public class AlgorithmController {
 
-    private GraphCreator graphs;
+    private GraphStore graphs;
 
     public AlgorithmController() {
-        this.graphs = new GraphCreator();
+        this.graphs = new GraphStore();
     }
 
     /**

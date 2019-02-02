@@ -1,5 +1,6 @@
 package algorithms;
 
+import control.GraphStore;
 import java.util.Arrays;
 import org.junit.Before;
 import static org.junit.Assert.*;
@@ -15,7 +16,7 @@ public class TspTest {
     
     @Before
     public void setUp() {
-        GraphCreator graphs = new GraphCreator();
+        GraphStore graphs = new GraphStore();
         this.tspSmall = new Tsp(graphs.createSmallCompleteGraph());        
         this.tspBig = new Tsp(graphs.createBigCompleteGraph());
     }

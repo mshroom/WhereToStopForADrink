@@ -1,5 +1,6 @@
 package algorithms;
 
+import control.GraphStore;
 import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class TspNnTest {
     
     @Before
     public void setUp() {
-        GraphCreator graphs = new GraphCreator();
+        GraphStore graphs = new GraphStore();
         this.tspSmall = new TspNn(graphs.createSmallCompleteGraph());        
         this.tspNotOptimal = new TspNn(graphs.createNotOptimalCompleteGraph());        
         this.tspBig = new TspNn(graphs.createBigCompleteGraph());

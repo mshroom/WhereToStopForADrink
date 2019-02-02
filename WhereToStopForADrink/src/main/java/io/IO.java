@@ -6,6 +6,6 @@ package io;
  */
 public interface IO {
     void printLine(String print);
-    int readInt(String instruction);
     String readLine(String instruction);
+    int readInt(String instruction);
 }

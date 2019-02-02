@@ -1,5 +1,6 @@
 package algorithms;
 
+import control.GraphStore;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -9,14 +10,14 @@ import static org.junit.Assert.*;
  * @author mshroom
  */
 public class AStarTest {
-    GraphCreator graphs;
+    GraphStore graphs;
     AStar aStarSmall;
     AStar aStarBig;
     AStar aStarNoPath;
     
     @Before
     public void setUp() {
-        this.graphs = new GraphCreator();
+        this.graphs = new GraphStore();
         createSmallGraph();        
         createBigGraph();        
         createGraphWithNoPath();        

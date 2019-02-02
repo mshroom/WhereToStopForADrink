@@ -1,5 +1,6 @@
 package algorithms;
 
+import control.GraphStore;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -16,7 +17,7 @@ public class BfsTest {
 
     @Before
     public void setUp() {
-        GraphCreator graphs = new GraphCreator();
+        GraphStore graphs = new GraphStore();
         this.bfsSmall = new Bfs(graphs.createSmallGraphForPathfinding());
         this.bfsBig = new Bfs(graphs.createBigGraphForPathfinding());
         this.bfsNoPath = new Bfs(graphs.createGraphWithNoPath());

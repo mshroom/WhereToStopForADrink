@@ -1,5 +1,6 @@
 package algorithms;
 
+import control.GraphStore;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -15,7 +16,7 @@ public class DijkstraTest {
     
     @Before
     public void setUp() {
-        GraphCreator graphs = new GraphCreator();        
+        GraphStore graphs = new GraphStore();        
         this.dijkstraSmall = new Dijkstra(graphs.createSmallGraphForPathfinding());
         this.dijkstraBig = new Dijkstra(graphs.createBigGraphForPathfinding());
         this.dijkstraNoPath = new Dijkstra(graphs.createGraphWithNoPath());

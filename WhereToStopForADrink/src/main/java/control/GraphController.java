@@ -14,7 +14,7 @@ public class GraphController {;
     private int[][] graph;
     private PlaceController placeController;
     
-    public GraphController() throws Exception {
+    public GraphController() {
         this.finder = new DistanceFinder();
         this.placeController = new PlaceController();
     }
@@ -37,8 +37,11 @@ public class GraphController {;
     }
     
     private void initializeGraph() throws Exception {
+        System.out.println("Getting distances...");
+        int total = places.length;
         this.graph = new int[places.length][places.length];
         for (int i = 0; i < graph.length; i ++) {
+            System.out.println("Progress: " + i + "/" + total);
             for (int j = 0; j < graph.length; j ++) {
                 Place a = places[i];
                 Place b = places[j];
@@ -52,7 +55,7 @@ public class GraphController {;
         }
     }
     
-    public void saveGraph() throws Exception {
+    private void saveGraph() throws Exception {
         FileIO io = new FileIO("savedGraph.txt");
         io.clear();
         for (int i = 0; i < this.graph.length; i ++) {
@@ -111,5 +114,22 @@ public class GraphController {;
             }
         }
         return ret;
+    }
+    
+    public int[][] getSmallerGraph(int maximumNumber) {
+        if (maximumNumber > this.graph.length) {
+            return this.graph;
+        }
+        int[][] smaller = new int[maximumNumber][maximumNumber];
+        for (int i = 0; i < smaller.length; i ++) {
+            for (int j = 0; j < smaller.length; j ++) {
+                smaller[i][j] = graph[i][j];
+            }
+        }
+        return smaller;
+    }
+    
+    public int getSizeOfCurrentGraph() {
+        return this.graph.length;
     }
 }

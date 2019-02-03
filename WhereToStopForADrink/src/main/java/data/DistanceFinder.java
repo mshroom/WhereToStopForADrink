@@ -21,10 +21,14 @@ public class DistanceFinder {
         queryParameters += a.getY() + ",lon:" + a.getX() + "},to:{lat:";
         queryParameters += b.getY() + ",lon:" + b.getX() + "},transportModes:[{mode: WALK}]){itineraries{legs{distance}}}}";
         String content = con.postRequest(queryParameters, contentType);
+        con.close();
         String find = "distance\":";
         String[] result = content.split(find);
         if (result.length > 1) {
             distance = result[1].split("\\.")[0];
+        }
+        if (distance.equals("")) {
+            return -1;
         }
         return Integer.parseInt(distance);
     }

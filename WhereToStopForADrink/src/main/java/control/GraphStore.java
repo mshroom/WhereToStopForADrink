@@ -50,6 +50,11 @@ public class GraphStore {
         big[98][99] = 1;
         return big;
     }
+    
+    public int[] createDistancesForBigGraphForPathFinding() {
+        return new int[100];
+    }
+    
     /**
      * Creates a graph for path-finding algorithms, in which there is no path to node 6.
      * @return graph in the form of a two-dimensional array
@@ -80,6 +85,17 @@ public class GraphStore {
             {95, 40, 40, 95, 0}
         };
         return smallGraph;
+    }
+    
+    public int[] createDistancesForSmallGraphForAStar(int goal) {
+        int[][] g = this.createSmallGraphForAStar();
+        int[] distances = g[goal];
+        for (int i : distances) {
+            if (i == -1) {
+                i = 1;
+            }
+        }
+        return distances;
     }
 
     /**

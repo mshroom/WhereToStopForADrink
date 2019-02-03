@@ -21,6 +21,7 @@ public class PlaceController {
     }
 
     public void importPlaces(String file) throws Exception {
+        System.out.println("Getting coordinates...");
         FileIO io = new FileIO(file);
         int i = 0;
         while (true) {            

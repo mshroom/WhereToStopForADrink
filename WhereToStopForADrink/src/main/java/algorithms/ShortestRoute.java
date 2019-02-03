@@ -24,7 +24,7 @@ public abstract class ShortestRoute {
     public String printShortestRoute() {
         String ret = "";
         for (int i : shortestRoute) {
-            ret += shortestRoute[i] + " > ";
+            ret += i + " > ";
         }
         ret += 0;
         return ret;

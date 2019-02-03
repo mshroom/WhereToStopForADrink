@@ -1,6 +1,7 @@
 package domain;
 
 import control.AlgorithmController;
+import control.GraphStore;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -12,10 +13,12 @@ import static org.junit.Assert.*;
 public class AlgorithmControllerTest {
 
     AlgorithmController algo;
+    GraphStore graphs;
 
     @Before
     public void setUp() {
         this.algo = new AlgorithmController();
+        this.graphs = new GraphStore();
     }
 
     @Test
@@ -44,25 +47,25 @@ public class AlgorithmControllerTest {
 
     @Test
     public void comparingRouteAlgorithmsWithSmallTestGraphIncludesDataOfAllAlgorithms() {
-        String result = algo.compareShortestRouteAlgorithmsWithSmallTestGraph();
+        String result = algo.compareShortestRouteAlgorithms(graphs.createSmallCompleteGraph());
         assertTrue(result.contains("Tsp") && result.contains("TspNn"));
     }
 
     @Test
     public void comparingRouteAlgorithmsWithSmallTestGraphIncludesDataOfAllResultCategories() {
-        String result = algo.compareShortestRouteAlgorithmsWithSmallTestGraph();
+        String result = algo.compareShortestRouteAlgorithms(graphs.createSmallCompleteGraph());
         assertTrue(result.contains("Time elapsed") && result.contains("Route length") && result.contains("Shortest route"));
     }
 
     @Test
     public void comparingRouteAlgorithmsWithBigTestGraphIncludesDataOfAllAlgorithms() {
-        String result = algo.compareShortestRouteAlgorithmsWithBigTestGraph();
+        String result = algo.compareShortestRouteAlgorithms(graphs.createBigCompleteGraph());
         assertTrue(result.contains("Tsp") && result.contains("TspNn"));
     }
 
     @Test
     public void comparingRouteAlgorithmsWithBigTestGraphIncludesDataOfAllResultCategories() {
-        String result = algo.compareShortestRouteAlgorithmsWithBigTestGraph();
+        String result = algo.compareShortestRouteAlgorithms(graphs.createBigCompleteGraph());
         assertTrue(result.contains("Time elapsed") && result.contains("Route length") && result.contains("Shortest route"));
     }
     

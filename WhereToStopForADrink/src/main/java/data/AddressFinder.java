@@ -20,6 +20,7 @@ public class AddressFinder {
         url += "search?text=" + formattedAddress + "&size=1";
         Connection con = new Connection(url);
         String content = con.getRequest();
+        con.close();
         String find = "coordinates\":\\u005B";
         String[] result = content.split(find);
         if (result.length >1) {

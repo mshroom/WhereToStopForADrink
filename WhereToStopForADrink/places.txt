@@ -8,3 +8,76 @@ Bar Flagon;Vilhonvuorenkatu 5 Helsinki
 Bar Kalliohovi;Vaasankatu 17 Helsinki
 Bar Lepakkomies;Helsinginkatu 1 Helsinki
 Bar Molotow;Vaasankatu 29 Helsinki
+Bar Tappen;Kustaankatu 7 Helsinki
+Brewster Bar;Kaarlenkatu 1 Helsinki
+Cafe Efes Bar;Helsinginkatu 2 Helsinki
+Cafe Talo;Hämeentie 2 B Helsinki
+Cafè II-Linja 23;Toinen linja 23 Helsinki
+Fairytale;Helsinginkatu 7 Helsinki
+Femma IV;Viides linja 4 Helsinki
+Hakis Pub;Sörnäisten rantatie 10 Helsinki
+Harju 8;Harjutori 8 Helsinki
+Harju Baari;Fleminginkatu 21 Helsinki
+Heinähattu;Vaasankatu 23 Helsinki
+Helsing Bar;Kaarlenkatu 3-5 Helsinki
+Iltakoulu;Vaasankatu 5 Helsinki
+Juttutupa;Säästöpankinranta 6 Helsinki
+Kaiku;Kaikukatu 4 Helsinki
+Kallion B12;Vaasankatu 12 Helsinki
+Kallion Seurahuone;Fleminginkatu 6 Helsinki
+Katmando Bar;Porthaninkatu 9 Helsinki
+Kolme Kaisaa;Hämeentie 29 Helsinki
+Kuja Bar and Bistro;Hakaniemenkatu 7 Helsinki
+Kultapalmu;Vaasankatu 4 Helsinki
+Kurvitar;58-60 Hämeentie Helsinki
+Kustaa Vaasa;Vaasankatu 10 Helsinki
+Kuudes Linja;Hämeentie 13 B Helsinki
+Las Vegas;Viides linja 8 Helsinki
+Loosister;Hämeentie 50 Helsinki
+Lucky Nine Bar;Aleksis Kiven katu 30 Helsinki
+Madame Kurvi;Hämeentie 31 Helsinki
+Majava Baari;Porthaninkatu 9 Helsinki
+Mascot Bar & Live Stage;Neljäs linja 2 Helsinki
+Meri Pub;Haapaniemenkatu 14 Helsinki
+Merikerho;Sörnäisten Rantapromenadi Helsinki
+Musta Kissa Bar;Toinen linja 15 Helsinki
+Oiva;Porthaninkatu 5 Helsinki
+Oluthuone Kuikka;Helsinginkatu 32 Helsinki
+Olutravintola Hilpeä Hauki;Vaasankatu 7 Helsinki
+Ompu;Siltasaarenkatu 15 Helsinki
+On the Rocks Kallio;Porvoonkatu 1 Helsinki
+Panema;Helsinginkatu 11 Helsinki
+Paras Kaveri;Vaasankatu 18 Helsinki
+Parnell's;Läntinen Brahenkatu 2 Helsinki
+Populus;Aleksis Kiven katu 22 Helsinki
+Post Bar;Kaikukatu 2 Helsinki
+Pub Aleksis K;Aleksis Kiven katu 14 Helsinki
+Pub Kolmas Linja;Kolmas linja 4-6 Helsinki
+Pub Porthan;Porthaninkatu 10 Helsinki
+Pub Pressapari;Wallininkatu 10 Helsinki
+Pub Sirdie;Kolmas linja 21 Helsinki
+Pulmu-baari;Fleminginkatu 13, 00530 Helsinki
+Pääsky Pub;Pääskylänrinne 2 Helsinki
+Ravintola Mäkikupla;Torkkelinkatu 2 B Helsinki
+Ravintola Rytmi;Toinen linja 2 Helsinki
+Ravintola Sir Oliver;Haapaniemenkatu 14 Helsinki
+Ravintola Sävel;Hämeentie 2 Helsinki
+Ravintola Tanner;Hämeentie 11 Helsinki
+Ravintola Tenkka;Helsinginkatu 15 Helsinki
+Relaxin Bar;Helsinginkatu 13 Helsinki
+Riviera;Harjukatu 2 Helsinki
+Roskapankki;Helsinginkatu 20 Helsinki
+Siima Baari;Vaasankatu 25 A Helsinki
+Silmu Pub;Hämeentie 30 Helsinki
+Siltanen;Hämeentie 13 B Helsinki
+Sivukirjasto;Fleminginkatu 5 Helsinki
+Solmu Pub;Vaasankatu 8 Helsinki
+Stadin Tähti;Mäkelänkatu 2 Helsinki
+Street Bar;Hämeentie 10 Helsinki
+Sörkan Ruusu;Pääskylänrinne 3 Helsinki
+Tenho Restobar;Helsinginkatu 15 Helsinki
+Toveri;Castréninkatu 3 Helsinki
+Virkavapaa Bar;Kaarlenkatu 10 Helsinki
+Vivian’s Kitchen & Bar;Kustaankatu 4 Helsinki
+William K. Kurvi;Helsinginkatu 2 Helsinki
+Ølhus Oslo;Haapaniemenkatu 3-5 Helsinki

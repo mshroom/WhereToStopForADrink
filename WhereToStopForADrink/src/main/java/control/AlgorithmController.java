@@ -22,44 +22,14 @@ public class AlgorithmController {
     }
 
     /**
-     * Method tests all shortest path algorithms to find the shortest path to the given goal node
-     * in the small test graph.
-     * @param goal The index of the goal node.
-     * @return A String describing the results and the time elapsed for each algorithm.
-     * @throws Throwable if there is an exception while processing the data.
-     */
-    public String compareShortestPathAlgorithmsWithSmallTestGraph(int goal) throws Throwable {
-        int[][] graph = graphs.createSmallGraphForAStar();
-        int[] distances = {101, 110, 60, 0, 95};
-        return this.compareShortestPathAlgorithms(graph, goal, distances);
-    }
-
-    /**
-     * Method tests all shortest path algorithms to find the shortest path to the given goal node
-     * in the big test graph.
-     * @param goal The index of the goal node.
-     * @return A String describing the results and the time elapsed for each algorithm.
-     * @throws Throwable if there is an exception while processing the data.
-     */    
-    public String compareShortestPathAlgorithmsWithBigTestGraph(int goal) throws Throwable {
-        int[][] graph = graphs.createBigGraphForPathfinding();
-        int[] distances = new int[100];
-        distances[0] = 90;
-        for (int i = 1; i < distances.length; i++) {
-            distances[i] = 100 - i;
-        }
-        return this.compareShortestPathAlgorithms(graph, goal, distances);
-    }
-
-    /**
-     * Method compares all shortest path algorithms using given attributes.
+     * Method tests all shortest path algorithms to find the shortest path to the given goal node.
      * @param graph The graph used to test algorithms.
      * @param goal The index of the goal node.
      * @param distances An array containing distance estimates from each node to the goal.
      * @return A String describing the results and the time elapsed for each algorithm.
      * @throws Throwable if there is an exception while processing the data.
      */
-    private String compareShortestPathAlgorithms(int[][] graph, int goal, int[] distances) throws Throwable {
+    public String compareShortestPathAlgorithms(int[][] graph, int goal, int[] distances) throws Throwable {
         String ret = "";
         ShortestPath d = new Dijkstra(graph);
         ShortestPath b = new Bfs(graph);
@@ -89,34 +59,15 @@ public class AlgorithmController {
         ret += String.format("%-20s", s.getDistanceTo(node));
         ret += s.getShortestPath(node);
         return ret;
-    }
+    }   
 
     /**
      * Method tests all shortest route algorithms to find the shortest route visiting
-     * all nodes in the small test graph.
-     * @return  A String describing the results and the time elapsed for each algorithm.
-     */
-    public String compareShortestRouteAlgorithmsWithSmallTestGraph() {
-        int[][] graph = graphs.createSmallCompleteGraph();
-        return this.compareShortestRouteAlgorithms(graph);
-    }
-    
-    /**
-     * Method tests all shortest route algorithms to find the shortest route visiting
-     * all nodes in the big test graph.
-     * @return  A String describing the results and the time elapsed for each algorithm.
-     */    
-    public String compareShortestRouteAlgorithmsWithBigTestGraph() {        
-        int[][] graph = graphs.createBigCompleteGraph();
-        return this.compareShortestRouteAlgorithms(graph);
-    }    
-
-    /**
-     * Method compares the route algorithms with given graph.
+     * all nodes.
      * @param graph The graph to be tested.
      * @return A String describing the results and the time elapsed for each algorithm. 
      */
-    private String compareShortestRouteAlgorithms(int[][] graph) {
+    public String compareShortestRouteAlgorithms(int[][] graph) {
         String ret = "";
         ShortestRoute tsp = new Tsp(graph);
         ShortestRoute nn = new TspNn(graph);

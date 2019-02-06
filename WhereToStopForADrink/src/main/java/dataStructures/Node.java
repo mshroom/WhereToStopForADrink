@@ -1,10 +1,10 @@
-package algorithms;
+package dataStructures;
 
 /**
  * Node object represents a node in a graph.
  * @author mshroom
  */
-public class Node {
+public class Node implements Queueable {
     int index;
     int distance;
     

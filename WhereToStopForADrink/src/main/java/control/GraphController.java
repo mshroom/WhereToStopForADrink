@@ -1,11 +1,15 @@
 package control;
 
-import data.DistanceFinder;
-import dataStructures.PlaceQueue;
+import dataStructures.Place;
+import web.DistanceFinder;
+import dataStructures.ObjectQueue;
 import io.FileIO;
+import web.AddressFinder;
 
 /**
- *
+ * GraphController controls the graph and the places belonging to the graph, 
+ * with the help of the PlaceController. Class contains methods to import and export
+ * graph and place data.
  * @author mshroom
  */
 public class GraphController {;
@@ -14,28 +18,72 @@ public class GraphController {;
     private int[][] graph;
     private PlaceController placeController;
     
+    /**
+     * Create a GraphController with an empty graph.
+     */
     public GraphController() {
         this.finder = new DistanceFinder();
         this.placeController = new PlaceController();
     }
     
+    /**
+     * Create a GraphController with a custom DistanceFinder, placeController and graph.
+     * @param finder DistanceFinder object to be used with this GraphController
+     * @param placeController PlaceController object to be used with this GraphControlelr
+     * @param graph The graph in the form of a two-dimensional array. If the graph is not
+     * empty it should correspond to the place list of the placeController.
+     */
+    public GraphController(DistanceFinder finder, PlaceController placeController, int[][] graph) {
+        this.finder = finder;
+        this.placeController = placeController;
+        this.graph = graph;
+    }
+    
+    /**
+     * Imports place data from a text file, finds the coordinates for the places and 
+     * the distances between the places and uses the data to initialize the graph.
+     * @param file The name of the file containing place data. 
+     * Each row in the file must describe the place in the form "Name;Address" (without
+     * the quotation marks).
+     * @throws Exception If an error occurs while importing data.
+     */
     public void importPlaces(String file) throws Exception {
         placeController.importPlaces(file);
         this.places = placeController.getPlaces();
         this.initializeGraph();
     }
     
-    public void useSavedPlaces() throws Exception {
-        placeController.useSavedPlaces();
+    /**
+     * Imports a saved graph and saved Place objects from text files.
+     * @param placeFile The name of the file containing saved Places. Each row in the file must
+     * contain a toString representation of a Place object.
+     * @param graphFile The name of the file containing the saved graph. The file must be
+     * consistent with the placeFile.
+     * @throws Exception If an error occurs while importing data.
+     */
+    public void useSaved(String placeFile, String graphFile) throws Exception {
+        placeController.useSavedPlaces(placeFile);
         this.places = placeController.getPlaces();
-        this.fetchSavedGraph();
+        this.fetchSavedGraph(graphFile);
     }
     
-    public void savePlaces() throws Exception {
-        placeController.savePlaces();
-        this.saveGraph();
+    /**
+     * Saves the current graph into text files. These two text files must be used together next time 
+     * when importing the saved data.
+     * @param placeFile The name of the file for places. Note that the file must already exist.
+     * @param graphFile The name of the file for the graph. Note that the file must already exist.
+     * @throws Exception If an error occurs while saving data.
+     */
+    public void save(String placeFile, String graphFile) throws Exception {
+        placeController.savePlaces(placeFile);
+        this.saveGraph(graphFile);
     }
     
+    /**
+     * Initializes the graph by finding the distances between places and creating
+     * a two-dimensional array containing the distances.
+     * @throws Exception If an error occurs while getting the distances.
+     */
     private void initializeGraph() throws Exception {
         System.out.println("Getting distances...");
         int total = places.length;
@@ -46,7 +94,7 @@ public class GraphController {;
                 Place a = places[i];
                 Place b = places[j];
                 if (graph[j][i] == 0 && i != j) {
-                    int length = this.finder.findDistance(a, b);
+                    int length = this.finder.findDistance(a.getX(), a.getY(), b.getX(), b.getY());
                     graph[i][j] = length;                    
                 } else {
                     graph[i][j] = graph[j][i];
@@ -55,8 +103,13 @@ public class GraphController {;
         }
     }
     
-    private void saveGraph() throws Exception {
-        FileIO io = new FileIO("savedGraph.txt");
+    /**
+     * Saves the current graph to a text file.
+     * @param file The name of the file.
+     * @throws Exception If an error occurs while saving data.
+     */
+    private void saveGraph(String file) throws Exception {
+        FileIO io = new FileIO(file);
         io.clear();
         for (int i = 0; i < this.graph.length; i ++) {
             String write = "";
@@ -70,8 +123,13 @@ public class GraphController {;
         }        
     }
     
-    private void fetchSavedGraph() throws Exception {        
-        FileIO io = new FileIO("savedGraph.txt");
+    /**
+     * Imports a saved graph from a text file.
+     * @param file The name of the file.
+     * @throws Exception If an error occurs while importing data.
+     */
+    private void fetchSavedGraph(String file) throws Exception {        
+        FileIO io = new FileIO(file);
         while (true) {            
             String p = io.readLine("");
             if (p.equals("")) {
@@ -94,14 +152,34 @@ public class GraphController {;
         return this.graph;
     }
     
+    /**
+     * Returns an array containing the distances from the given node to all other nodes.
+     * @param index The index of the wanted node.
+     * @return An array where the indexes of the array correspond to the indexes of the nodes 
+     * and in each index is the distance to the given node.
+     */
     public int[] getDistances(int index) {
         return this.graph[index];
     }
     
+    /**
+     * Returns the place with the given index.
+     * @param index The index of the place
+     * @return The Place object with that index, null if there is no such index.
+     */
     public Place getPlace(int index) {
-        return this.places[index];
+        if (index >= 0 && index < this.places.length) {
+            return this.places[index];
+        }
+        return null;
     }
     
+    /**
+     * Creates a reduced graph from the current graph, where each edge that is longer
+     * than the given maximum distance, will be removed.
+     * @param maximumDistance The maximum distance; longer edges will be removed.
+     * @return The reduced graph where longer edges have been removed.
+     */
     public int[][] getReducedGraph(int maximumDistance) {
         int[][] ret = new int[this.graph.length][this.graph.length];
         for (int i = 0; i < ret.length; i ++) {
@@ -116,6 +194,11 @@ public class GraphController {;
         return ret;
     }
     
+    /**
+     * Creates a smaller graph consisting of given amount of nodes.
+     * @param maximumNumber The maximum amount of nodes.
+     * @return The reduced graph in which the rest of the nodes have been removed.
+     */
     public int[][] getSmallerGraph(int maximumNumber) {
         if (maximumNumber > this.graph.length) {
             return this.graph;
@@ -129,6 +212,10 @@ public class GraphController {;
         return smaller;
     }
     
+    /**
+     * Returns the amount of nodes in the current graph.
+     * @return The amount of nodes.
+     */
     public int getSizeOfCurrentGraph() {
         return this.graph.length;
     }

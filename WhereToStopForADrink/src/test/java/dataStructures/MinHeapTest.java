@@ -1,7 +1,5 @@
 package dataStructures;
 
-import algorithms.Node;
-import algorithms.NodeWithEstimate;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

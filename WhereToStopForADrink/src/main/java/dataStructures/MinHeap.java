@@ -1,7 +1,5 @@
 package dataStructures;
 
-import algorithms.Node;
-
 /**
  * MinHeap is a priority queue with for Node objects. The size of the queue is predefined and
  * cannot be altered. Nodes can be added to the queue and

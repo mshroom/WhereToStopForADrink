@@ -1,4 +1,6 @@
-package algorithms;
+package dataStructures;
+
+import dataStructures.Node;
 
 /**
  * NodeWithEstimate object represents a node in a graph with additional estimate property.

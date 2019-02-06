@@ -1,4 +1,4 @@
-package data;
+package web;
 
 import java.net.URLEncoder;
 

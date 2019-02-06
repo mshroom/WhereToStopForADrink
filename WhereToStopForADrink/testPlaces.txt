@@ -1,0 +1,3 @@
+Place 1;Example address 1
+Place 2;Example address 2
+Place 3;Example address 3

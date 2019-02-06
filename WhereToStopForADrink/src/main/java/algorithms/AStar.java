@@ -1,7 +1,9 @@
 package algorithms;
 
+import dataStructures.NodeWithEstimate;
+import dataStructures.Node;
 import dataStructures.MinHeap;
-import dataStructures.NodeQueue;
+import dataStructures.ObjectQueue;
 import dataStructures.Queue;
 
 /**
@@ -15,7 +17,7 @@ public class AStar extends ShortestPath {
     private int[] distanceSaved;
     private int[] distanceEstimate;
     private int[] pathSaved;
-    private NodeQueue[] neighbours;
+    private ObjectQueue[] neighbours;
     private int goal;
 
     /**
@@ -56,9 +58,9 @@ public class AStar extends ShortestPath {
      */
     @Override
     protected void convertGraph(int[][] graph) {
-        NodeQueue[] n = new NodeQueue[graph.length];
+        ObjectQueue[] n = new ObjectQueue[graph.length];
         for (int i = 0; i < graph.length; i++) {
-            NodeQueue nodes = new NodeQueue(10);
+            ObjectQueue nodes = new ObjectQueue(10);
             for (int j = 0; j < graph.length; j++) {
                 if (i != j && graph[i][j] >= 0) {
                     nodes.add(new NodeWithEstimate(j, graph[i][j], distanceEstimate[j]));
@@ -75,7 +77,7 @@ public class AStar extends ShortestPath {
     @Override
     public void calculateShortestPath() {
         this.initialize();
-        NodeQueue[] neighboursCopy = this.neighbours.clone();
+        ObjectQueue[] neighboursCopy = this.neighbours.clone();
         MinHeap heap = new MinHeap(neighbours.length * neighbours.length);
         heap.add(new NodeWithEstimate(0, 0, 0));
         while (!heap.isEmpty()) {
@@ -86,7 +88,7 @@ public class AStar extends ShortestPath {
             if (visited[smallest.getIndex()] == 0) {
                 visited[smallest.getIndex()] = 1;
                 while (!neighboursCopy[smallest.getIndex()].isEmpty()) {
-                    Node node = neighboursCopy[smallest.getIndex()].poll(); 
+                    Node node = (Node) neighboursCopy[smallest.getIndex()].poll(); 
                     if (distance[node.getIndex()] == -1 || distance[node.getIndex()] > distance[smallest.getIndex()] + node.getDistance()) {
                         distance[node.getIndex()] = distance[smallest.getIndex()] + node.getDistance();
                         path[node.getIndex()] = smallest.getIndex();

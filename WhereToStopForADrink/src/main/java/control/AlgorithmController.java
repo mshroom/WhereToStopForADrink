@@ -9,7 +9,7 @@ import algorithms.Tsp;
 import algorithms.TspNn;
 
 /**
- * AlgorithmController includes methods to get comparison data on the performance and the results
+ * AlgorithmController contains methods to get comparison data on the performance and the results
  * of the algorithms.
  * @author mshroom
  */
@@ -56,7 +56,13 @@ public class AlgorithmController {
         long completedTime = System.nanoTime();
         ret += "\n" + String.format("%-20s", s.getClass().getSimpleName());
         ret += String.format("%-20s", ((completedTime - startingTime) + " ns"));
-        ret += String.format("%-20s", s.getDistanceTo(node));
+        String unit = "";
+        if (s.getClass().getSimpleName().equals("Bfs")) {
+            unit = "edges";
+        } else {
+            unit = "meters";
+        }
+        ret += String.format("%-27s", (s.getDistanceTo(node) + " " + unit));
         ret += s.getShortestPath(node);
         return ret;
     }   
@@ -90,7 +96,7 @@ public class AlgorithmController {
         long completedTime = System.nanoTime();
         ret += "\n" + String.format("%-20s", s.getClass().getSimpleName());
         ret += String.format("%-20s", ((completedTime - startingTime) + " ns"));
-        ret += String.format("%-20s", s.getLengthOfShortestRoute());
+        ret += String.format("%-27s", (s.getLengthOfShortestRoute() + " meters"));
         ret += s.printShortestRoute();
         return ret;        
     }

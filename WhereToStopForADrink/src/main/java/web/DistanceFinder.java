@@ -1,6 +1,6 @@
-package data;
+package web;
 
-import control.Place;
+import dataStructures.Place;
 
 /**
  *
@@ -13,13 +13,13 @@ public class DistanceFinder {
         this.baseUrl = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
     }
     
-    public int findDistance(Place a, Place b) throws Exception {
+    public int findDistance(String aX, String aY, String bX, String bY) throws Exception {
         String distance = "";
         Connection con = new Connection(baseUrl);
         String contentType = "application/graphql";
         String queryParameters = "{plan(from:{lat:";
-        queryParameters += a.getY() + ",lon:" + a.getX() + "},to:{lat:";
-        queryParameters += b.getY() + ",lon:" + b.getX() + "},transportModes:[{mode: WALK}]){itineraries{legs{distance}}}}";
+        queryParameters += aY + ",lon:" + aX + "},to:{lat:";
+        queryParameters += bY + ",lon:" + bX + "},transportModes:[{mode: WALK}]){itineraries{legs{distance}}}}";
         String content = con.postRequest(queryParameters, contentType);
         con.close();
         String find = "distance\":";

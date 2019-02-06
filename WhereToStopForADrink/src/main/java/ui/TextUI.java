@@ -174,7 +174,7 @@ public class TextUI {
         
     private void readMemory() {
         try {
-            graphs.useSavedPlaces();
+            graphs.useSaved("saved.txt", "savedGraph.txt");
             this.io.printLine("Data was imported successfully.");
         } catch (Exception ex) {
             this.io.printLine("Failed to import data.");
@@ -214,7 +214,7 @@ public class TextUI {
 
     private void saveData() {
         try {
-            this.graphs.savePlaces();
+            this.graphs.save("saved.txt", "savedGraph.txt");
             this.io.printLine("Data was saved successfully.");
         } catch (Exception ex) {
             this.io.printLine("Could not save data.");

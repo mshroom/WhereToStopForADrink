@@ -1,10 +1,10 @@
-package control;
+package dataStructures;
 
 /**
  *
  * @author mshroom
  */
-public class Place {
+public class Place implements Queueable {
     private int index;
     private String name;
     private String address;

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PlaceController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WhereToStopForADrink</a> &gt; <a href="index.source.html" class="el_package">control</a> &gt; <span class="el_source">PlaceController.java</span></div><h1>PlaceController.java</h1><pre class="source lang-java linenums">package control;
+
+import dataStructures.Place;
+import web.AddressFinder;
+import dataStructures.ObjectQueue;
+import dataStructures.Queueable;
+import io.FileIO;
+import io.IO;
+
+/**
+ * PlaceController controls the places of the current GraphController and 
+ * contains methods to import and export Place data.
+ * @author mshroom
+ */
+public class PlaceController {
+
+    private ObjectQueue queue;
+    private Place[] places;
+    private AddressFinder finder;
+
+    /**
+     * Create a new PlaceController with an empty list of places.
+     */
+<span class="nc" id="L24">    public PlaceController() {</span>
+<span class="nc" id="L25">        this.queue = new ObjectQueue(10);</span>
+<span class="nc" id="L26">        this.finder= new AddressFinder();</span>
+<span class="nc" id="L27">    }</span>
+    
+    /**
+     * Create a new PlaceController with a custom AddressFinder and a queue.
+     * @param finder AddressFinder object to be used with this PlaceController.
+     * @param queue ObjectQueue can be empty or contain Place objects that will be
+     * added to the place list.
+     */
+<span class="fc" id="L35">    public PlaceController(AddressFinder finder, ObjectQueue queue) {</span>
+<span class="fc" id="L36">        this.queue = queue;</span>
+<span class="fc" id="L37">        this.convertQueueToArray();</span>
+<span class="fc" id="L38">        this.finder = finder;</span>
+<span class="fc" id="L39">    }</span>
+    
+    /**
+     * Imports places from a text file, finds the coordinates for the places and
+     * adds the places to the place list.
+     * @param file The name of the file containing place data. 
+     * Each row in the file must describe the place in the form &quot;Name;Address&quot; (without
+     * the quotation marks).
+     * @throws Exception if an error occurs while importing the data.
+     */
+    public void importPlaces(String file) throws Exception {
+<span class="fc" id="L50">        System.out.println(&quot;Getting coordinates...&quot;);</span>
+<span class="fc" id="L51">        this.queue = new ObjectQueue(10);</span>
+<span class="fc" id="L52">        FileIO io = new FileIO(file);</span>
+<span class="fc" id="L53">        int i = 0;</span>
+        while (true) {            
+<span class="fc" id="L55">            String p = io.readLine(&quot;&quot;);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">            if (p.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L57">                break;</span>
+            }
+<span class="fc" id="L59">            String[] parts = p.split(&quot;;&quot;);</span>
+<span class="fc" id="L60">            String name = parts[0];</span>
+<span class="fc" id="L61">            String address = parts[1];</span>
+<span class="fc" id="L62">            String[] coordinates = finder.findCoordinates(address);</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">            if (coordinates[0] != null) {</span>
+<span class="fc" id="L64">                Place place = new Place(i, name, address, coordinates[0], coordinates[1]);</span>
+<span class="fc" id="L65">                queue.add(place);</span>
+<span class="fc" id="L66">                i++;</span>
+            }
+<span class="fc" id="L68">        }</span>
+<span class="fc" id="L69">        this.convertQueueToArray();</span>
+<span class="fc" id="L70">    }</span>
+
+    /**
+     * Saves the current Place list into a text file.
+     * @param file The name of the file. Note that the file must already exist.
+     * @throws Exception if an error occurs while saving data.
+     */
+    public void savePlaces(String file) throws Exception {
+<span class="fc" id="L78">        FileIO io = new FileIO(file);</span>
+<span class="fc" id="L79">        io.clear();</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        for (Place p : places) {</span>
+<span class="fc" id="L81">            io.printLine(p.toString());</span>
+        }
+<span class="fc" id="L83">    }</span>
+    
+    /**
+     * Imports saved Place objects from a text file
+     * @param file The name of the file. Each row in the file must
+     * contain a toString representation of a Place object.
+     * @throws Exception if an error occurs while importing saved data.
+     */
+    public void useSavedPlaces(String file) throws Exception {
+<span class="fc" id="L92">        FileIO io = new FileIO(file);</span>
+        while (true) {            
+<span class="fc" id="L94">            String p = io.readLine(&quot;&quot;);</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">            if (p.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L96">                break;</span>
+            }
+<span class="fc" id="L98">            String[] places = p.split(&quot;\\|\\|&quot;);</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">            for (int i = 0; i &lt; places.length; i ++) {</span>
+<span class="fc" id="L100">                String place = places[i];</span>
+<span class="fc" id="L101">                String[] attributes = place.split(&quot;;&quot;);</span>
+<span class="fc" id="L102">                Place savedPlace = new Place(Integer.parseInt(attributes[0]), attributes[1], attributes[2], attributes[3], attributes[4]);</span>
+<span class="fc" id="L103">                queue.add(savedPlace);</span>
+            }
+<span class="fc" id="L105">        }</span>
+<span class="fc" id="L106">        this.convertQueueToArray();</span>
+<span class="fc" id="L107">    }</span>
+
+    /**
+     * Returns the places in an array where the index of the array corresponds to the
+     * index of the Place object.
+     * @return An array containing the current Place objects.
+     */
+    public Place[] getPlaces() {
+<span class="fc" id="L115">        return this.places;</span>
+    }
+
+    /**
+     * Converts the Place queue to a simple array where the index of the array
+     * corresponds to the index of the Place object.
+     */
+    private void convertQueueToArray() {
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        if (queue.getSize() &lt; 1) {</span>
+<span class="fc" id="L124">            return;</span>
+        }
+<span class="fc" id="L126">        this.places = new Place[queue.getSize()];</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">        while (!queue.isEmpty()) {</span>
+<span class="fc" id="L128">            Place p = (Place) queue.poll();</span>
+<span class="fc" id="L129">            this.places[p.getIndex()] = p;</span>
+<span class="fc" id="L130">        }        </span>
+<span class="fc" id="L131">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

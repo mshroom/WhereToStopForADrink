@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShortestPath.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WhereToStopForADrink</a> &gt; <a href="index.source.html" class="el_package">algorithms</a> &gt; <span class="el_source">ShortestPath.java</span></div><h1>ShortestPath.java</h1><pre class="source lang-java linenums">package algorithms;
+
+import dataStructures.Queue;
+
+/**
+ * An abstract class for algorithms that find the shortest path between two nodes in a graph.
+ * @author mshroom
+ */
+public abstract class ShortestPath {
+
+    int[] distance;
+    int[] path;
+    int[] visited;
+
+<span class="fc" id="L15">    public ShortestPath(int[][] graph) {</span>
+<span class="fc" id="L16">        this.distance = new int[graph.length];</span>
+<span class="fc" id="L17">        this.path = new int[graph.length];</span>
+<span class="fc" id="L18">        this.visited = new int[graph.length];</span>
+<span class="fc" id="L19">    }</span>
+
+    protected abstract void convertGraph(int[][] graph);
+
+    protected void initialize() {
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        for (int i = 0; i &lt; distance.length; i++) {</span>
+<span class="fc" id="L25">            distance[i] = -1;</span>
+<span class="fc" id="L26">            path[i] = -1;</span>
+<span class="fc" id="L27">            visited[i] = 0;</span>
+        }
+<span class="fc" id="L29">        distance[0] = 0;</span>
+<span class="fc" id="L30">    }</span>
+
+    public abstract void calculateShortestPath() throws Throwable;
+
+    /**
+     * Method returns the length of the shortest path
+     * @param node the index of the node at the end of the path
+     * @return the length of the shortest path
+     */
+    public int getDistanceTo(int node) {
+<span class="fc" id="L40">        return this.distance[node];</span>
+    }
+    
+    /**
+     * Method prints the shortest path from starting node to given node.     *
+     * @param goal The index of the node at the end of the path.
+     * @return A String describing the path.
+     */
+    public String getShortestPath(int goal) throws Throwable {
+<span class="fc" id="L49">        Queue stack = new Queue(10);</span>
+<span class="fc" id="L50">        int previous = path[goal];</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (previous == -1) {</span>
+<span class="fc" id="L52">            return &quot;There is no path&quot;;</span>
+        }
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        while (previous != 0) {</span>
+<span class="fc" id="L55">            stack.push(previous);</span>
+<span class="fc" id="L56">            previous = path[previous];</span>
+        }
+<span class="fc" id="L58">        String ret = &quot;0 &gt; &quot;;</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        while (!stack.isEmpty()) {</span>
+<span class="fc" id="L60">            ret = ret + (stack.poll() + &quot; &gt; &quot;);</span>
+        }
+<span class="fc" id="L62">        return &quot;&quot; + ret + goal;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

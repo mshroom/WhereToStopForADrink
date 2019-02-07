@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dataStructures.QueueTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-02-07T19:14:55" hostname="minna-pc" time="0.059">
+  <properties/>
+  <testcase name="theQueueIsEmptyWhenItIsCreated" classname="dataStructures.QueueTest" time="0.009"/>
+  <testcase name="noIntegerIsReturnedIfTheQueueIsEmpty" classname="dataStructures.QueueTest" time="0.001"/>
+  <testcase name="anIntegerCanBeAddedToTheQueue" classname="dataStructures.QueueTest" time="0.003"/>
+  <testcase name="anIntegerCanBeAddedToTheHeadOfTheQueue" classname="dataStructures.QueueTest" time="0.001"/>
+  <testcase name="anIntegerCanBeAddedToTheTailOfTheQueue" classname="dataStructures.QueueTest" time="0.006"/>
+  <testcase name="anIntegerCanBeRemovedFromTheQueue" classname="dataStructures.QueueTest" time="0.001"/>
+  <testcase name="integersCanStillBeAddedToTheQueueWhenTheOriginalSizeOfTheQueueIsExceeded" classname="dataStructures.QueueTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

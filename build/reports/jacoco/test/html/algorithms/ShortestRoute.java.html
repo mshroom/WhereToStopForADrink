@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShortestRoute.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WhereToStopForADrink</a> &gt; <a href="index.source.html" class="el_package">algorithms</a> &gt; <span class="el_source">ShortestRoute.java</span></div><h1>ShortestRoute.java</h1><pre class="source lang-java linenums">package algorithms;
+
+/**
+ * An abstract class for algorithms that find the shortest route that visits all nodes in a complete graph.
+ * @author mshroom
+ */
+public abstract class ShortestRoute {
+    int[][] distance;
+    int lengthOfShortestRoute;
+    int[] shortestRoute;
+    
+<span class="fc" id="L12">    public ShortestRoute(int[][] distance) {</span>
+<span class="fc" id="L13">        this.distance = distance;</span>
+<span class="fc" id="L14">        lengthOfShortestRoute = Integer.MAX_VALUE;</span>
+<span class="fc" id="L15">        this.shortestRoute = new int[distance.length];</span>
+<span class="fc" id="L16">    }</span>
+    
+    public abstract void calculateShortestRoute();
+    
+    public int[] getShortestRoute() {
+<span class="fc" id="L21">        return this.shortestRoute;</span>
+    }
+    
+    public String printShortestRoute() {
+<span class="fc" id="L25">        String ret = &quot;&quot;;</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        for (int i : shortestRoute) {</span>
+<span class="fc" id="L27">            ret += i + &quot; &gt; &quot;;</span>
+        }
+<span class="fc" id="L29">        ret += 0;</span>
+<span class="fc" id="L30">        return ret;</span>
+    }
+    
+    public int getLengthOfShortestRoute() {
+<span class="fc" id="L34">        return this.lengthOfShortestRoute;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

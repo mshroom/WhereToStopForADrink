@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GraphStore.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WhereToStopForADrink</a> &gt; <a href="index.source.html" class="el_package">control</a> &gt; <span class="el_source">GraphStore.java</span></div><h1>GraphStore.java</h1><pre class="source lang-java linenums">package control;
+
+
+/**
+ * Class contains a set of graphs for testing purposes.
+ * 
+ * @author mshroom
+ */
+<span class="fc" id="L9">public class GraphStore {</span>
+
+    /**
+     * Creates a small graph for path-finding algorithms.
+     * @return graph in the form of a two-dimensional array
+     */
+    public int[][] createSmallGraphForPathfinding() {
+<span class="fc" id="L16">        int[][] small = {</span>
+            {0, 1, 1, -1, -1, -1, -1},
+            {1, 0, -1, -1, 1, -1, -1},
+            {1, -1, 0, 2, 2, -1, 4},
+            {-1, -1, 2, 0, -1, -1, 3},
+            {-1, 1, 2, -1, 0, 1, -1},
+            {-1, -1, -1, -1, 1, 0, 1},
+            {-1, -1, 4, 3, -1, 1, 0}
+        };
+<span class="fc" id="L25">        return small;</span>
+    }
+
+    /**
+     * Creates a big graph for path-finding algorithms.
+     * @return graph in the form of a two-dimensional array
+     */
+    public int[][] createBigGraphForPathfinding() {
+<span class="fc" id="L33">        int[][] big = new int[100][100];</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        for (int i = 0; i &lt; big.length; i++) {</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">            for (int j = 0; j &lt; big.length; j++) {</span>
+<span class="fc bfc" id="L36" title="All 8 branches covered.">                if (i == 0 || j == 0 || i == 99 || j == 99) {</span>
+<span class="fc" id="L37">                    big[i][j] = -1;</span>
+<span class="fc bfc" id="L38" title="All 4 branches covered.">                } else if (i - j == 1 || i - j == -1) {</span>
+<span class="fc" id="L39">                    big[i][j] = 1;</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">                } else if (i != j) {</span>
+<span class="fc" id="L41">                    big[i][j] = -1;</span>
+                }
+            }
+        }
+<span class="fc" id="L45">        big[0][1] = 1;</span>
+<span class="fc" id="L46">        big[1][0] = 1;</span>
+<span class="fc" id="L47">        big[0][99] = 90;</span>
+<span class="fc" id="L48">        big[99][0] = 90;</span>
+<span class="fc" id="L49">        big[99][98] = 1;</span>
+<span class="fc" id="L50">        big[98][99] = 1;</span>
+<span class="fc" id="L51">        return big;</span>
+    }
+    
+    public int[] createDistancesForBigGraphForPathFinding() {
+<span class="nc" id="L55">        return new int[100];</span>
+    }
+    
+    /**
+     * Creates a graph for path-finding algorithms, in which there is no path to node 6.
+     * @return graph in the form of a two-dimensional array
+     */
+    public int[][] createGraphWithNoPath() {
+<span class="fc" id="L63">        int[][] graph = {</span>
+            {0, 1, 1, 1, 1, 1, -1},
+            {1, 0, 1, 1, 1, 1, -1},
+            {1, 1, 0, 1, 1, 1, -1},
+            {1, 1, 1, 0, 1, 1, -1},
+            {1, 1, 1, 1, 0, 1, -1},
+            {1, 1, 1, 1, 1, 0, -1},
+            {-1, -1, -1, -1, -1, -1, 0}
+        };
+<span class="fc" id="L72">        return graph;</span>
+    }
+
+    /**
+     * Creates a small graph for AStar algorithm.
+     * @return graph in the form of a two-dimensional array
+     */
+    public int[][] createSmallGraphForAStar() {
+<span class="fc" id="L80">        int[][] smallGraph = {</span>
+            {0, 60, -1, -1, 95},
+            {60, 0, 60, -1, 40},
+            {110, 60, 0, 60, 40},
+            {101, 110, 60, 0, 95},
+            {95, 40, 40, 95, 0}
+        };
+<span class="fc" id="L87">        return smallGraph;</span>
+    }
+    
+    public int[] createDistancesForSmallGraphForAStar(int goal) {
+<span class="fc" id="L91">        int[][] g = this.createSmallGraphForAStar();</span>
+<span class="fc" id="L92">        int[] distances = g[goal];</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        for (int i : distances) {</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">            if (i == -1) {</span>
+<span class="nc" id="L95">                i = 1;</span>
+            }
+        }
+<span class="fc" id="L98">        return distances;</span>
+    }
+
+    /**
+     * Creates a small complete graph for travelling salesman algorithms.
+     * @return graph in the form of a two-dimensional array
+     */
+    public int[][] createSmallCompleteGraph() {
+        // shortest route 0 &gt; 2 &gt; 4 &gt; 1 &gt; 3 = 5
+<span class="fc" id="L107">        int[][] small = {</span>
+            {0, 5, 1, 1, 5},
+            {5, 0, 5, 1, 1},
+            {1, 5, 0, 5, 1},
+            {1, 1, 5, 0, 5},
+            {5, 1, 1, 5, 0}
+        };
+<span class="fc" id="L114">        return small;</span>
+    }
+
+    /**
+     * Creates a big complete graph for travelling salesman algorithms.
+     * @return graph in the form of a two-dimensional array
+     */
+    public int[][] createBigCompleteGraph() {
+        // shortest route 0 &gt; 2 &gt; 4 &gt; 1 &gt; 3 &gt; 5 &gt; 6 &gt; 7 &gt; 8 &gt; 9 &gt; 10 &gt; 11 &gt; 12 &gt; 13 &gt; 14 &gt; 15 &gt; 16 &gt; 17 &gt; 18 &gt; 19 = 20
+<span class="fc" id="L123">        int[][] big = {</span>
+            {0, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1},
+            {5, 0, 5, 1, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {1, 5, 0, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 1, 5, 0, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 1, 1, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 1, 5, 0, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 1, 0, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 1, 0, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 1, 0, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 1, 0, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 0, 1, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 0, 1, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 0, 1, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 0, 1, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 0, 1, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 0, 1, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 0, 1, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 0, 1, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 0, 1},
+            {1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 0}
+        };
+<span class="fc" id="L145">        return big;</span>
+    }
+
+    /**
+     * Creates a small complete graph for travelling salesman algorithms,
+     * where the nearest neighbour strategy will not produce an optimal solution.
+     * @return graph in the form of a two-dimensional array
+     */
+    public int[][] createNotOptimalCompleteGraph() {
+        // shortest route 0 &gt; 2 &gt; 1 &gt; 3 &gt; 4 = 14
+        // nearest neighbour strategy finds 0 &gt; 1 &gt; 2 &gt; 3 &gt; 4 = 15        
+<span class="fc" id="L156">        int[][] notOptimal = {</span>
+            {0, 4, 5, 5, 5},
+            {4, 0, 1, 2, 5},
+            {5, 1, 0, 4, 5},
+            {5, 2, 4, 0, 1},
+            {5, 5, 5, 1, 0}
+        };
+<span class="fc" id="L163">        return notOptimal;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

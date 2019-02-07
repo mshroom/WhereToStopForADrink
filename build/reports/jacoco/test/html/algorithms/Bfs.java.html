@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Bfs.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WhereToStopForADrink</a> &gt; <a href="index.source.html" class="el_package">algorithms</a> &gt; <span class="el_source">Bfs.java</span></div><h1>Bfs.java</h1><pre class="source lang-java linenums">package algorithms;
+
+import dataStructures.Queue;
+
+/**
+ * Bfs algorithm finds the path with the least edges between node 0 and all
+ * other nodes.
+ *
+ * @author mshroom
+ */
+public class Bfs extends ShortestPath {
+
+    Queue[] neighbours;
+
+    public Bfs(int[][] graph) {
+<span class="fc" id="L16">        super(graph);</span>
+<span class="fc" id="L17">        this.convertGraph(graph);</span>
+<span class="fc" id="L18">    }</span>
+
+    /**
+     * Method converts the graph to an adjacency list.
+     *
+     *
+     * @param graph the original graph in the form of a two-dimensional array
+     */
+    @Override
+    protected void convertGraph(int[][] graph) {
+<span class="fc" id="L28">        Queue[] n = new Queue[graph.length];</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        for (int i = 0; i &lt; graph.length; i++) {</span>
+<span class="fc" id="L30">            Queue nodes = new Queue(10);</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">            for (int j = 0; j &lt; graph.length; j++) {</span>
+<span class="fc bfc" id="L32" title="All 4 branches covered.">                if (i != j &amp;&amp; graph[i][j] &gt;= 0) {</span>
+<span class="fc" id="L33">                    nodes.add(j);</span>
+                }
+            }
+<span class="fc" id="L36">            n[i] = nodes;</span>
+        }
+<span class="fc" id="L38">        this.neighbours = n;</span>
+<span class="fc" id="L39">    }</span>
+
+    @Override
+    protected void initialize() {
+<span class="fc" id="L43">        super.initialize();</span>
+<span class="fc" id="L44">        visited[0] = 1;</span>
+<span class="fc" id="L45">    }</span>
+
+    /**
+     * Method calculates the path with the least edges from node 0 to all other
+     * nodes.
+     */
+    @Override
+    public void calculateShortestPath() throws Throwable {
+<span class="fc" id="L53">        this.initialize();</span>
+<span class="fc" id="L54">        Queue queue = new Queue(this.neighbours.length);</span>
+<span class="fc" id="L55">        queue.add(0);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        while (!queue.isEmpty()) {</span>
+<span class="fc" id="L57">            int node = queue.poll();</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">            while (!neighbours[node].isEmpty()) {</span>
+<span class="fc" id="L59">                int neighbour = neighbours[node].poll();</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">                if (visited[neighbour] == 0) {</span>
+<span class="fc" id="L61">                    visited[neighbour] = 1;</span>
+<span class="fc" id="L62">                    distance[neighbour] = distance[node] + 1;</span>
+<span class="fc" id="L63">                    path[neighbour] = node;</span>
+<span class="fc" id="L64">                    queue.add(neighbour);</span>
+                }
+<span class="fc" id="L66">            }</span>
+<span class="fc" id="L67">        }</span>
+<span class="fc" id="L68">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

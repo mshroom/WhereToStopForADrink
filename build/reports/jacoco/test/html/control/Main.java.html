@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WhereToStopForADrink</a> &gt; <a href="index.source.html" class="el_package">control</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package control;
+
+import algorithms.Dijkstra;
+import algorithms.ShortestPath;
+import algorithms.Tsp;
+import algorithms.TspNn;
+import web.AddressFinder;
+import web.Connection;
+import web.DistanceFinder;
+import dataStructures.ObjectQueue;
+import io.IO;
+import io.TextIO;
+import java.io.*;
+import java.util.Scanner;
+import ui.TextUI;
+import java.net.*;
+import java.util.Arrays;
+
+/**
+ *
+ * @author mshroom
+ */
+
+<span class="nc" id="L24">public class Main {</span>
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws Exception, Throwable {    
+<span class="nc" id="L30">        IO io = new TextIO();</span>
+<span class="nc" id="L31">        TextUI ui = new TextUI(io);</span>
+<span class="nc" id="L32">        ui.start();</span>
+
+        
+//        GraphController g = new GraphController();
+//        g.importPlaces(&quot;places.txt&quot;);
+//        
+//        int[][] graph = g.getGraph();
+//        
+//        for (int i = 0; i &lt; graph.length; i ++) {
+//            System.out.println(Arrays.toString(graph[i]));
+//        }
+//        
+//        g.savePlaces();
+
+//        g.useSavedPlaces();
+//        int[][] graph = g.getGraph();
+//        
+//        for (int i = 0; i &lt; graph.length; i ++) {
+//            System.out.println(Arrays.toString(graph[i]));
+//        }
+//        int[][] reduced = g.getReducedGraph(700);
+//        Dijkstra d = new Dijkstra(reduced);
+//        d.calculateShortestPath();
+//        System.out.println(d.getDistanceTo(8));
+//        System.out.println(d.getShortestPath(8));
+
+//          AddressFinder a = new AddressFinder();
+//          DistanceFinder d = new DistanceFinder();
+//          String[] co  =a.findCoordinates(&quot;Vaasankatu 29 Helsinki&quot;);
+//          System.out.println(co[0]);
+//          System.out.println(co[1]);
+//          String[] co2 = a.findCoordinates(&quot;Vaasankatu 23 Helsinki&quot;);
+//          System.out.println(co2[0]);
+//          System.out.println(co2[1]);          
+//          int i = d.findDistance(new Place(0, &quot;&quot;, &quot;&quot;, co[0], co[1]), new Place(1, &quot;&quot;, &quot;&quot;, co2[0], co2[1]));
+//          System.out.println(i);
+        
+<span class="nc" id="L69">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

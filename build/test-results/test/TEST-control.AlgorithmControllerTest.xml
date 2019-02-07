@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="control.AlgorithmControllerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2019-02-07T19:14:55" hostname="minna-pc" time="0.185">
+  <properties/>
+  <testcase name="comparingRouteAlgorithmsncludesDataOfAllAlgorithms" classname="control.AlgorithmControllerTest" time="0.035"/>
+  <testcase name="comparingRouteAlgorithmsIncludesDataOfAllResultCategories" classname="control.AlgorithmControllerTest" time="0.011"/>
+  <testcase name="comparingRouteAlgorithmsIncludesValidRoute" classname="control.AlgorithmControllerTest" time="0.005"/>
+  <testcase name="comparingRouteAlgorithmsIncludesValidDistance" classname="control.AlgorithmControllerTest" time="0.005"/>
+  <testcase name="comparingPathAlgorithmsIncludesDataOfAllAlgorithms" classname="control.AlgorithmControllerTest" time="0.034"/>
+  <testcase name="comparingPathAlgorithmsIncludesDataOfAllResultCategories" classname="control.AlgorithmControllerTest" time="0.019"/>
+  <testcase name="comparingPathAlgorithmsIncludesValidPaths" classname="control.AlgorithmControllerTest" time="0.003"/>
+  <testcase name="comparingPathAlgorithmsIncludesValidDistances" classname="control.AlgorithmControllerTest" time="0.016"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

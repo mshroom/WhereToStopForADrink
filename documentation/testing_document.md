@@ -28,7 +28,7 @@ TODO
 
 ## Performance
 
-The performance of the algorithms can be measured by running the application. Both shortest route algorithms and shortest path algorithms can be compared with various sizes of graphs. Below are the results of tests that have been run 10 times each to get the average speed.
+The performance of the algorithms can be measured by running the application. Both shortest route algorithms and shortest path algorithms can be compared with various sizes of graphs. Below are the results of tests that have been run 100 times each to get the average speed.
 
 ### Route algorithms
 
@@ -44,4 +44,4 @@ The performance of the algorithms can be measured by running the application. Bo
 | 5 | | | |
 | 10 | | | |
 | 50 | | | |
-| 83 | | | |
+| 83 | 466087 ns | 106319 ns | 20780 ns |

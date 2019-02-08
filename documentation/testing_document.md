@@ -28,20 +28,19 @@ TODO
 
 ## Performance
 
-The performance of the algorithms can be measured by running the application. Both shortest route algorithms and shortest path algorithms can be compared with various sizes of graphs. Below are the results of tests that have been run 100 times each to get the average speed.
+The performance of the algorithms can be measured by running the application. Both shortest route algorithms and shortest path algorithms can be compared with various sizes of graphs. Below are the results of tests that have been run 10 times each to get the average speed.
 
 ### Route algorithms
 
 | Graph size | Tsp | TspNn |
 |---|---|---|
-| 5 | | |
-| 10 | | |
+| 5 | 286225 ns | 13425 ns |
+| 10 | 33708838 ns | 20221 ns |
+| 15 | 15321250008 ns | 29430 ns |
 
 ### Path algorithms
 
 | Graph size | Dijkstra | AStar | Bfs |
 |---|---|---|---|
-| 5 | | | |
-| 10 | | | |
-| 50 | | | |
-| 83 | 466087 ns | 106319 ns | 20780 ns |
+| 5 | 244554 ns | 244554 ns | 53405 ns |
+| 83 | 1792496 ns | 211254 ns | 403095 ns |

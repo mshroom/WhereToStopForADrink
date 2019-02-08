@@ -42,5 +42,5 @@ The performance of the algorithms can be measured by running the application. Bo
 
 | Graph size | Dijkstra | AStar | Bfs |
 |---|---|---|---|
-| 5 | 244554 ns | 244554 ns | 53405 ns |
+| 5 | 244554 ns | 150111 ns | 53405 ns |
 | 83 | 1792496 ns | 211254 ns | 403095 ns |

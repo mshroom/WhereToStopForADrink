@@ -21,7 +21,7 @@ public class ObjectQueueTest {
     public void theQueueIsEmptyWhenItIsCreated() {
         assertTrue(queue.isEmpty());
     }
-    
+
     @Test
     public void noObjectIsReturnedIfTheQueueIsEmpty() {
         assertEquals(null, queue.poll());
@@ -64,13 +64,33 @@ public class ObjectQueueTest {
 
     @Test
     public void objectsCanStillBeAddedToTheQueueWhenTheOriginalSizeOfTheQueueIsExceeded() {
-        for (int i = 0; i < 10; i ++) {
+        for (int i = 0; i < 10; i++) {
             queue.add(new Node(i, 1));
         }
-        for (int i = 0; i < 9; i ++) {
+        for (int i = 0; i < 9; i++) {
             queue.poll();
         }
         Node n = (Node) queue.poll();
         assertEquals(9, n.getIndex());
+    }
+
+    @Test
+    public void objectsCanStillBePushedToTheQueueWhenTheOriginalSizeOfTheQueueIsExceeded() {
+        for (int i = 0; i < 10; i++) {
+            queue.push(new Node(i, 1));
+        }
+        for (int i = 0; i < 9; i++) {
+            queue.poll();
+        }
+        Node n = (Node) queue.poll();
+        assertEquals(0, n.getIndex());
+    }
+
+    @Test
+    public void queueCanBeCopied() {
+        queue.add(new Node(0, 5));
+        ObjectQueue newQueue = queue.copy();
+        Node n = (Node) newQueue.poll();
+        assertEquals(0, n.getIndex());
     }
 }

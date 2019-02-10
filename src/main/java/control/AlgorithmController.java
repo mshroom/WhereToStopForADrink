@@ -67,7 +67,11 @@ public class AlgorithmController {
         } else {
             unit = "meters";
         }
-        ret += String.format("%-27s", (s.getDistanceTo(node) + " " + unit));
+        if (s.getDistanceTo(node) < 0) {
+            ret += String.format("%-20s", "infinite");
+        } else {
+            ret += String.format("%-20s", (s.getDistanceTo(node) + " " + unit));
+        }        
         ret += s.getShortestPath(node);
         return ret;
     }
@@ -118,8 +122,8 @@ public class AlgorithmController {
         String ret = "";
         long time = this.getPerformanceTime(s);
         ret += "\n" + String.format("%-20s", s.getClass().getSimpleName());
-        ret += String.format("%-20s", (time + " ns"));
-        ret += String.format("%-27s", (s.getLengthOfShortestRoute() + " meters"));
+        ret += String.format("%-20s", (time + " ns"));        
+        ret += String.format("%-20s", (s.getLengthOfShortestRoute() + " meters"));
         ret += s.printShortestRoute();
         return ret;
     }

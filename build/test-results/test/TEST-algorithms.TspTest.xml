@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="algorithms.TspTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2019-02-10T18:34:59" hostname="minna-pc" time="10.865">
+<testsuite name="algorithms.TspTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2019-02-10T19:48:12" hostname="minna-pc" time="10.524">
   <properties/>
-  <testcase name="tspCalculatesLengthOfShortestRouteCorrectlyWithSmallInput" classname="algorithms.TspTest" time="0.001"/>
-  <testcase name="tspCalculatesLengthOfShortestRouteCorrectlyWithBigInput" classname="algorithms.TspTest" time="5.698"/>
+  <testcase name="tspCalculatesLengthOfShortestRouteCorrectlyWithSmallInput" classname="algorithms.TspTest" time="0.006"/>
+  <testcase name="tspCalculatesLengthOfShortestRouteCorrectlyWithBigInput" classname="algorithms.TspTest" time="5.413"/>
   <testcase name="tspFindsShortestRouteWithSmallInput" classname="algorithms.TspTest" time="0.001"/>
-  <testcase name="tspFindsShortestRouteWithBigInput" classname="algorithms.TspTest" time="5.161"/>
+  <testcase name="tspFindsShortestRouteWithBigInput" classname="algorithms.TspTest" time="5.1"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

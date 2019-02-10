@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="control.AlgorithmControllerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2019-02-10T18:34:59" hostname="minna-pc" time="0.114">
+<testsuite name="control.AlgorithmControllerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2019-02-10T19:48:12" hostname="minna-pc" time="0.089">
   <properties/>
-  <testcase name="comparingPathAlgorithmsIncludesDataOfAllAlgorithms" classname="control.AlgorithmControllerTest" time="0.04"/>
-  <testcase name="comparingPathAlgorithmsIncludesDataOfAllResultCategories" classname="control.AlgorithmControllerTest" time="0.009"/>
+  <testcase name="comparingPathAlgorithmsIncludesDataOfAllAlgorithms" classname="control.AlgorithmControllerTest" time="0.032"/>
+  <testcase name="comparingPathAlgorithmsIncludesDataOfAllResultCategories" classname="control.AlgorithmControllerTest" time="0.006"/>
   <testcase name="comparingPathAlgorithmsIncludesValidPaths" classname="control.AlgorithmControllerTest" time="0.005"/>
-  <testcase name="comparingPathAlgorithmsIncludesValidDistances" classname="control.AlgorithmControllerTest" time="0.005"/>
-  <testcase name="comparingRouteAlgorithmsncludesDataOfAllAlgorithms" classname="control.AlgorithmControllerTest" time="0.006"/>
-  <testcase name="comparingRouteAlgorithmsIncludesDataOfAllResultCategories" classname="control.AlgorithmControllerTest" time="0.004"/>
-  <testcase name="comparingRouteAlgorithmsIncludesValidRoute" classname="control.AlgorithmControllerTest" time="0.002"/>
-  <testcase name="comparingRouteAlgorithmsIncludesValidDistance" classname="control.AlgorithmControllerTest" time="0.005"/>
+  <testcase name="comparingPathAlgorithmsIncludesValidDistances" classname="control.AlgorithmControllerTest" time="0.004"/>
+  <testcase name="comparingRouteAlgorithmsncludesDataOfAllAlgorithms" classname="control.AlgorithmControllerTest" time="0.004"/>
+  <testcase name="comparingRouteAlgorithmsIncludesDataOfAllResultCategories" classname="control.AlgorithmControllerTest" time="0.003"/>
+  <testcase name="comparingRouteAlgorithmsIncludesValidRoute" classname="control.AlgorithmControllerTest" time="0.004"/>
+  <testcase name="comparingRouteAlgorithmsIncludesValidDistance" classname="control.AlgorithmControllerTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

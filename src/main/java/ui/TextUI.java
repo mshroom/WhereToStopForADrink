@@ -17,12 +17,14 @@ public class TextUI {
     private AlgorithmController algo;
     private GraphController graphs;
     private GraphStore testGraphs;
+    private boolean customGraphIsSet;
 
     public TextUI(IO io) {
         this.io = io;
         this.algo = new AlgorithmController();
         this.graphs = new GraphController();
         this.testGraphs = new GraphStore();
+        this.customGraphIsSet = false;
     }
 
     public void start() {
@@ -95,8 +97,7 @@ public class TextUI {
                 break;
             } else if (command.equals("small")) {
                 this.compareRouteAlgorithmsWithSmallTestGraph();
-            } else if (command.equals("big")) {
-                io.printLine("Processing...");
+            } else if (command.equals("big")) {                
                 this.compareRouteAlgorithmsWithBigTestGraph();
             } else if (command.equals("custom")) {
                 this.compareRouteAlgorithmsWithCustomGraph();
@@ -163,6 +164,7 @@ public class TextUI {
     }
 
     private void compareRouteAlgorithmsWithBigTestGraph() {
+        io.printLine("Processing...");
         try {
             this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createBigCompleteGraph()));
         } catch (Throwable ex) {
@@ -175,6 +177,7 @@ public class TextUI {
         try {
             graphs.importPlaces(file);
             this.io.printLine("Data was imported successfully.");
+            this.customGraphIsSet = true;
         } catch (Exception ex) {
             this.io.printLine("Failed to import data.");
         }
@@ -184,19 +187,27 @@ public class TextUI {
         try {
             graphs.useSaved("data/saved.txt", "data/savedGraph.txt");
             this.io.printLine("Data was imported successfully.");
+            this.customGraphIsSet = true;
         } catch (Exception ex) {
             this.io.printLine("Failed to import data.");
         }
     }
 
     private void compareRouteAlgorithmsWithCustomGraph() {
+        if (!this.customGraphIsSet) {
+            this.io.printLine("You have not imported any graph.");
+            return;
+        }
         int max = graphs.getSizeOfCurrentGraph();
+        String warning = "";
+        if (max > 15) warning = "\nNote that Tsp will run VERY slow with more than 15 places.";
         int howMany = this.io.readInt("How many places do you want to use? "
-                + "(maximum for this graph is " + max + ")");
+                + "(maximum for this graph is " + max + ") " + warning);        
         if (howMany < 2 || howMany > max) {
             this.io.printLine("Not a valid number.");
             return;
         }
+        if (howMany > 10) this.io.printLine("Processing...");
         try {
             this.io.printLine(algo.compareShortestRouteAlgorithms(graphs.getSmallerGraph(howMany)));
         } catch (Throwable ex) {
@@ -205,6 +216,10 @@ public class TextUI {
     }
 
     private void comparePathAlgorithmsWithCustomGraph() {
+        if (!this.customGraphIsSet) {
+            this.io.printLine("You have not imported any graph.");
+            return;
+        }
         int maxIndex = graphs.getSizeOfCurrentGraph() - 1;
         int node = this.io.readInt("Enter the index of your destination "
                 + "(maximum for this graph is " + maxIndex + ")");
@@ -221,6 +236,10 @@ public class TextUI {
     }
 
     private void saveData() {
+        if (!this.customGraphIsSet) {
+            this.io.printLine("You have not imported any graph.");
+            return;
+        }
         try {
             this.graphs.save("data/saved.txt", "data/savedGraph.txt");
             this.io.printLine("Data was saved successfully.");

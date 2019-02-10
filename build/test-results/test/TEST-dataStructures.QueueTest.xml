@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="dataStructures.QueueTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-02-10T18:34:59" hostname="minna-pc" time="0.045">
+<testsuite name="dataStructures.QueueTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-02-10T19:48:12" hostname="minna-pc" time="0.025">
   <properties/>
-  <testcase name="noIntegerIsReturnedIfTheQueueIsEmpty" classname="dataStructures.QueueTest" time="0.01"/>
-  <testcase name="anIntegerCanBeAddedToTheQueue" classname="dataStructures.QueueTest" time="0.003"/>
-  <testcase name="anIntegerCanBeAddedToTheHeadOfTheQueue" classname="dataStructures.QueueTest" time="0.007"/>
-  <testcase name="anIntegerCanBeAddedToTheTailOfTheQueue" classname="dataStructures.QueueTest" time="0.002"/>
-  <testcase name="anIntegerCanBeRemovedFromTheQueue" classname="dataStructures.QueueTest" time="0.002"/>
+  <testcase name="theQueueIsEmptyWhenItIsCreated" classname="dataStructures.QueueTest" time="0.005"/>
+  <testcase name="noIntegerIsReturnedIfTheQueueIsEmpty" classname="dataStructures.QueueTest" time="0.003"/>
+  <testcase name="anIntegerCanBeAddedToTheQueue" classname="dataStructures.QueueTest" time="0.001"/>
+  <testcase name="anIntegerCanBeAddedToTheHeadOfTheQueue" classname="dataStructures.QueueTest" time="0.003"/>
+  <testcase name="anIntegerCanBeAddedToTheTailOfTheQueue" classname="dataStructures.QueueTest" time="0.001"/>
+  <testcase name="anIntegerCanBeRemovedFromTheQueue" classname="dataStructures.QueueTest" time="0.001"/>
   <testcase name="integersCanStillBeAddedToTheQueueWhenTheOriginalSizeOfTheQueueIsExceeded" classname="dataStructures.QueueTest" time="0.001"/>
-  <testcase name="theQueueIsEmptyWhenItIsCreated" classname="dataStructures.QueueTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

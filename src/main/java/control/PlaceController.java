@@ -89,6 +89,7 @@ public class PlaceController {
      * @throws Exception if an error occurs while importing saved data.
      */
     public void useSavedPlaces(String file) throws Exception {
+        this.queue = new ObjectQueue(10);
         FileIO io = new FileIO(file);
         while (true) {            
             String p = io.readLine("");

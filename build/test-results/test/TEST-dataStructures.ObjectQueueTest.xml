@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="dataStructures.ObjectQueueTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-02-10T18:34:59" hostname="minna-pc" time="0.041">
+<testsuite name="dataStructures.ObjectQueueTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-02-10T19:48:12" hostname="minna-pc" time="0.024">
   <properties/>
-  <testcase name="anObjectCanBeAddedToTheTailOfTheQueue" classname="dataStructures.ObjectQueueTest" time="0.002"/>
-  <testcase name="anObjectCanBeRemovedFromTheQueue" classname="dataStructures.ObjectQueueTest" time="0.008"/>
-  <testcase name="objectsCanStillBeAddedToTheQueueWhenTheOriginalSizeOfTheQueueIsExceeded" classname="dataStructures.ObjectQueueTest" time="0.001"/>
-  <testcase name="theQueueIsEmptyWhenItIsCreated" classname="dataStructures.ObjectQueueTest" time="0.001"/>
-  <testcase name="noObjectIsReturnedIfTheQueueIsEmpty" classname="dataStructures.ObjectQueueTest" time="0.003"/>
-  <testcase name="anObjectCanBeAddedToTheQueue" classname="dataStructures.ObjectQueueTest" time="0.003"/>
-  <testcase name="anObjectCanBeAddedToTheHeadOfTheQueue" classname="dataStructures.ObjectQueueTest" time="0.002"/>
+  <testcase name="theQueueIsEmptyWhenItIsCreated" classname="dataStructures.ObjectQueueTest" time="0.0"/>
+  <testcase name="noObjectIsReturnedIfTheQueueIsEmpty" classname="dataStructures.ObjectQueueTest" time="0.002"/>
+  <testcase name="anObjectCanBeAddedToTheQueue" classname="dataStructures.ObjectQueueTest" time="0.001"/>
+  <testcase name="anObjectCanBeAddedToTheHeadOfTheQueue" classname="dataStructures.ObjectQueueTest" time="0.004"/>
+  <testcase name="anObjectCanBeAddedToTheTailOfTheQueue" classname="dataStructures.ObjectQueueTest" time="0.0"/>
+  <testcase name="anObjectCanBeRemovedFromTheQueue" classname="dataStructures.ObjectQueueTest" time="0.001"/>
+  <testcase name="objectsCanStillBeAddedToTheQueueWhenTheOriginalSizeOfTheQueueIsExceeded" classname="dataStructures.ObjectQueueTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

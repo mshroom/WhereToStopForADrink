@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="control.GraphControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2019-02-07T19:14:50" hostname="minna-pc" time="4.896">
+<testsuite name="control.GraphControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2019-02-10T18:34:55" hostname="minna-pc" time="3.482">
   <properties/>
-  <testcase name="placesCanBeImportedFromFileAndDistancesCorrectlyConvertedToGraph" classname="control.GraphControllerTest" time="4.779"/>
-  <testcase name="importingNonExistentFileThrowsAnError" classname="control.GraphControllerTest" time="0.015"/>
-  <testcase name="graphAndPlacesCanBeSavedAndReaccessedLater" classname="control.GraphControllerTest" time="0.039"/>
-  <testcase name="gettingSavedDataFromNonExistentFilesThrowsAnError" classname="control.GraphControllerTest" time="0.004"/>
-  <testcase name="graphCanBeReducedByRemovingEdgesLongerThanWanted" classname="control.GraphControllerTest" time="0.003"/>
-  <testcase name="graphCanBeShrunkByChoosingMaximumNumberOfNodes" classname="control.GraphControllerTest" time="0.007"/>
+  <testcase name="placesCanBeImportedFromFileAndDistancesCorrectlyConvertedToGraph" classname="control.GraphControllerTest" time="3.447"/>
+  <testcase name="importingNonExistentFileThrowsAnError" classname="control.GraphControllerTest" time="0.005"/>
+  <testcase name="graphAndPlacesCanBeSavedAndReaccessedLater" classname="control.GraphControllerTest" time="0.013"/>
+  <testcase name="gettingSavedDataFromNonExistentFilesThrowsAnError" classname="control.GraphControllerTest" time="0.002"/>
+  <testcase name="graphCanBeReducedByRemovingEdgesLongerThanWanted" classname="control.GraphControllerTest" time="0.002"/>
+  <testcase name="graphCanBeShrunkByChoosingMaximumNumberOfNodes" classname="control.GraphControllerTest" time="0.002"/>
   <system-out><![CDATA[Getting coordinates...
 Getting distances...
 Progress: 0/3

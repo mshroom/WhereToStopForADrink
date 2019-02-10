@@ -30,7 +30,7 @@ public class PlaceControllerTest {
     public void placesCanBeImportedFromFileAndCorrectlyConvertedToPlaceObjects() throws Exception {
         pc = new PlaceController(mockFinder, queue);
         this.setReturnValuesForMockFinder();        
-        pc.importPlaces("testPlaces.txt");
+        pc.importPlaces("data/testPlaces.txt");
         Place[] places = pc.getPlaces();
         assertEquals("0;Place 1;Example address 1;x;y||1;Place 2;Example address 2;x;y", places[0].toString() + "||" + places[1].toString());
     }
@@ -40,9 +40,9 @@ public class PlaceControllerTest {
         queue.add(new Place(0, "New Place 1", "Example address 1", "x", "y"));
         queue.add(new Place(1, "New Place 2", "Example address 2", "x", "y"));
         pc = new PlaceController(mockFinder, queue);
-        pc.savePlaces("testSaved.txt");
+        pc.savePlaces("data/testSaved.txt");
         PlaceController newPc = new PlaceController(mockFinder, new ObjectQueue(10));
-        newPc.useSavedPlaces("testSaved.txt");
+        newPc.useSavedPlaces("data/testSaved.txt");
         Place[] places = newPc.getPlaces();
         assertEquals("0;New Place 1;Example address 1;x;y||1;New Place 2;Example address 2;x;y", places[0].toString() + "||" + places[1].toString());
     }

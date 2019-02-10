@@ -155,11 +155,19 @@ public class TextUI {
     }
 
     private void compareRouteAlgorithmsWithSmallTestGraph() {
-        this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createSmallCompleteGraph()));
+        try {
+            this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createSmallCompleteGraph()));
+        } catch (Throwable ex) {
+            this.io.printLine("There was an error somewhere.");
+        }
     }
 
     private void compareRouteAlgorithmsWithBigTestGraph() {
-        this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createBigCompleteGraph()));
+        try {
+            this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createBigCompleteGraph()));
+        } catch (Throwable ex) {
+            this.io.printLine("There was an error somewhere.");
+        }
     }
 
     private void newFile() {
@@ -171,10 +179,10 @@ public class TextUI {
             this.io.printLine("Failed to import data.");
         }
     }
-        
+
     private void readMemory() {
         try {
-            graphs.useSaved("saved.txt", "savedGraph.txt");
+            graphs.useSaved("data/saved.txt", "data/savedGraph.txt");
             this.io.printLine("Data was imported successfully.");
         } catch (Exception ex) {
             this.io.printLine("Failed to import data.");
@@ -193,28 +201,28 @@ public class TextUI {
             this.io.printLine(algo.compareShortestRouteAlgorithms(graphs.getSmallerGraph(howMany)));
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
-        }        
+        }
     }
 
-    private void comparePathAlgorithmsWithCustomGraph() {        
+    private void comparePathAlgorithmsWithCustomGraph() {
         int maxIndex = graphs.getSizeOfCurrentGraph() - 1;
         int node = this.io.readInt("Enter the index of your destination "
                 + "(maximum for this graph is " + maxIndex + ")");
         if (node < 1 || node > maxIndex) {
             this.io.printLine("Not a valid number.");
-            return;            
+            return;
         }
         int maxDistance = this.io.readInt("Enter the maximum walking distance between two points (meters)");
         try {
             this.io.printLine(algo.compareShortestPathAlgorithms(graphs.getReducedGraph(maxDistance), node, graphs.getDistances(node)));
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
-        }         
+        }
     }
 
     private void saveData() {
         try {
-            this.graphs.save("saved.txt", "savedGraph.txt");
+            this.graphs.save("data/saved.txt", "data/savedGraph.txt");
             this.io.printLine("Data was saved successfully.");
         } catch (Exception ex) {
             this.io.printLine("Could not save data.");

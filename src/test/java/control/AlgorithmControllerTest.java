@@ -46,25 +46,25 @@ public class AlgorithmControllerTest {
     }
 
     @Test
-    public void comparingRouteAlgorithmsncludesDataOfAllAlgorithms() {
+    public void comparingRouteAlgorithmsncludesDataOfAllAlgorithms() throws Throwable {
         String result = algo.compareShortestRouteAlgorithms(graphs.createSmallCompleteGraph());
         assertTrue(result.contains("Tsp") && result.contains("TspNn"));
     }
 
     @Test
-    public void comparingRouteAlgorithmsIncludesDataOfAllResultCategories() {
+    public void comparingRouteAlgorithmsIncludesDataOfAllResultCategories() throws Throwable {
         String result = algo.compareShortestRouteAlgorithms(graphs.createSmallCompleteGraph());
         assertTrue(result.contains("Time elapsed") && result.contains("Route length") && result.contains("Shortest route"));
     }
     
     @Test
-    public void comparingRouteAlgorithmsIncludesValidRoute() {
+    public void comparingRouteAlgorithmsIncludesValidRoute() throws Throwable {
         String result = algo.compareShortestRouteAlgorithms(graphs.createSmallCompleteGraph());
         assertTrue(result.contains("0 > 2 > 4 > 1 > 3 > 0") || result.contains("0 > 3 > 1 > 4 > 2 > 0"));
     }
     
         @Test
-    public void comparingRouteAlgorithmsIncludesValidDistance() {
+    public void comparingRouteAlgorithmsIncludesValidDistance() throws Throwable {
         String result = algo.compareShortestRouteAlgorithms(graphs.createSmallCompleteGraph());
         assertTrue(result.contains("5 meters"));
     }

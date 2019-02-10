@@ -40,7 +40,7 @@ public class GraphControllerTest {
         pc = new PlaceController(mockAddress, queue);
         this.setReturnValuesForMocks();        
         gc = new GraphController(mockDistance, pc, new int[1][1]);        
-        gc.importPlaces("testPlaces.txt");
+        gc.importPlaces("data/testPlaces.txt");
         int[][] graph = gc.getGraph();
         assertEquals(1, graph[0][1]);
         assertEquals(2, graph[0][2]);
@@ -64,10 +64,10 @@ public class GraphControllerTest {
     @Test
     public void graphAndPlacesCanBeSavedAndReaccessedLater() throws Exception {
         this.createTestDataForGraphController();              
-        gc.save("testSaved.txt", "testSavedGraph.txt");                
+        gc.save("data/testSaved.txt", "data/testSavedGraph.txt");                
         PlaceController newPc = new PlaceController(mockAddress, new ObjectQueue(10));
         GraphController newGc = new GraphController(mockDistance, newPc, new int[1][1]);
-        newGc.useSaved("testSaved.txt", "testSavedGraph.txt");
+        newGc.useSaved("data/testSaved.txt", "data/testSavedGraph.txt");
         int[][] graph2 = newGc.getGraph();
         assertEquals(2, graph2[0][1]);
         assertEquals(4, graph2[0][2]);

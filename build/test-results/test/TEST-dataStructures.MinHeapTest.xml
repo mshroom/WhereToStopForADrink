@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="dataStructures.MinHeapTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2019-02-07T19:14:55" hostname="minna-pc" time="0.012">
+<testsuite name="dataStructures.MinHeapTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2019-02-10T18:34:59" hostname="minna-pc" time="0.048">
   <properties/>
-  <testcase name="theHeapIsEmptyWhenItIsCreated" classname="dataStructures.MinHeapTest" time="0.001"/>
-  <testcase name="noNodeIsReturnedWhenTheHeapIsEmpty" classname="dataStructures.MinHeapTest" time="0.001"/>
-  <testcase name="aNodeCanBeAddedToTheHeap" classname="dataStructures.MinHeapTest" time="0.001"/>
+  <testcase name="noNodeIsReturnedWhenTheHeapIsEmpty" classname="dataStructures.MinHeapTest" time="0.002"/>
+  <testcase name="theHeapIsEmptyWhenItIsCreated" classname="dataStructures.MinHeapTest" time="0.002"/>
+  <testcase name="aNodeCanBeAddedToTheHeap" classname="dataStructures.MinHeapTest" time="0.002"/>
   <testcase name="aNodeCanBeRemovedFromTheHeap" classname="dataStructures.MinHeapTest" time="0.001"/>
-  <testcase name="theSmallestNodeIsTheFirstToGetOut" classname="dataStructures.MinHeapTest" time="0.001"/>
-  <testcase name="theSmallestNodeWithEstimateIsTheFirstToGetOut" classname="dataStructures.MinHeapTest" time="0.001"/>
+  <testcase name="theSmallestNodeIsTheFirstToGetOut" classname="dataStructures.MinHeapTest" time="0.011"/>
+  <testcase name="theSmallestNodeWithEstimateIsTheFirstToGetOut" classname="dataStructures.MinHeapTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

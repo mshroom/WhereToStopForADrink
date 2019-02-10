@@ -1,5 +1,11 @@
 # Implementation document
 
+## Basic idea
+
+The application uses several algorithms to find the shortest path or route in a graph. The purpose of the project and the various algorithms are described in the [Project definition document](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/project_definition.md).
+
+The application can create graphs based on real addresses in Helsinki region. It uses [Digitransit platform](https://digitransit.fi/en/developers/) to get all needed data. The [Address search](https://digitransit.fi/en/developers/apis/2-geocoding-api/address-search/) of the Geocoding API is used to get the coordinates for the addresses. The distances between each pair of coordinates are then calculated with the [Itinenary planning](https://digitransit.fi/en/developers/apis/1-routing-api/itinerary-planning/) of the Routing API.
+
 ## Application structure
 
 TODO: UML/Package diagram

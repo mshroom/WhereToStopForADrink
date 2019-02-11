@@ -16,7 +16,6 @@ public class DistanceFinder {
     }
     
     public int findDistance(String aX, String aY, String bX, String bY) throws Exception {
-        System.out.println("Getting distances...");
         String distance = "";
         this.connection.connectTo(baseUrl);
         String contentType = "application/graphql";

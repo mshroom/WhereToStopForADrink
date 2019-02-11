@@ -16,10 +16,7 @@ import algorithms.TspNn;
  */
 public class AlgorithmController {
 
-    private GraphStore graphs;
-
     public AlgorithmController() {
-        this.graphs = new GraphStore();
     }
 
     /**

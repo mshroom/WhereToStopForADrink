@@ -6,7 +6,7 @@ import java.util.Scanner;
  *
  * @author mshroom
  */
-public class TextIO implements IO {
+public class ConsoleIO implements IO {
 
     private Scanner scanner = new Scanner(System.in);
 

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  *
  * @author mshroom
  */
-public class TextUI {
+public class ConsoleUI {
 
     private IO io;
     private AlgorithmController algo;
@@ -19,7 +19,7 @@ public class TextUI {
     private GraphStore testGraphs;
     private boolean customGraphIsSet;
 
-    public TextUI(IO io) {
+    public ConsoleUI(IO io) {
         this.io = io;
         this.algo = new AlgorithmController();
         this.graphs = new GraphController();

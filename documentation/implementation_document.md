@@ -8,34 +8,25 @@ The application can create graphs based on real addresses in Helsinki region. It
 
 ## Application structure
 
-TODO: UML/Package diagram
+Packages, classes and the most important connections between them are shown in the diagram below.
 
-The application consists of six packages. The software logic is divided in 3 main packages:
+![UML diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/architecture.png)
 
-- algorithms
-  - Shortest path and shortest route algorithms
-- dataStructures
-  - Heaps, queues and queueable objects
-- control
-  - Classes that compare algorithms, generate and save graphs and communicate with web classes
+The application consists of six packages. The _**ui**_ package contains only the console ui. However, it would be possible to add another user interface later.
 
-In addition to these, there are 3 more packages:
+The classes in the _**control**_ package make up the core of the software logic. They create and maintain all needed data (graphs and places) and control and measure the performance of the algorithms. The algorithms themselves are implemented in the _**algorithms**_ package. Both the control and the algorithm classes need various data structures (heaps, queues and queueable objects), which are situated in the _**dataStructures**_ package.
 
-- ui
-  - Contains the text ui
-- io
-  - IO classes for console and files
-- web
-  - Classes that generate and send http requests
+The control classes and the ui use the services of the _**io**_ package, either for user input and system output or for reading and writing files. The control classes also use the services of the _**web**_ package for making http requests to the Digitransit server.
+
   
-  ## Performance
+## Performance
   
-  TODO compare and analyze performance of algorithms
+TODO compare and analyze performance of algorithms
   
-  ## Possible improvements
+## Possible improvements
   
-  TODO
+TODO
   
-  ## Sources
+## Sources
   
   

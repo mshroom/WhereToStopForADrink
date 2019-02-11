@@ -8,20 +8,23 @@ import dataStructures.Place;
  */
 public class DistanceFinder {
     private String baseUrl;
+    private Connection connection;
     
     public DistanceFinder() {
         this.baseUrl = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
+        this.connection = new Connection();
     }
     
     public int findDistance(String aX, String aY, String bX, String bY) throws Exception {
+        System.out.println("Getting distances...");
         String distance = "";
-        Connection con = new Connection(baseUrl);
+        this.connection.connectTo(baseUrl);
         String contentType = "application/graphql";
         String queryParameters = "{plan(from:{lat:";
         queryParameters += aY + ",lon:" + aX + "},to:{lat:";
         queryParameters += bY + ",lon:" + bX + "},transportModes:[{mode: WALK}]){itineraries{legs{distance}}}}";
-        String content = con.postRequest(queryParameters, contentType);
-        con.close();
+        String content = connection.postRequest(queryParameters, contentType);
+        connection.close();
         String find = "distance\":";
         String[] result = content.split(find);
         if (result.length > 1) {

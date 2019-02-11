@@ -3,9 +3,7 @@ package control;
 import dataStructures.Place;
 import web.AddressFinder;
 import dataStructures.ObjectQueue;
-import dataStructures.Queueable;
 import io.FileIO;
-import io.IO;
 
 /**
  * PlaceController controls the places of the current GraphController and 
@@ -17,6 +15,7 @@ public class PlaceController {
     private ObjectQueue queue;
     private Place[] places;
     private AddressFinder finder;
+    private FileIO io;
 
     /**
      * Create a new PlaceController with an empty list of places.
@@ -24,6 +23,7 @@ public class PlaceController {
     public PlaceController() {
         this.queue = new ObjectQueue(10);
         this.finder= new AddressFinder();
+        this.io = new FileIO();
     }
     
     /**
@@ -36,6 +36,7 @@ public class PlaceController {
         this.queue = queue;
         this.convertQueueToArray();
         this.finder = finder;
+        this.io = new FileIO();
     }
     
     /**
@@ -49,7 +50,7 @@ public class PlaceController {
     public void importPlaces(String file) throws Exception {
         System.out.println("Getting coordinates...");
         this.queue = new ObjectQueue(10);
-        FileIO io = new FileIO(file);
+        io.setFile(file);
         int i = 0;
         while (true) {            
             String p = io.readLine("");
@@ -75,7 +76,7 @@ public class PlaceController {
      * @throws Exception if an error occurs while saving data.
      */
     public void savePlaces(String file) throws Exception {
-        FileIO io = new FileIO(file);
+        io.setFile(file);
         io.clear();
         for (Place p : places) {
             io.printLine(p.toString());
@@ -90,7 +91,7 @@ public class PlaceController {
      */
     public void useSavedPlaces(String file) throws Exception {
         this.queue = new ObjectQueue(10);
-        FileIO io = new FileIO(file);
+        io.setFile(file);
         while (true) {            
             String p = io.readLine("");
             if (p.equals("")) {

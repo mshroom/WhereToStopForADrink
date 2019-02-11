@@ -18,7 +18,7 @@ public class FileIO implements IO {
     private String file;
     private Scanner scanner;
     
-    public FileIO(String file) throws Exception {
+    public void setFile(String file) throws Exception {
         this.scanner = new Scanner(new File(file));
         this.file = file;
     }

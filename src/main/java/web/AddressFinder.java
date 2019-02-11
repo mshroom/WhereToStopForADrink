@@ -8,9 +8,11 @@ import java.net.URLEncoder;
  */
 public class AddressFinder {
     private String baseUrl;
+    private Connection connection;
     
     public AddressFinder() {
         this.baseUrl = "http://api.digitransit.fi/geocoding/v1/";
+        this.connection = new Connection();
     }
     
     public String[] findCoordinates(String address) throws Exception {
@@ -18,9 +20,9 @@ public class AddressFinder {
         String url = this.baseUrl;
         String formattedAddress = URLEncoder.encode(address, "UTF-8");
         url += "search?text=" + formattedAddress + "&size=1";
-        Connection con = new Connection(url);
-        String content = con.getRequest();
-        con.close();
+        connection.connectTo(url);
+        String content = connection.getRequest();
+        connection.close();
         String find = "coordinates\":\\u005B";
         String[] result = content.split(find);
         if (result.length >1) {

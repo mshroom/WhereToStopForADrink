@@ -2,9 +2,7 @@ package control;
 
 import dataStructures.Place;
 import web.DistanceFinder;
-import dataStructures.ObjectQueue;
 import io.FileIO;
-import web.AddressFinder;
 
 /**
  * GraphController controls the graph and the places belonging to the graph, 
@@ -17,6 +15,7 @@ public class GraphController {;
     private DistanceFinder finder;
     private int[][] graph;
     private PlaceController placeController;
+    private FileIO io;
     
     /**
      * Create a GraphController with an empty graph.
@@ -24,6 +23,7 @@ public class GraphController {;
     public GraphController() {
         this.finder = new DistanceFinder();
         this.placeController = new PlaceController();
+        this.io = new FileIO();
     }
     
     /**
@@ -37,6 +37,7 @@ public class GraphController {;
         this.finder = finder;
         this.placeController = placeController;
         this.graph = graph;
+        this.io = new FileIO();
     }
     
     /**
@@ -109,7 +110,7 @@ public class GraphController {;
      * @throws Exception If an error occurs while saving data.
      */
     private void saveGraph(String file) throws Exception {
-        FileIO io = new FileIO(file);
+        this.io.setFile(file);
         io.clear();
         for (int i = 0; i < this.graph.length; i ++) {
             String write = "";
@@ -129,7 +130,7 @@ public class GraphController {;
      * @throws Exception If an error occurs while importing data.
      */
     private void fetchSavedGraph(String file) throws Exception {        
-        FileIO io = new FileIO(file);
+        this.io.setFile(file);
         while (true) {            
             String p = io.readLine("");
             if (p.equals("")) {

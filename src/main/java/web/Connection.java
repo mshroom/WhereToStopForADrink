@@ -13,9 +13,9 @@ public class Connection {
     private URL url;
     private HttpURLConnection connection;
     
-    public Connection(String url) throws Exception {
+    public void connectTo(String url) throws Exception {
         this.url = new URL(url);
-        this.connection = (HttpURLConnection) this.url.openConnection(); 
+        this.connection = (HttpURLConnection) this.url.openConnection();
     }
     
     public void close() throws Exception {

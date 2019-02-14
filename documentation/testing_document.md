@@ -10,7 +10,7 @@
 
 ## Unit tests
 
-Unit test coverage for the project is good, except for the ui and web packages that, at the moment, have no automatic tests. One reason for that is that there will probably still be big changes to the text ui design (the texts to be printed etc). The classes in the web package, on the other hand, are not very suitable for Unit testing because they require web connection and the responses to the http requests might vary from time to time, depending on the server. These classes will maybe be excluded from the test coverage reports.
+Unit test coverage for the project is good, except for the ui and web packages that, at the moment, have no automatic tests. One reason for that is that there will probably still be big changes to the text ui design (the texts to be printed etc). The classes in the web package, on the other hand, are not very suitable for Unit testing because they require web connection and the responses to the http requests might vary from time to time, depending on the server. These classes are therefore excluded from the test coverage reports.
 
 ## Manual tests
 
@@ -44,3 +44,11 @@ The performance of the algorithms can be measured by running the application. Bo
 |---|---|---|---|
 | 5 | 244554 ns | 150111 ns | 53405 ns |
 | 83 | 1792496 ns | 211254 ns | 403095 ns |
+
+## Algorithm accuracy
+
+The algorithms should in principle always find the shortest path or route (except TspNn, which is an approximation algorithm). However, by making experiments I have noticed that this is not always the case. Because I use the Digitransit platform to get the distances between addresses, the accuracy of each distance is approximately 1 meter. Sometimes if there is a direct path from place A to place B, and place C lies somewhere in the middle, the path A -> C -> B could be 1 meter shorter than the path A -> B. This is, of course, not realistic, but this is how the API behaves.
+
+Because of this inaccuracy, the Bfs algorithm sometimes finds a path that goes directly from place A to place B, while Dijkstra and AStar find a path that goes from place A via place C to place B. The path found by Bfs is shorter in reality, but the API and therefore my application believes it to be 1 meter longer than the path found by Dijkstra and AStar.
+
+For the same reason AStar sometimes finds a path that is 1 meter longer than the path found by Dijkstra. AStar uses Digitransit's distances as distance estimates between places. In the case where there is a path A -> C -> B that is shorter than the direct path A -> B, AStar still uses the A -> B as an estimate. Because the estimate could be longer than the actual shortest path, the algorithm does not in these cases always find the shortest path.

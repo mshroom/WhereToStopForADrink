@@ -33,6 +33,9 @@ jacocoTestReport {
             fileTree(dir: it,
                     exclude: ['web/Connection.class',
                               'web/AddressFinder.class',
+                              'io/ConsoleIO.class',
+                              'io/FileIO.class',
+                              'control/Main.class',
                               'web/DistanceFinder.class'])
         })
     }

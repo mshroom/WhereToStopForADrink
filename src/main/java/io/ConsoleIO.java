@@ -27,6 +27,8 @@ public class ConsoleIO implements IO {
                 System.out.println("Please enter a number");
             }
         }
+        printLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        printLine("");
         return i;
     }
 
@@ -34,6 +36,7 @@ public class ConsoleIO implements IO {
     public String readLine(String instruction) {
         System.out.println(instruction);
         String line = scanner.nextLine();
+        printLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         printLine("");
         return line;
     }

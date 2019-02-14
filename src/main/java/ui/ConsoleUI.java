@@ -42,37 +42,40 @@ public class ConsoleUI {
     }
 
     private void menu() {
-        while (true) {
-            this.io.printLine("\nThis is the main menu. What would you like to do?\n");
-            this.io.printLine("quit = Quit the application");
-            this.io.printLine("path = Compare shortest path algorithms");
-            this.io.printLine("route = Compare shortest route algorithms");
-            this.io.printLine("import = Import places");
+        boolean goOn = true;
+        while (goOn) {
+            printMenuInstructions();
             String command = io.readLine("\nNext command: ");
             if (command.equals("quit")) {
-                break;
+                goOn = false;
             } else if (command.equals("path")) {
-                this.shortestPath();
+                goOn = this.shortestPath();
             } else if (command.equals("route")) {
-                this.shortestRoute();
+                goOn = this.shortestRoute();
             } else if (command.equals("import")) {
-                this.importData();
+                goOn = this.importData();
             } else {
                 io.printLine("Unknown command");
             }
         }
     }
 
-    private void shortestPath() {
+    private void printMenuInstructions() {
+        this.io.printLine("\nThis is the main menu. What would you like to do?\n");
+        this.io.printLine("path = Compare shortest path algorithms");
+        this.io.printLine("route = Compare shortest route algorithms");
+        this.io.printLine("import = Import places");
+        this.io.printLine("quit = Quit the application");
+    }
+
+    private boolean shortestPath() {
+        printPathInstructions();
         while (true) {
-            this.io.printLine("\nCompare shortest path algorithms\n");
-            this.io.printLine("back = Go back to main menu");
-            this.io.printLine("small = Compare algorithms with a small test graph");
-            this.io.printLine("big = Compare algorithms with a big test graph");
-            this.io.printLine("custom = Compare algorithms with an imported graph");
             String command = io.readLine("\nNext command: ");
             if (command.equals("back")) {
-                break;
+                return true;
+            } else if (command.equals("quit")) {
+                return false;
             } else if (command.equals("small")) {
                 this.comparePathAlgorithmsWithSmallTestGraph();
             } else if (command.equals("big")) {
@@ -81,42 +84,58 @@ public class ConsoleUI {
                 this.comparePathAlgorithmsWithCustomGraph();
             } else {
                 io.printLine("Unknown command");
+                printPathInstructions();
             }
         }
     }
 
-    private void shortestRoute() {
+    private void printPathInstructions() {
+        this.io.printLine("\nCompare shortest path algorithms\n");
+        this.io.printLine("small = Compare algorithms with a small test graph");
+        this.io.printLine("big = Compare algorithms with a big test graph");
+        this.io.printLine("custom = Compare algorithms with an imported graph");
+        this.io.printLine("back = Go back to main menu");
+        this.io.printLine("quit = Quit the application");
+    }
+
+    private boolean shortestRoute() {
+        printRouteInstructions();
         while (true) {
-            this.io.printLine("\nCompare shortest route algorithms\n");
-            this.io.printLine("back = Go back to main menu");
-            this.io.printLine("small = Compare algorithms with a small test graph");
-            this.io.printLine("big = Compare algorithms with a big test graph");
-            this.io.printLine("custom = Compare algorithms with an imported graph");
             String command = io.readLine("\nNext command: ");
             if (command.equals("back")) {
-                break;
+                return true;
+            } else if (command.equals("quit")) {
+                return false;
             } else if (command.equals("small")) {
                 this.compareRouteAlgorithmsWithSmallTestGraph();
-            } else if (command.equals("big")) {                
+            } else if (command.equals("big")) {
                 this.compareRouteAlgorithmsWithBigTestGraph();
             } else if (command.equals("custom")) {
                 this.compareRouteAlgorithmsWithCustomGraph();
             } else {
                 io.printLine("Unknown command");
+                printRouteInstructions();
             }
         }
     }
 
-    private void importData() {
+    private void printRouteInstructions() {
+        this.io.printLine("\nCompare shortest route algorithms\n");
+        this.io.printLine("small = Compare algorithms with a small test graph");
+        this.io.printLine("big = Compare algorithms with a big test graph");
+        this.io.printLine("custom = Compare algorithms with an imported graph");
+        this.io.printLine("back = Go back to main menu");
+        this.io.printLine("quit = Quit the application");
+    }
+
+    private boolean importData() {
+        printImportInstructions();
         while (true) {
-            this.io.printLine("\nImport places to the application\n");
-            this.io.printLine("back = Go back to main menu");
-            this.io.printLine("new = Import places from a text file");
-            this.io.printLine("memory = Use saved data");
-            this.io.printLine("save = Save current places");
             String command = io.readLine("\nNext command: ");
             if (command.equals("back")) {
-                break;
+                return true;
+            } else if (command.equals("quit")) {
+                return false;
             } else if (command.equals("new")) {
                 this.newFile();
             } else if (command.equals("memory")) {
@@ -125,8 +144,18 @@ public class ConsoleUI {
                 this.saveData();
             } else {
                 io.printLine("Unknown command");
+                printImportInstructions();
             }
         }
+    }
+
+    private void printImportInstructions() {
+        this.io.printLine("\nImport places to the application\n");
+        this.io.printLine("new = Import places from a text file");
+        this.io.printLine("memory = Use saved data");
+        this.io.printLine("save = Save current places");
+        this.io.printLine("back = Go back to main menu");
+        this.io.printLine("quit = Quit the application");
     }
 
     private void comparePathAlgorithmsWithSmallTestGraph() {
@@ -200,16 +229,21 @@ public class ConsoleUI {
         }
         int max = graphs.getSizeOfCurrentGraph();
         String warning = "";
-        if (max > 15) warning = "\nNote that Tsp will run VERY slow with more than 15 places.";
+        if (max > 15) {
+            warning = "\nNote that Tsp will run VERY slow with more than 15 places.";
+        }
         int howMany = this.io.readInt("How many places do you want to use? "
-                + "(maximum for this graph is " + max + ") " + warning);        
+                + "(maximum for this graph is " + max + ") " + warning);
         if (howMany < 2 || howMany > max) {
             this.io.printLine("Not a valid number.");
             return;
         }
-        if (howMany > 10) this.io.printLine("Processing...");
+        if (howMany > 10) {
+            this.io.printLine("Processing...");
+        }
         try {
             this.io.printLine(algo.compareShortestRouteAlgorithms(graphs.getSmallerGraph(howMany)));
+            this.printRoute();
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
         }
@@ -230,6 +264,9 @@ public class ConsoleUI {
         int maxDistance = this.io.readInt("Enter the maximum walking distance between two points (meters)");
         try {
             this.io.printLine(algo.compareShortestPathAlgorithms(graphs.getReducedGraph(maxDistance), node, graphs.getDistances(node)));
+            if (algo.pathWasFound(node)) {
+                this.printPath(node);
+            }
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
         }
@@ -245,6 +282,48 @@ public class ConsoleUI {
             this.io.printLine("Data was saved successfully.");
         } catch (Exception ex) {
             this.io.printLine("Could not save data.");
+        }
+    }
+
+    private void printPath(int goal) throws Throwable {
+        this.io.printLine("\nDo you wish to print the path?");
+        this.io.printLine("\nd = Print Dijkstra path");
+        this.io.printLine("a = Print AStar path");
+        this.io.printLine("b = Print Bfs path");
+        this.io.printLine("Press enter or any other key to go back.");
+        while (true) {
+            String command = this.io.readLine("\nPrint path: ");
+            if (command.equals("d")) {
+                int[] path = algo.getCurrentDijkstraPath();
+                this.io.printLine(graphs.printPlaces(path, goal));
+            } else if (command.equals("a")) {
+                int[] path = algo.getCurrentAStarPath();
+                this.io.printLine(graphs.printPlaces(path, goal));
+            } else if (command.equals("b")) {
+                int[] path = algo.getCurrentBfsPath();
+                this.io.printLine(graphs.printPlaces(path, goal));
+            } else {
+                break;
+            }
+        }
+    }
+
+    private void printRoute() {
+        this.io.printLine("\nDo you wish to print the route?");
+        this.io.printLine("\nt = Print Tsp path");
+        this.io.printLine("n = Print TspNn path");
+        this.io.printLine("Press enter or any other key to go back.");
+        while (true) {
+            String command = this.io.readLine("\nPrint path: ");
+            if (command.equals("t")) {
+                int[] route = algo.getCurrentTspRoute();
+                this.io.printLine(graphs.printPlaces(route));
+            } else if (command.equals("n")) {
+                int[] path = algo.getCurrentTspNnRoute();
+                this.io.printLine(graphs.printPlaces(path));
+            } else {
+                break;
+            }
         }
     }
 }

@@ -61,5 +61,21 @@ public abstract class ShortestPath {
         }
         return "" + ret + goal;
     }
-
+    
+    public int[] getPath() {
+        return this.path;
+    }
+    
+    /**
+     * Tells if the shortest path has been found.
+     * @param goal The index of the goal node.
+     * @return True if the path has been found, false if there is no path.
+     */
+    public boolean pathWasFound(int goal) {
+        if (path[goal] < 0 ) {
+            return false;
+        }
+        return true;
+    }
+    
 }

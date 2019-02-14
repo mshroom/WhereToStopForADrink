@@ -21,6 +21,10 @@ public abstract class ShortestRoute {
         return this.shortestRoute;
     }
     
+    /**
+     * Method prints the shortest route. 
+     * @return A String describing the path.
+     */
     public String printShortestRoute() {
         String ret = "";
         for (int i : shortestRoute) {

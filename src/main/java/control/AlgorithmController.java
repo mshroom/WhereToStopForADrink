@@ -15,6 +15,11 @@ import algorithms.TspNn;
  * @author mshroom
  */
 public class AlgorithmController {
+    private ShortestPath currentDijkstra;
+    private ShortestPath currentAStar;
+    private ShortestPath currentBfs;
+    private ShortestRoute currentTsp;
+    private ShortestRoute currentTspNn;
 
     public AlgorithmController() {
     }
@@ -33,13 +38,13 @@ public class AlgorithmController {
      */
     public String compareShortestPathAlgorithms(int[][] graph, int goal, int[] distances) throws Throwable {
         String ret = "";
-        ShortestPath d = new Dijkstra(graph);
-        ShortestPath b = new Bfs(graph);
-        ShortestPath a = new AStar(graph, distances, goal);
+        this.currentDijkstra = new Dijkstra(graph);
+        this.currentBfs = new Bfs(graph);
+        this.currentAStar = new AStar(graph, distances, goal);
         ret += "\n" + String.format("%-20s", "Algorithm") + String.format("%-20s", "Time elapsed") + String.format("%-20s", "Distance to goal") + "Shortest path";
-        ret += this.pathStatistics(d, goal);
-        ret += this.pathStatistics(a, goal);
-        ret += this.pathStatistics(b, goal);
+        ret += this.pathStatistics(currentDijkstra, goal);
+        ret += this.pathStatistics(currentAStar, goal);
+        ret += this.pathStatistics(currentBfs, goal);
         return ret;
     }
 
@@ -88,6 +93,22 @@ public class AlgorithmController {
         long completedTime = System.nanoTime();
         return completedTime - startingTime;
     }
+    
+    public int[] getCurrentAStarPath() {
+        return this.currentAStar.getPath();
+    }
+    
+    public int[] getCurrentDijkstraPath() {
+        return this.currentDijkstra.getPath();
+    }
+    
+    public int[] getCurrentBfsPath() {
+        return this.currentBfs.getPath();
+    }
+    
+    public boolean pathWasFound(int goal) {
+        return this.currentAStar.pathWasFound(goal);
+    }
 
     /**
      * Method tests all shortest route algorithms to find the shortest route
@@ -99,11 +120,11 @@ public class AlgorithmController {
      */
     public String compareShortestRouteAlgorithms(int[][] graph) throws Throwable {
         String ret = "";
-        ShortestRoute tsp = new Tsp(graph);
-        ShortestRoute nn = new TspNn(graph);
+        this.currentTsp = new Tsp(graph);
+        this.currentTspNn = new TspNn(graph);
         ret += "\n" + String.format("%-20s", "Algorithm") + String.format("%-20s", "Time elapsed") + String.format("%-20s", "Route length") + "Shortest route";
-        ret += this.routeStatistics(tsp);
-        ret += this.routeStatistics(nn);
+        ret += this.routeStatistics(currentTsp);
+        ret += this.routeStatistics(currentTspNn);
         return ret;
     }
 
@@ -138,6 +159,14 @@ public class AlgorithmController {
         s.calculateShortestRoute();
         long completedTime = System.nanoTime();
         return completedTime - startingTime;
+    }
+    
+    public int[] getCurrentTspRoute() {
+        return currentTsp.getShortestRoute();
+    }
+    
+    public int[] getCurrentTspNnRoute() {
+        return currentTspNn.getShortestRoute();
     }
 
 }

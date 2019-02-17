@@ -30,7 +30,36 @@ public class PlaceControllerTest {
         this.setReturnValuesForMockFinder();        
         pc.importPlaces("data/testPlaces.txt");
         Place[] places = pc.getPlaces();
-        assertEquals("0;Place 1;Example address 1;x;y||1;Place 2;Example address 2;x;y", places[0].toString() + "||" + places[1].toString());
+        assertEquals("1;Place 1;Example address 1;x;y||2;Place 2;Example address 2;x;y", places[1].toString() + "||" + places[2].toString());
+    }
+    
+    @Test
+    public void defaultHomeAddressIsSetCorrectly() throws Exception {
+        pc = new PlaceController(mockFinder, queue);
+        this.setReturnValuesForMockFinder();        
+        pc.importPlaces("data/testPlaces.txt");
+        Place[] places = pc.getPlaces();
+        assertEquals("0;Home;Viides linja 11;x;y", places[0].toString());
+    }
+    
+    @Test
+    public void homeAddressCanBeChanged() throws Exception {
+        pc = new PlaceController(mockFinder, queue);
+        this.setReturnValuesForMockFinder();        
+        pc.importPlaces("data/testPlaces.txt");
+        pc.changeHome("New Home");
+        Place[] places = pc.getPlaces();
+        assertEquals("0;Home;New Home;x;y", places[0].toString());
+    }
+    
+    @Test
+    public void aPlaceCanBeAdded() throws Exception {
+        pc = new PlaceController(mockFinder, queue);
+        this.setReturnValuesForMockFinder();        
+        pc.importPlaces("data/testPlaces.txt");
+        pc.addPlace("New Place", "New Place address");
+        Place[] places = pc.getPlaces();
+        assertEquals("4;New Place;New Place address;x;y", places[places.length - 1].toString());
     }
 
     @Test
@@ -77,6 +106,9 @@ public class PlaceControllerTest {
         when(mockFinder.findCoordinates("Example address 1")).thenReturn(co);
         when(mockFinder.findCoordinates("Example address 2")).thenReturn(co);
         when(mockFinder.findCoordinates("Example address 3")).thenReturn(co);
+        when(mockFinder.findCoordinates("Viides linja 11")).thenReturn(co);        
+        when(mockFinder.findCoordinates("New Home")).thenReturn(co);
+        when(mockFinder.findCoordinates("New Place address")).thenReturn(co);
     }
 
 }

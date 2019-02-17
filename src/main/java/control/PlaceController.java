@@ -4,6 +4,8 @@ import dataStructures.Place;
 import web.AddressFinder;
 import dataStructures.ObjectQueue;
 import io.FileIO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * PlaceController controls the places of the current GraphController and 
@@ -16,6 +18,8 @@ public class PlaceController {
     private Place[] places;
     private AddressFinder finder;
     private FileIO io;
+    private String homeAddress;
+    private boolean homeAddressIsSet;
 
     /**
      * Create a new PlaceController with an empty list of places.
@@ -24,6 +28,7 @@ public class PlaceController {
         this.queue = new ObjectQueue(10);
         this.finder= new AddressFinder();
         this.io = new FileIO();
+        this.homeAddress = "Viides linja 11";
     }
     
     /**
@@ -37,6 +42,7 @@ public class PlaceController {
         this.convertQueueToArray();
         this.finder = finder;
         this.io = new FileIO();
+        this.homeAddress = "Viides linja 11";
     }
     
     /**
@@ -50,8 +56,13 @@ public class PlaceController {
     public void importPlaces(String file) throws Exception {
         System.out.println("Getting coordinates...");
         this.queue = new ObjectQueue(10);
-        io.setFile(file);
-        int index = 0;
+        int index;
+        if (this.addHomeToPlaces(this.homeAddress)) {
+            index = 1;
+        } else {
+            index = 0;
+        }
+        io.setFile(file);        
         while (true) {            
             String data = io.readLine("");
             if (data.equals("")) {
@@ -70,6 +81,32 @@ public class PlaceController {
         this.convertQueueToArray();
     }
 
+    private boolean addHomeToPlaces(String address) {         
+        String[] homeCoordinates;
+        try {
+            homeCoordinates = finder.findCoordinates(address);
+            if (homeCoordinates[0] != null) {
+                Place home = new Place(0, "Home", address, homeCoordinates[0], homeCoordinates[1]);
+                queue.push(home);
+            }
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }        
+    }
+    
+    public boolean changeHome(String newAddress) {
+        Place oldHome = (Place) queue.poll();
+        if (this.addHomeToPlaces(newAddress)) {
+            this.homeAddress = newAddress;
+            this.places[0] = (Place) queue.peek();
+            return true;
+        } else {
+            queue.push(oldHome);         
+            return false;
+        }   
+    }
+    
     /**
      * Saves the current Place list into a text file.
      * @param file The name of the file. Note that the file must already exist.
@@ -105,6 +142,9 @@ public class PlaceController {
                 queue.add(savedPlace);
             }
         }
+        Place home = (Place) queue.peek();
+        this.homeAddress = home.getAddress();
+        this.homeAddressIsSet = true;
         this.convertQueueToArray();
     }
 
@@ -116,6 +156,10 @@ public class PlaceController {
     public Place[] getPlaces() {
         return this.places;
     }
+    
+    public String getHomeAddress() {
+        return this.homeAddress;
+    }
 
     /**
      * Converts the Place queue to a simple array where the index of the array
@@ -126,9 +170,32 @@ public class PlaceController {
             return;
         }
         this.places = new Place[queue.getSize()];
-        while (!queue.isEmpty()) {
-            Place place = (Place) queue.poll();
+        ObjectQueue copy = queue.copy();
+        while (!copy.isEmpty()) {
+            Place place = (Place) copy.poll();
             this.places[place.getIndex()] = place;
         }        
+    }
+    
+    /**
+     * Finds the coordinates for the given place and adds it to the place list.
+     * @param name The name of the place.
+     * @param address The address of the place.
+     * @return True if the addition was successful, otherwise false.
+     */
+    public boolean addPlace(String name, String address) {
+        String[] coordinates;
+        try {
+            coordinates = finder.findCoordinates(address);
+            if (coordinates[0] != null) {
+                Place newPlace = new Place(places.length, name, address, coordinates[0], coordinates[1]);
+                queue.add(newPlace);
+                this.convertQueueToArray();
+                return true;
+            }
+            return false;
+        } catch (Exception ex) {
+            return false;
+        }    
     }
 }

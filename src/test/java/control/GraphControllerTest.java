@@ -42,7 +42,71 @@ public class GraphControllerTest {
         int[][] graph = gc.getGraph();
         assertEquals(1, graph[0][1]);
         assertEquals(2, graph[0][2]);
+        assertEquals(3, graph[0][3]);
         assertEquals(1, graph[1][2]);
+        assertEquals(2, graph[1][3]);
+        assertEquals(1, graph[2][3]);
+    }
+    
+    @Test
+    public void graphIsInitializedWithHomeAddress() throws Exception {
+        pc = new PlaceController(mockAddress, queue);
+        this.setReturnValuesForMocks();        
+        gc = new GraphController(mockDistance, pc, new int[1][1]);        
+        gc.importPlaces("data/testPlaces.txt");
+        assertEquals("Viides linja 11", gc.getHomeAddress());
+        assertEquals("Viides linja 11", gc.getPlace(0).getAddress());
+    }
+    
+    @Test
+    public void homeAddressCanBeChanged() throws Throwable {
+        pc = new PlaceController(mockAddress, queue);
+        this.setReturnValuesForMocks();        
+        gc = new GraphController(mockDistance, pc, new int[1][1]);        
+        gc.importPlaces("data/testPlaces.txt");
+        gc.changeHomeAddress("New Home");
+        assertEquals("New Home", gc.getHomeAddress());
+        assertEquals("New Home", gc.getPlace(0).getAddress());
+    }
+    
+    @Test
+    public void ifHomeAddressIsChangedDistancesAreUpdated() throws Throwable {
+        pc = new PlaceController(mockAddress, queue);
+        this.setReturnValuesForMocks();        
+        gc = new GraphController(mockDistance, pc, new int[1][1]);        
+        gc.importPlaces("data/testPlaces.txt");
+        gc.changeHomeAddress("New Home");
+        int[][] graph = gc.getGraph();
+        assertEquals(2, graph[0][1]);
+        assertEquals(3, graph[0][2]);
+        assertEquals(4, graph[0][3]);
+        assertEquals(1, graph[1][2]);
+        assertEquals(2, graph[1][3]);
+        assertEquals(1, graph[2][3]);
+    }
+    
+    @Test
+    public void aNewPlaceCanBeAdded() throws Throwable {
+        pc = new PlaceController(mockAddress, queue);
+        this.setReturnValuesForMocks();        
+        gc = new GraphController(mockDistance, pc, new int[1][1]);        
+        gc.importPlaces("data/testPlaces.txt");
+        gc.addPlace("New Place", "New Place address");
+        assertEquals("New Place", gc.getPlace(4).getName());
+    }
+    
+    @Test
+    public void ifANewPlaceIsAddedDistancesAreUpdated() throws Throwable {
+        pc = new PlaceController(mockAddress, queue);
+        this.setReturnValuesForMocks();        
+        gc = new GraphController(mockDistance, pc, new int[1][1]);        
+        gc.importPlaces("data/testPlaces.txt");
+        gc.addPlace("New Place", "New Place address");
+        int[][] graph = gc.getGraph();
+        assertEquals(5, graph[0][4]);
+        assertEquals(5, graph[1][4]);
+        assertEquals(5, graph[2][4]);
+        assertEquals(5, graph[3][4]);
     }
     
     @Test
@@ -109,12 +173,21 @@ public class GraphControllerTest {
     }
 
     private void setReturnValuesForMocks() throws Exception {
-        String[] co = new String[2];
-        co[0] = "x";
-        co[1] = "y";
+        String[] co = {"x", "y"};
+        String[] newHomeCo = {"xN", "yN"};
+        String[] newPlaceCo = {"xA", "yA"};
         when(mockAddress.findCoordinates("Example address 1")).thenReturn(co);
         when(mockAddress.findCoordinates("Example address 2")).thenReturn(co);
-        when(mockAddress.findCoordinates("Example address 3")).thenReturn(co);       
-        when(mockDistance.findDistance("x", "y", "x", "y")).thenReturn(1).thenReturn(2).thenReturn(1);
+        when(mockAddress.findCoordinates("Example address 3")).thenReturn(co); 
+        when(mockAddress.findCoordinates("Viides linja 11")).thenReturn(co);
+        when(mockAddress.findCoordinates("New Home")).thenReturn(newHomeCo);
+        when(mockAddress.findCoordinates("New Place address")).thenReturn(newPlaceCo);
+        when(mockDistance.findDistance("x", "y", "x", "y"))
+                .thenReturn(1).thenReturn(2).thenReturn(3)
+                .thenReturn(1).thenReturn(2)
+                .thenReturn(1);
+        when(mockDistance.findDistance("xN", "yN", "x", "y"))
+                .thenReturn(2).thenReturn(3).thenReturn(4);
+        when(mockDistance.findDistance("xA", "yA", "x", "y")).thenReturn(5);
     }
 }

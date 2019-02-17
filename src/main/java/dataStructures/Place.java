@@ -10,6 +10,7 @@ public class Place implements Queueable {
     private String address;
     private String x;
     private String y;
+    private boolean home;
     
     public Place(int index, String name, String address, String x, String y) {
         this.index = index;
@@ -17,6 +18,7 @@ public class Place implements Queueable {
         this.address = address;
         this.x = x;
         this.y = y;
+        this.home = false;
     }
 
     public int getIndex() {
@@ -33,6 +35,10 @@ public class Place implements Queueable {
 
     public String getY() {
         return y;
+    }
+    
+    public String getAddress() {
+        return address;
     }
     
     @Override

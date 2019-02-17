@@ -52,8 +52,8 @@ public class ConsoleUI {
                 goOn = this.shortestPath();
             } else if (command.equals("route")) {
                 goOn = this.shortestRoute();
-            } else if (command.equals("import")) {
-                goOn = this.importData();
+            } else if (command.equals("settings")) {
+                goOn = this.graphSettings();            
             } else {
                 io.printLine("Unknown command");
             }
@@ -64,7 +64,7 @@ public class ConsoleUI {
         this.io.printLine("\nThis is the main menu. What would you like to do?\n");
         this.io.printLine("path = Compare shortest path algorithms");
         this.io.printLine("route = Compare shortest route algorithms");
-        this.io.printLine("import = Import places");
+        this.io.printLine("settings = Settings for custom graph");
         this.io.printLine("quit = Quit the application");
     }
 
@@ -128,8 +128,8 @@ public class ConsoleUI {
         this.io.printLine("quit = Quit the application");
     }
 
-    private boolean importData() {
-        printImportInstructions();
+    private boolean graphSettings() {
+        printSettingsInstructions();
         while (true) {
             String command = io.readLine("\nNext command: ");
             if (command.equals("back")) {
@@ -142,18 +142,24 @@ public class ConsoleUI {
                 this.readMemory();
             } else if (command.equals("save")) {
                 this.saveData();
+            } else if (command.equals("home")) {
+                this.setHome();
+            } else if (command.equals("add")) {
+                this.addPlace();    
             } else {
                 io.printLine("Unknown command");
-                printImportInstructions();
+                printSettingsInstructions();
             }
         }
     }
 
-    private void printImportInstructions() {
-        this.io.printLine("\nImport places to the application\n");
+    private void printSettingsInstructions() {
+        this.io.printLine("\nSettings for a custom graph\n");
         this.io.printLine("new = Import places from a text file");
         this.io.printLine("memory = Use saved data");
         this.io.printLine("save = Save current places");
+        this.io.printLine("home = Change home address for current graph");
+        this.io.printLine("add = Add a place to the current graph");
         this.io.printLine("back = Go back to main menu");
         this.io.printLine("quit = Quit the application");
     }
@@ -284,6 +290,23 @@ public class ConsoleUI {
             this.io.printLine("Could not save data.");
         }
     }
+    
+    private void setHome() {
+        if (!this.customGraphIsSet) {
+            this.io.printLine("You have not imported any graph.");
+            return;
+        }
+        io.printLine("Current home address is " + graphs.getHomeAddress());
+        String newAddress = io.readLine("New address: (leave empty to skip)");
+        if (newAddress.equals("")) {
+            return;
+        }
+        try {
+            graphs.changeHomeAddress(newAddress);
+        } catch (Throwable ex) {
+            io.printLine("There was an error somewhere.");
+        }
+    }
 
     private void printPath(int goal) throws Throwable {
         this.io.printLine("\nDo you wish to print the path?");
@@ -324,6 +347,22 @@ public class ConsoleUI {
             } else {
                 break;
             }
+        }
+    }
+    
+    private void addPlace() {
+        if (!this.customGraphIsSet) {
+            this.io.printLine("You have not imported any graph.");
+            return;
+        }
+        String name = this.io.readLine("Enter the name of the place: (leave empty to cancel)");
+        if (name.equals("")) return;
+        String address = this.io.readLine("Enter the address: (leave empty to cancel)");
+        if (address.equals("")) return;
+        try {
+            this.graphs.addPlace(name, address);
+        } catch (Throwable ex) {
+            this.io.printLine("There was an error somewhere.");
         }
     }
 }

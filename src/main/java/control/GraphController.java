@@ -5,6 +5,7 @@ import dataStructures.Queue;
 import web.DistanceFinder;
 import io.FileIO;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * GraphController controls the graph and the places belonging to the graph,
@@ -15,12 +16,15 @@ import java.util.Arrays;
  */
 public class GraphController {
 
-    ;
-    private Place[] places;
     private DistanceFinder finder;
-    private int[][] graph;
     private PlaceController placeController;
     private FileIO io;
+    private int[][] graph;
+    private Place[] places;
+    private Place[] smallerGraphPlaces;
+    private int[] placesInSmallerGraph;
+    private boolean smallerGraphIsSet;
+    private int[][] smallerGraph;
 
     /**
      * Create a GraphController with an empty graph.
@@ -45,6 +49,7 @@ public class GraphController {
     public GraphController(DistanceFinder finder, PlaceController placeController, int[][] graph) {
         this.finder = finder;
         this.placeController = placeController;
+        this.places = placeController.getPlaces();
         this.graph = graph;
         this.io = new FileIO();
     }
@@ -219,23 +224,71 @@ public class GraphController {
     }
 
     /**
-     * Creates a smaller graph consisting of given amount of nodes.
+     * Creates a smaller graph consisting of given amount of nodes, chosen
+     * randomly.
      *
      * @param maximumNumber The maximum amount of nodes.
      * @return The reduced graph in which the rest of the nodes have been
      * removed.
      */
     public int[][] getSmallerGraph(int maximumNumber) {
-        if (maximumNumber > this.graph.length) {
+        if (!smallerGraphRequestIsPossible(maximumNumber)) {
             return this.graph;
-        }
+        }        
         int[][] smaller = new int[maximumNumber][maximumNumber];
+        this.chooseRandomPlaces(maximumNumber);
+
         for (int i = 0; i < smaller.length; i++) {
             for (int j = 0; j < smaller.length; j++) {
-                smaller[i][j] = graph[i][j];
+                int actualI = smallerGraphPlaces[i].getIndex();
+                int actualJ = smallerGraphPlaces[j].getIndex();
+                smaller[i][j] = graph[actualI][actualJ];
+                smaller[j][i] = smaller[i][j];
             }
         }
+        this.smallerGraph = smaller;
         return smaller;
+    }
+
+    /**
+     * Checks if a smaller graph with the given number of places is possible and initializes the variables.
+     * @param maximumNumber The amount of places in the smaller graph.
+     * @return True if the request is possible and the variables were initialized, otherwise false.
+     */
+    private boolean smallerGraphRequestIsPossible(int maximumNumber) {
+        if (maximumNumber >= this.graph.length) {
+            this.smallerGraphIsSet = false;
+            return false;
+        }
+        this.smallerGraphIsSet = true;
+        this.smallerGraphPlaces = new Place[maximumNumber];
+        this.placesInSmallerGraph = new int[places.length];
+        return true;
+    }
+
+    /**
+     * Chooses random places from current graph to the smaller graph with the
+     * given amount of places. The place with the index 0 will always be
+     * included in the smaller graph.
+     *
+     * @param howMany The amount of places.
+     */
+    private void chooseRandomPlaces(int howMany) {
+        Random random = new Random();
+        int first = 0;
+        placesInSmallerGraph[0] = 1;
+        int next = 0;
+        for (int i = 0; i < howMany - 1; i++) {
+            Place firstPlace = places[first];
+            while (placesInSmallerGraph[next] == 1) {
+                next = random.nextInt(places.length);
+            }
+            Place nextPlace = places[next];
+            placesInSmallerGraph[next] = 1;
+            smallerGraphPlaces[i] = firstPlace;
+            smallerGraphPlaces[i + 1] = nextPlace;
+            first = next;
+        }
     }
 
     /**
@@ -249,6 +302,7 @@ public class GraphController {
 
     /**
      * Prints the places in the given path.
+     *
      * @param path An array containing the path.
      * @param goal The index of the goal node.
      * @return A String describing the path.
@@ -264,7 +318,7 @@ public class GraphController {
             stack.push(previous);
             previous = path[previous];
         }
-        String ret = "\n1. " + places[0].getName() + "\n";
+        String ret = "\n1. " + places[0].getName() + " (" + places[0].getAddress() + ")\n";
         int number = 2;
         int prev = 0;
         int sum = 0;
@@ -272,39 +326,100 @@ public class GraphController {
             int now = stack.poll();
             Place currentPlace = places[now];
             ret += "    >> Walk " + graph[prev][now] + " meters\n";
-            ret += number + ". " + (currentPlace.getName() + "\n");
+            ret += number + ". " + (currentPlace.getName() + " (" + currentPlace.getAddress() + ")\n");
             number++;
             sum += graph[prev][now];
             prev = now;
         }
         ret += "    >> Walk " + graph[prev][goal] + " meters\n";
-        ret += number + ". " + (places[goal].getName() + "\n");
+        ret += number + ". " + (places[goal].getName() + " (" + places[goal].getAddress() + ")\n");
         sum += graph[prev][goal];
         ret += "\nTotal length: " + sum + " meters";
         return ret;
     }
-    
+
     /**
      * Prints the places in the given route.
+     *
      * @param route An array containing the route.
      * @return A String describing the route.
      */
     public String printPlaces(int[] route) {
+        Place[] placesToUse = this.places;
+        int[][] graphToUse = this.graph;
+        if (this.smallerGraphIsSet) {
+            placesToUse = this.smallerGraphPlaces;
+            graphToUse = this.smallerGraph;
+        }
         String ret = "";
         int sum = 0;
-        for (int i = 0; i < route.length - 1; i ++) {
+        for (int i = 0; i < route.length - 1; i++) {
             int place = route[i];
             int next = route[i + 1];
-            ret += (i + 1) + ". " + places[place].getName() + "\n";
-            ret += "    Walk " + graph[place][next] + " meters\n";
-            sum += graph[place][next];
+            ret += (i + 1) + ". " + placesToUse[place].getName() + " (" + placesToUse[place].getAddress() + ")\n";
+            ret += "    Walk " + graphToUse[place][next] + " meters\n";
+            sum += graphToUse[place][next];
         }
         int last = route.length - 1;
-        ret += (route.length) + ". " + places[route[last]].getName() + "\n";
-        ret += "    Walk " + graph[route[last]][0] + " meters\n";
-        sum += graph[route[last]][0];
-        ret += "Back in " + places[0].getName() + "\n";
+        ret += (route.length) + ". " + placesToUse[route[last]].getName() + " (" + placesToUse[route[last]].getAddress() + ")\n";
+        ret += "    Walk " + graphToUse[route[last]][0] + " meters\n";
+        sum += graphToUse[route[last]][0];
+        ret += "Back in " + placesToUse[0].getName() + "\n";
         ret += "\nTotal length: " + sum + " meters";
         return ret;
+    }
+    
+    public String getHomeAddress() {
+        return this.placeController.getHomeAddress();
+    }
+    
+    /**
+     * Changes the home address.
+     * @param newAddress The new home address.
+     * @throws Throwable if an error occurs.
+     * @return True if the change was successful, otherwise false.
+     */
+    public boolean changeHomeAddress(String newAddress) throws Throwable {
+        if (this.placeController.changeHome(newAddress)) {
+            this.places = placeController.getPlaces();
+            Place home = places[0];
+            for (int i = 1; i < graph.length; i++) {                 
+                Place otherPlace = places[i];
+                int length = this.finder.findDistance(home.getX(), home.getY(), otherPlace.getX(), otherPlace.getY());
+                graph[0][i] = length;
+                graph[i][0] = length;                
+            }
+            return true;
+        }        
+        return false;
+    }
+    
+    /**
+     * Finds the coordinates and distances for the given place and adds it to the current graph.
+     * @param name The name of the place.
+     * @param address The address of the place.
+     * @throws Throwable if an error occurs.
+     * @return True if the graph was updated, otherwise false.
+     */
+    public boolean addPlace(String name, String address) throws Throwable {
+        if (this.placeController.addPlace(name, address)) {
+            this.places = placeController.getPlaces();
+            int[][] newGraph = new int[graph.length + 1][graph.length + 1];
+            for (int i = 0; i < graph.length; i ++) {
+                for (int j = 0; j < graph.length; j ++) {
+                    newGraph[i][j] = graph[i][j];
+                }
+            }
+            Place newPlace = this.places[places.length - 1];
+            for (int i = 0; i < newGraph.length - 1; i ++) {
+                Place otherPlace = places[i];
+                int length = this.finder.findDistance(newPlace.getX(), newPlace.getY(), otherPlace.getX(), otherPlace.getY());
+                newGraph[newGraph.length - 1][i] = length;
+                newGraph[i][newGraph.length - 1] = length; 
+            }
+            this.graph = newGraph;
+            return true;
+        }
+        return false;
     }
 }

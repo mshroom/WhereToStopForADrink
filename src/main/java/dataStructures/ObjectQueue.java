@@ -81,10 +81,10 @@ public class ObjectQueue {
         }
     }
     /**
-     * Method returns the integer at the head of the queue and removes it from
+     * Method returns the object at the head of the queue and removes it from
      * the queue.
      *
-     * @return the integer at the head of the queue.
+     * @return The object at the head of the queue.
      */
     public Queueable poll() {
         this.size --;
@@ -94,6 +94,14 @@ public class ObjectQueue {
             this.head = 0;
         }
         return first;
+    }
+    
+    /**
+     * Method returns the object at the head of the queue but does not remove it from the queue.
+     * @return The object at the head of the queue.
+     */
+    public Queueable peek() {
+        return this.queue[this.head];
     }
 
     /**

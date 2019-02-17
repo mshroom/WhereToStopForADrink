@@ -88,8 +88,9 @@ public class PlaceController {
             if (homeCoordinates[0] != null) {
                 Place home = new Place(0, "Home", address, homeCoordinates[0], homeCoordinates[1]);
                 queue.push(home);
+                return true;
             }
-            return true;
+            return false;
         } catch (Exception ex) {
             return false;
         }        

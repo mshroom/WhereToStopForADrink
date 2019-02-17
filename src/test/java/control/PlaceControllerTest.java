@@ -53,6 +53,14 @@ public class PlaceControllerTest {
     }
     
     @Test
+    public void homeAddressIsNotChangedIfCoordinatesAreNotFound() throws Exception {
+        pc = new PlaceController(mockFinder, queue);
+        this.setReturnValuesForMockFinder();        
+        pc.importPlaces("data/testPlaces.txt");
+        assertFalse(pc.changeHome("Not-existing"));        
+    }
+    
+    @Test
     public void aPlaceCanBeAdded() throws Exception {
         pc = new PlaceController(mockFinder, queue);
         this.setReturnValuesForMockFinder();        
@@ -60,6 +68,14 @@ public class PlaceControllerTest {
         pc.addPlace("New Place", "New Place address");
         Place[] places = pc.getPlaces();
         assertEquals("4;New Place;New Place address;x;y", places[places.length - 1].toString());
+    }
+    
+    @Test
+    public void placeIsNotAddedIfCoordinatesAreNotFound() throws Exception {
+        pc = new PlaceController(mockFinder, queue);
+        this.setReturnValuesForMockFinder();        
+        pc.importPlaces("data/testPlaces.txt");
+        assertFalse(pc.addPlace("New Place", "Not-existing")); 
     }
 
     @Test
@@ -109,6 +125,7 @@ public class PlaceControllerTest {
         when(mockFinder.findCoordinates("Viides linja 11")).thenReturn(co);        
         when(mockFinder.findCoordinates("New Home")).thenReturn(co);
         when(mockFinder.findCoordinates("New Place address")).thenReturn(co);
+        when(mockFinder.findCoordinates("Not-existing")).thenReturn(null);
     }
 
 }

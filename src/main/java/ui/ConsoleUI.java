@@ -220,7 +220,7 @@ public class ConsoleUI {
 
     private void readMemory() {
         try {
-            graphs.useSaved("data/saved.txt", "data/savedGraph.txt");
+            graphs.useSaved("data/userData/savedPlaces.txt", "data/userData/savedGraph.txt");
             this.io.printLine("Data was imported successfully.");
             this.customGraphIsSet = true;
         } catch (Exception ex) {
@@ -284,7 +284,7 @@ public class ConsoleUI {
             return;
         }
         try {
-            this.graphs.save("data/saved.txt", "data/savedGraph.txt");
+            this.graphs.save("data/userData/savedPlaces.txt", "data/userData/savedGraph.txt");
             this.io.printLine("Data was saved successfully.");
         } catch (Exception ex) {
             this.io.printLine("Could not save data.");
@@ -301,8 +301,10 @@ public class ConsoleUI {
         if (newAddress.equals("")) {
             return;
         }
+        io.printLine("Getting data for new home address...");
         try {
             graphs.changeHomeAddress(newAddress);
+            io.printLine("New home address was changed successfully.");
         } catch (Throwable ex) {
             io.printLine("There was an error somewhere.");
         }
@@ -359,8 +361,10 @@ public class ConsoleUI {
         if (name.equals("")) return;
         String address = this.io.readLine("Enter the address: (leave empty to cancel)");
         if (address.equals("")) return;
+        this.io.printLine("Getting data for new address...");
         try {
             this.graphs.addPlace(name, address);
+            this.io.printLine("New place was added successfully.");
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
         }

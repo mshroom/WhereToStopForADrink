@@ -38,7 +38,7 @@ public class GraphControllerTest {
         pc = new PlaceController(mockAddress, queue);
         this.setReturnValuesForMocks();        
         gc = new GraphController(mockDistance, pc, new int[1][1]);        
-        gc.importPlaces("data/testPlaces.txt");
+        gc.importPlaces("data/testData/testPlaces.txt");
         int[][] graph = gc.getGraph();
         assertEquals(1, graph[0][1]);
         assertEquals(2, graph[0][2]);
@@ -53,7 +53,7 @@ public class GraphControllerTest {
         pc = new PlaceController(mockAddress, queue);
         this.setReturnValuesForMocks();        
         gc = new GraphController(mockDistance, pc, new int[1][1]);        
-        gc.importPlaces("data/testPlaces.txt");
+        gc.importPlaces("data/testData/testPlaces.txt");
         assertEquals("Viides linja 11", gc.getHomeAddress());
         assertEquals("Viides linja 11", gc.getPlace(0).getAddress());
     }
@@ -63,7 +63,7 @@ public class GraphControllerTest {
         pc = new PlaceController(mockAddress, queue);
         this.setReturnValuesForMocks();        
         gc = new GraphController(mockDistance, pc, new int[1][1]);        
-        gc.importPlaces("data/testPlaces.txt");
+        gc.importPlaces("data/testData/testPlaces.txt");
         gc.changeHomeAddress("New Home");
         assertEquals("New Home", gc.getHomeAddress());
         assertEquals("New Home", gc.getPlace(0).getAddress());
@@ -74,7 +74,7 @@ public class GraphControllerTest {
         pc = new PlaceController(mockAddress, queue);
         this.setReturnValuesForMocks();        
         gc = new GraphController(mockDistance, pc, new int[1][1]);        
-        gc.importPlaces("data/testPlaces.txt");
+        gc.importPlaces("data/testData/testPlaces.txt");
         gc.changeHomeAddress("New Home");
         int[][] graph = gc.getGraph();
         assertEquals(2, graph[0][1]);
@@ -90,7 +90,7 @@ public class GraphControllerTest {
         pc = new PlaceController(mockAddress, queue);
         this.setReturnValuesForMocks();        
         gc = new GraphController(mockDistance, pc, new int[1][1]);        
-        gc.importPlaces("data/testPlaces.txt");
+        gc.importPlaces("data/testData/testPlaces.txt");
         gc.addPlace("New Place", "New Place address");
         assertEquals("New Place", gc.getPlace(4).getName());
     }
@@ -100,7 +100,7 @@ public class GraphControllerTest {
         pc = new PlaceController(mockAddress, queue);
         this.setReturnValuesForMocks();        
         gc = new GraphController(mockDistance, pc, new int[1][1]);        
-        gc.importPlaces("data/testPlaces.txt");
+        gc.importPlaces("data/testData/testPlaces.txt");
         gc.addPlace("New Place", "New Place address");
         int[][] graph = gc.getGraph();
         assertEquals(5, graph[0][4]);
@@ -126,10 +126,10 @@ public class GraphControllerTest {
     @Test
     public void graphAndPlacesCanBeSavedAndReaccessedLater() throws Exception {
         this.createTestDataForGraphController();              
-        gc.save("data/testSaved.txt", "data/testSavedGraph.txt");                
+        gc.save("data/testData/testSaved.txt", "data/testData/testSavedGraph.txt");                
         PlaceController newPc = new PlaceController(mockAddress, new ObjectQueue(10));
         GraphController newGc = new GraphController(mockDistance, newPc, new int[1][1]);
-        newGc.useSaved("data/testSaved.txt", "data/testSavedGraph.txt");
+        newGc.useSaved("data/testData/testSaved.txt", "data/testData/testSavedGraph.txt");
         int[][] graph2 = newGc.getGraph();
         assertEquals(2, graph2[0][1]);
         assertEquals(4, graph2[0][2]);

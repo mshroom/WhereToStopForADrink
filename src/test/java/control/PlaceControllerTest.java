@@ -28,7 +28,7 @@ public class PlaceControllerTest {
     public void placesCanBeImportedFromFileAndCorrectlyConvertedToPlaceObjects() throws Exception {
         pc = new PlaceController(mockFinder, queue);
         this.setReturnValuesForMockFinder();        
-        pc.importPlaces("data/testPlaces.txt");
+        pc.importPlaces("data/testData/testPlaces.txt");
         Place[] places = pc.getPlaces();
         assertEquals("1;Place 1;Example address 1;x;y||2;Place 2;Example address 2;x;y", places[1].toString() + "||" + places[2].toString());
     }
@@ -37,7 +37,7 @@ public class PlaceControllerTest {
     public void defaultHomeAddressIsSetCorrectly() throws Exception {
         pc = new PlaceController(mockFinder, queue);
         this.setReturnValuesForMockFinder();        
-        pc.importPlaces("data/testPlaces.txt");
+        pc.importPlaces("data/testData/testPlaces.txt");
         Place[] places = pc.getPlaces();
         assertEquals("0;Home;Viides linja 11;x;y", places[0].toString());
     }
@@ -46,7 +46,7 @@ public class PlaceControllerTest {
     public void homeAddressCanBeChanged() throws Exception {
         pc = new PlaceController(mockFinder, queue);
         this.setReturnValuesForMockFinder();        
-        pc.importPlaces("data/testPlaces.txt");
+        pc.importPlaces("data/testData/testPlaces.txt");
         pc.changeHome("New Home");
         Place[] places = pc.getPlaces();
         assertEquals("0;Home;New Home;x;y", places[0].toString());
@@ -56,7 +56,7 @@ public class PlaceControllerTest {
     public void homeAddressIsNotChangedIfCoordinatesAreNotFound() throws Exception {
         pc = new PlaceController(mockFinder, queue);
         this.setReturnValuesForMockFinder();        
-        pc.importPlaces("data/testPlaces.txt");
+        pc.importPlaces("data/testData/testPlaces.txt");
         assertFalse(pc.changeHome("Not-existing"));        
     }
     
@@ -64,7 +64,7 @@ public class PlaceControllerTest {
     public void aPlaceCanBeAdded() throws Exception {
         pc = new PlaceController(mockFinder, queue);
         this.setReturnValuesForMockFinder();        
-        pc.importPlaces("data/testPlaces.txt");
+        pc.importPlaces("data/testData/testPlaces.txt");
         pc.addPlace("New Place", "New Place address");
         Place[] places = pc.getPlaces();
         assertEquals("4;New Place;New Place address;x;y", places[places.length - 1].toString());
@@ -74,7 +74,7 @@ public class PlaceControllerTest {
     public void placeIsNotAddedIfCoordinatesAreNotFound() throws Exception {
         pc = new PlaceController(mockFinder, queue);
         this.setReturnValuesForMockFinder();        
-        pc.importPlaces("data/testPlaces.txt");
+        pc.importPlaces("data/testData/testPlaces.txt");
         assertFalse(pc.addPlace("New Place", "Not-existing")); 
     }
 
@@ -83,9 +83,9 @@ public class PlaceControllerTest {
         queue.add(new Place(0, "New Place 1", "Example address 1", "x", "y"));
         queue.add(new Place(1, "New Place 2", "Example address 2", "x", "y"));
         pc = new PlaceController(mockFinder, queue);
-        pc.savePlaces("data/testSaved.txt");
+        pc.savePlaces("data/testData/testSaved.txt");
         PlaceController newPc = new PlaceController(mockFinder, new ObjectQueue(10));
-        newPc.useSavedPlaces("data/testSaved.txt");
+        newPc.useSavedPlaces("data/testData/testSaved.txt");
         Place[] places = newPc.getPlaces();
         assertEquals("0;New Place 1;Example address 1;x;y||1;New Place 2;Example address 2;x;y", places[0].toString() + "||" + places[1].toString());
     }

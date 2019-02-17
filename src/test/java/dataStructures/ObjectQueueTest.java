@@ -87,6 +87,14 @@ public class ObjectQueueTest {
     }
 
     @Test
+    public void peekingReturnsButDoesNotRemoveFirstObject() {
+        queue.add(new Node(0, 5));
+        Node n = (Node) queue.peek();
+        assertEquals(0, n.getIndex());
+        assertFalse(queue.isEmpty());
+    }
+    
+    @Test
     public void queueCanBeCopied() {
         queue.add(new Node(0, 5));
         ObjectQueue newQueue = queue.copy();

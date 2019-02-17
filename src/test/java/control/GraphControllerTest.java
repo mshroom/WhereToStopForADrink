@@ -162,11 +162,37 @@ public class GraphControllerTest {
         int[][] smaller = gc.getSmallerGraph(2);
         assertEquals(2, smaller.length);
     }
+    
+    @Test
+    public void pathIsPrintedCorrectly() throws Throwable {
+        this.createTestDataForGraphController();
+        int[] path = {-1, -1, 0};
+        String print = gc.printPlaces(path, 2);
+        assertEquals("\n1. New Place 1 (Example address 1)\n"
+                + "    >> Walk 4 meters\n"
+                + "2. New Place 3 (Example address 3)\n"
+                + "\nTotal length: 4 meters", print);
+    }
+    
+    @Test
+    public void routeIsPrintedCorrectly() throws Throwable {
+        this.createTestDataForGraphController();
+        int[] route = {0, 1, 2};
+        String print = gc.printPlaces(route);
+        assertEquals("1. New Place 1 (Example address 1)\n"
+                + "    >> Walk 2 meters\n"
+                + "2. New Place 2 (Example address 2)\n"
+                + "    >> Walk 3 meters\n"
+                + "3. New Place 3 (Example address 3)\n"
+                + "    >> Walk 4 meters\n"
+                + "Back in New Place 1\n"
+                + "\nTotal length: 9 meters", print);
+    }
 
     private void createTestDataForGraphController() {
         queue.add(new Place(0, "New Place 1", "Example address 1", "x", "y"));
         queue.add(new Place(1, "New Place 2", "Example address 2", "x", "y"));
-        queue.add(new Place(2, "New Place 2", "Example address 2", "x", "y"));
+        queue.add(new Place(2, "New Place 3", "Example address 3", "x", "y"));
         pc = new PlaceController(mockAddress, queue);
         int[][] graph = {{0, 2, 4}, {2, 0, 3}, {4, 3, 0}};
         gc = new GraphController(mockDistance, pc, graph);  

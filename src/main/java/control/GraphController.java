@@ -357,12 +357,12 @@ public class GraphController {
             int place = route[i];
             int next = route[i + 1];
             ret += (i + 1) + ". " + placesToUse[place].getName() + " (" + placesToUse[place].getAddress() + ")\n";
-            ret += "    Walk " + graphToUse[place][next] + " meters\n";
+            ret += "    >> Walk " + graphToUse[place][next] + " meters\n";
             sum += graphToUse[place][next];
         }
         int last = route.length - 1;
         ret += (route.length) + ". " + placesToUse[route[last]].getName() + " (" + placesToUse[route[last]].getAddress() + ")\n";
-        ret += "    Walk " + graphToUse[route[last]][0] + " meters\n";
+        ret += "    >> Walk " + graphToUse[route[last]][0] + " meters\n";
         sum += graphToUse[route[last]][0];
         ret += "Back in " + placesToUse[0].getName() + "\n";
         ret += "\nTotal length: " + sum + " meters";

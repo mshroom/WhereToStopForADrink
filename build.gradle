@@ -1,11 +1,10 @@
 apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'control.Main'
 
 sourceCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-
-if (!hasProperty('mainClass')) {
-    ext.mainClass = 'control.Main'
-}
 
 repositories {
     mavenCentral()
@@ -24,6 +23,9 @@ jar {
     }
 }
 
+run {
+    standardInput = System.in
+}
 
 apply plugin: 'jacoco'
 

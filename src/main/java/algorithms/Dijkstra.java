@@ -25,7 +25,7 @@ public class Dijkstra extends ShortestPath {
      */
     @Override
     protected void convertGraph(int[][] graph) {
-        ObjectQueue[] n = new ObjectQueue[graph.length];
+        ObjectQueue[] neighboursList = new ObjectQueue[graph.length];
         for (int i = 0; i < graph.length; i++) {
             ObjectQueue nodes = new ObjectQueue(10);
             for (int j = 0; j < graph.length; j++) {
@@ -33,9 +33,9 @@ public class Dijkstra extends ShortestPath {
                     nodes.add(new Node(j, graph[i][j]));
                 }
             }
-            n[i] = nodes;
+            neighboursList[i] = nodes;
         }
-        this.neighbours = n;
+        this.neighbours = neighboursList;
     }
 
     /**

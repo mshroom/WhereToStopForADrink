@@ -5,8 +5,8 @@ import algorithms.Bfs;
 import algorithms.Dijkstra;
 import algorithms.ShortestPath;
 import algorithms.ShortestRoute;
-import algorithms.Tsp;
-import algorithms.TspNn;
+import algorithms.TspExact;
+import algorithms.TspNearestNeighbour;
 
 /**
  * AlgorithmController contains methods to get comparison data on the
@@ -18,8 +18,8 @@ public class AlgorithmController {
     private ShortestPath currentDijkstra;
     private ShortestPath currentAStar;
     private ShortestPath currentBfs;
-    private ShortestRoute currentTsp;
-    private ShortestRoute currentTspNn;
+    private ShortestRoute currentTspExact;
+    private ShortestRoute currentTspNearestNeighbour;
 
     public AlgorithmController() {
     }
@@ -41,7 +41,8 @@ public class AlgorithmController {
         this.currentDijkstra = new Dijkstra(graph);
         this.currentBfs = new Bfs(graph);
         this.currentAStar = new AStar(graph, distances, goal);
-        ret += "\n" + String.format("%-20s", "Algorithm") + String.format("%-20s", "Time elapsed") + String.format("%-20s", "Distance to goal") + "Shortest path";
+        ret += "\n" + String.format("%-20s", "Algorithm") + String.format("%-20s", "Time elapsed") 
+                + String.format("%-20s", "Distance to goal") + "Shortest path";
         ret += this.pathStatistics(currentDijkstra, goal);
         ret += this.pathStatistics(currentAStar, goal);
         ret += this.pathStatistics(currentBfs, goal);
@@ -53,28 +54,28 @@ public class AlgorithmController {
      * containing the time elapsed, the length of the shortest path and the
      * description of the path.
      *
-     * @param s The algorithm (a ShortestPath object) to be tested.
+     * @param shortestPath The algorithm (a ShortestPath object) to be tested.
      * @param node The index goal node.
      * @return A String containing the results.
      * @throws Throwable if there is an exception while processing data.
      */
-    private String pathStatistics(ShortestPath s, int node) throws Throwable {
+    private String pathStatistics(ShortestPath shortestPath, int node) throws Throwable {
         String ret = "";
-        long time = this.getPerformanceTime(s, node);
-        ret += "\n" + String.format("%-20s", s.getClass().getSimpleName());
+        long time = this.getPerformanceTime(shortestPath, node);
+        ret += "\n" + String.format("%-20s", shortestPath.getClass().getSimpleName());
         ret += String.format("%-20s", ((time) + " ns"));
         String unit = "";
-        if (s.getClass().getSimpleName().equals("Bfs")) {
+        if (shortestPath.getClass().getSimpleName().equals("Bfs")) {
             unit = "edges";
         } else {
             unit = "meters";
         }
-        if (s.getDistanceTo(node) < 0) {
+        if (shortestPath.getDistanceTo(node) < 0) {
             ret += String.format("%-20s", "infinite");
         } else {
-            ret += String.format("%-20s", (s.getDistanceTo(node) + " " + unit));
+            ret += String.format("%-20s", (shortestPath.getDistanceTo(node) + " " + unit));
         }        
-        ret += s.getShortestPath(node);
+        ret += shortestPath.getShortestPath(node);
         return ret;
     }
 
@@ -82,14 +83,14 @@ public class AlgorithmController {
      * Runs the shortest path algorithm once and returns the time elapsed in
      * nanoseconds.
      *
-     * @param s The ShortestPath algorithm to be tested.
+     * @param shortestPath The ShortestPath algorithm to be tested.
      * @param node The index of the goal node.
      * @return The time elapsed in nanoseconds.
      * @throws Throwable if there is an exception while processing data.
      */
-    private long getPerformanceTime(ShortestPath s, int node) throws Throwable {
+    private long getPerformanceTime(ShortestPath shortestPath, int node) throws Throwable {
         long startingTime = System.nanoTime();
-        s.calculateShortestPath();
+        shortestPath.calculateShortestPath();
         long completedTime = System.nanoTime();
         return completedTime - startingTime;
     }
@@ -120,11 +121,12 @@ public class AlgorithmController {
      */
     public String compareShortestRouteAlgorithms(int[][] graph) throws Throwable {
         String ret = "";
-        this.currentTsp = new Tsp(graph);
-        this.currentTspNn = new TspNn(graph);
-        ret += "\n" + String.format("%-20s", "Algorithm") + String.format("%-20s", "Time elapsed") + String.format("%-20s", "Route length") + "Shortest route";
-        ret += this.routeStatistics(currentTsp);
-        ret += this.routeStatistics(currentTspNn);
+        this.currentTspExact = new TspExact(graph);
+        this.currentTspNearestNeighbour = new TspNearestNeighbour(graph);
+        ret += "\n" + String.format("%-20s", "Algorithm") + String.format("%-20s", "Time elapsed") 
+                + String.format("%-20s", "Route length") + "Shortest route";
+        ret += this.routeStatistics(currentTspExact);
+        ret += this.routeStatistics(currentTspNearestNeighbour);
         return ret;
     }
 
@@ -133,16 +135,16 @@ public class AlgorithmController {
      * containing the time elapsed, the length of the shortest path and the
      * description of the path.
      *
-     * @param s The algorithm (a ShortestRoute object) to be tested.
+     * @param shortestRoute The algorithm (a ShortestRoute object) to be tested.
      * @return A String containing the results.
      */
-    private String routeStatistics(ShortestRoute s) throws Throwable {
+    private String routeStatistics(ShortestRoute shortestRoute) throws Throwable {
         String ret = "";
-        long time = this.getPerformanceTime(s);
-        ret += "\n" + String.format("%-20s", s.getClass().getSimpleName());
+        long time = this.getPerformanceTime(shortestRoute);
+        ret += "\n" + String.format("%-20s", shortestRoute.getClass().getSimpleName());
         ret += String.format("%-20s", (time + " ns"));        
-        ret += String.format("%-20s", (s.getLengthOfShortestRoute() + " meters"));
-        ret += s.printShortestRoute();
+        ret += String.format("%-20s", (shortestRoute.getLengthOfShortestRoute() + " meters"));
+        ret += shortestRoute.printShortestRoute();
         return ret;
     }
     
@@ -150,23 +152,23 @@ public class AlgorithmController {
      * Runs the shortest route algorithm once and returns the time elapsed in
      * nanoseconds.
      *
-     * @param s The ShortestRoute algorithm to be tested.
+     * @param shortestRoute The ShortestRoute algorithm to be tested.
      * @return The time elapsed in nanoseconds.
      * @throws Throwable if there is an exception while processing data.
      */
-    private long getPerformanceTime(ShortestRoute s) throws Throwable {
+    private long getPerformanceTime(ShortestRoute shortestRoute) throws Throwable {
         long startingTime = System.nanoTime();
-        s.calculateShortestRoute();
+        shortestRoute.calculateShortestRoute();
         long completedTime = System.nanoTime();
         return completedTime - startingTime;
     }
     
-    public int[] getCurrentTspRoute() {
-        return currentTsp.getShortestRoute();
+    public int[] getCurrentTspExactRoute() {
+        return currentTspExact.getShortestRoute();
     }
     
-    public int[] getCurrentTspNnRoute() {
-        return currentTspNn.getShortestRoute();
+    public int[] getCurrentTspNearestNeighbourRoute() {
+        return currentTspNearestNeighbour.getShortestRoute();
     }
 
 }

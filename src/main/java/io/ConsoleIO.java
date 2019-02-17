@@ -18,10 +18,10 @@ public class ConsoleIO implements IO {
     @Override
     public int readInt(String instruction) {
         System.out.println(instruction);
-        int i = -1;
+        int number = -1;
         while (true) {
             try {
-                i = Integer.parseInt(scanner.nextLine());
+                number = Integer.parseInt(scanner.nextLine());
                 break;
             } catch (Exception e) {
                 System.out.println("Please enter a number");
@@ -29,7 +29,7 @@ public class ConsoleIO implements IO {
         }
         printLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         printLine("");
-        return i;
+        return number;
     }
 
     @Override

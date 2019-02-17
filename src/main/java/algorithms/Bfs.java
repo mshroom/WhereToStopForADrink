@@ -25,7 +25,7 @@ public class Bfs extends ShortestPath {
      */
     @Override
     protected void convertGraph(int[][] graph) {
-        Queue[] n = new Queue[graph.length];
+        Queue[] neigbourList = new Queue[graph.length];
         for (int i = 0; i < graph.length; i++) {
             Queue nodes = new Queue(10);
             for (int j = 0; j < graph.length; j++) {
@@ -33,9 +33,9 @@ public class Bfs extends ShortestPath {
                     nodes.add(j);
                 }
             }
-            n[i] = nodes;
+            neigbourList[i] = nodes;
         }
-        this.neighbours = n;
+        this.neighbours = neigbourList;
     }
 
     @Override

@@ -25,8 +25,13 @@ public class NodeWithEstimate extends Node {
         return this.estimate;
     }
     
+    /**
+     * Method checks if this node has smaller total distance estimate than the given node.
+     * @param node The Node to be compared with.
+     * @return True if this node has smaller total distance estimate, false otherwise.
+     */
     @Override
-    public boolean smaller(Node n) {
-        return this.distance + this.estimate < n.getDistance() + n.getEstimate();
+    public boolean smaller(Node node) {
+        return this.distance + this.estimate < node.getDistance() + node.getEstimate();
     }
 }

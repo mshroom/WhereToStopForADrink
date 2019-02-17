@@ -30,7 +30,12 @@ public class Node implements Queueable {
         return 0;
     }
     
-    public boolean smaller(Node n) {
-        return this.distance < n.getDistance();
+    /**
+     * Method checks if the node has smaller distance than the other node.
+     * @param node The Node to be compared with.
+     * @return True if this node has smaller distance, false otherwise.
+     */
+    public boolean smaller(Node node) {
+        return this.distance < node.getDistance();
     }
 }

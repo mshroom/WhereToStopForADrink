@@ -10,18 +10,18 @@ import static org.junit.Assert.*;
  *
  * @author mshroom
  */
-public class TspNnTest {
+public class TspNearestNeighbourTest {
     
-    TspNn tspSmall;
-    TspNn tspBig;
-    TspNn tspNotOptimal;
+    TspNearestNeighbour tspSmall;
+    TspNearestNeighbour tspBig;
+    TspNearestNeighbour tspNotOptimal;
     
     @Before
     public void setUp() {
         GraphStore graphs = new GraphStore();
-        this.tspSmall = new TspNn(graphs.createSmallCompleteGraph());        
-        this.tspNotOptimal = new TspNn(graphs.createNotOptimalCompleteGraph());        
-        this.tspBig = new TspNn(graphs.createBigCompleteGraph());
+        this.tspSmall = new TspNearestNeighbour(graphs.createSmallCompleteGraph());        
+        this.tspNotOptimal = new TspNearestNeighbour(graphs.createNotOptimalCompleteGraph());        
+        this.tspBig = new TspNearestNeighbour(graphs.createBigCompleteGraph());
     }
     
            

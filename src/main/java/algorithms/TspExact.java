@@ -4,9 +4,9 @@ package algorithms;
  * Class calculates the shortest route that visits all nodes in a graph and returns home.
  * @author mshroom
  */
-public class Tsp extends ShortestRoute {
+public class TspExact extends ShortestRoute {
     
-    public Tsp(int[][] distance) {
+    public TspExact(int[][] distance) {
         super(distance);
     }
     

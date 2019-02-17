@@ -15,13 +15,13 @@ public class DistanceFinder {
         this.connection = new Connection();
     }
     
-    public int findDistance(String aX, String aY, String bX, String bY) throws Exception {
+    public int findDistance(String firstX, String firstY, String otherX, String otherY) throws Exception {
         String distance = "";
         this.connection.connectTo(baseUrl);
         String contentType = "application/graphql";
         String queryParameters = "{plan(from:{lat:";
-        queryParameters += aY + ",lon:" + aX + "},to:{lat:";
-        queryParameters += bY + ",lon:" + bX + "},transportModes:[{mode: WALK}]){itineraries{legs{distance}}}}";
+        queryParameters += firstY + ",lon:" + firstX + "},to:{lat:";
+        queryParameters += otherY + ",lon:" + otherX + "},transportModes:[{mode: WALK}]){itineraries{legs{distance}}}}";
         String content = connection.postRequest(queryParameters, contentType);
         connection.close();
         String find = "distance\":";

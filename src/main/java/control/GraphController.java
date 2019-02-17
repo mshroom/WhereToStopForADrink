@@ -108,10 +108,10 @@ public class GraphController {
         for (int i = 0; i < graph.length; i++) {
             System.out.println("Progress: " + i + "/" + total);
             for (int j = 0; j < graph.length; j++) {
-                Place a = places[i];
-                Place b = places[j];
+                Place firstPlace = places[i];
+                Place otherPlace = places[j];
                 if (graph[j][i] == 0 && i != j) {
-                    int length = this.finder.findDistance(a.getX(), a.getY(), b.getX(), b.getY());
+                    int length = this.finder.findDistance(firstPlace.getX(), firstPlace.getY(), otherPlace.getX(), otherPlace.getY());
                     graph[i][j] = length;
                 } else {
                     graph[i][j] = graph[j][i];
@@ -150,11 +150,11 @@ public class GraphController {
     private void fetchSavedGraph(String file) throws Exception {
         this.io.setFile(file);
         while (true) {
-            String p = io.readLine("");
-            if (p.equals("")) {
+            String data = io.readLine("");
+            if (data.equals("")) {
                 break;
             }
-            String[] rows = p.split("\\|\\|");
+            String[] rows = data.split("\\|\\|");
             int[][] savedGraph = new int[rows.length][rows.length];
             for (int i = 0; i < rows.length; i++) {
                 String row = rows[i];
@@ -270,9 +270,9 @@ public class GraphController {
         int sum = 0;
         while (!stack.isEmpty()) {
             int now = stack.poll();
-            Place p = places[now];
+            Place currentPlace = places[now];
             ret += "    >> Walk " + graph[prev][now] + " meters\n";
-            ret += number + ". " + (p.getName() + "\n");
+            ret += number + ". " + (currentPlace.getName() + "\n");
             number++;
             sum += graph[prev][now];
             prev = now;

@@ -5,9 +5,9 @@ package algorithms;
  * The algorithm uses the nearest neighbour strategy that is fast but does not always find the shortest route.
  * @author mshroom
  */
-public class TspNn extends ShortestRoute {
+public class TspNearestNeighbour extends ShortestRoute {
     
-    public TspNn(int[][] distance) {
+    public TspNearestNeighbour(int[][] distance) {
         super(distance);
         lengthOfShortestRoute = 0;
     }

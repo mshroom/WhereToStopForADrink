@@ -51,20 +51,20 @@ public class PlaceController {
         System.out.println("Getting coordinates...");
         this.queue = new ObjectQueue(10);
         io.setFile(file);
-        int i = 0;
+        int index = 0;
         while (true) {            
-            String p = io.readLine("");
-            if (p.equals("")) {
+            String data = io.readLine("");
+            if (data.equals("")) {
                 break;
             }
-            String[] parts = p.split(";");
+            String[] parts = data.split(";");
             String name = parts[0];
             String address = parts[1];
             String[] coordinates = finder.findCoordinates(address);
             if (coordinates[0] != null) {
-                Place place = new Place(i, name, address, coordinates[0], coordinates[1]);
+                Place place = new Place(index, name, address, coordinates[0], coordinates[1]);
                 queue.add(place);
-                i++;
+                index++;
             }
         }
         this.convertQueueToArray();
@@ -93,11 +93,11 @@ public class PlaceController {
         this.queue = new ObjectQueue(10);
         io.setFile(file);
         while (true) {            
-            String p = io.readLine("");
-            if (p.equals("")) {
+            String data = io.readLine("");
+            if (data.equals("")) {
                 break;
             }
-            String[] places = p.split("\\|\\|");
+            String[] places = data.split("\\|\\|");
             for (int i = 0; i < places.length; i ++) {
                 String place = places[i];
                 String[] attributes = place.split(";");
@@ -127,8 +127,8 @@ public class PlaceController {
         }
         this.places = new Place[queue.getSize()];
         while (!queue.isEmpty()) {
-            Place p = (Place) queue.poll();
-            this.places[p.getIndex()] = p;
+            Place place = (Place) queue.poll();
+            this.places[place.getIndex()] = place;
         }        
     }
 }

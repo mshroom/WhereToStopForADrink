@@ -10,15 +10,15 @@ import org.junit.Test;
  *
  * @author mshroom
  */
-public class TspTest {
-    Tsp tspSmall;
-    Tsp tspBig;
+public class TspExactTest {
+    TspExact tspSmall;
+    TspExact tspBig;
     
     @Before
     public void setUp() {
         GraphStore graphs = new GraphStore();
-        this.tspSmall = new Tsp(graphs.createSmallCompleteGraph());        
-        this.tspBig = new Tsp(graphs.createBigCompleteGraph());
+        this.tspSmall = new TspExact(graphs.createSmallCompleteGraph());        
+        this.tspBig = new TspExact(graphs.createBigCompleteGraph());
     }
        
     @Test

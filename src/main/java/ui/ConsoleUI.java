@@ -230,7 +230,7 @@ public class ConsoleUI {
         int max = graphs.getSizeOfCurrentGraph();
         String warning = "";
         if (max > 15) {
-            warning = "\nNote that Tsp will run VERY slow with more than 15 places.";
+            warning = "\nNote that TspExact will run VERY slow with more than 15 places.";
         }
         int howMany = this.io.readInt("How many places do you want to use? "
                 + "(maximum for this graph is " + max + ") " + warning);
@@ -310,16 +310,16 @@ public class ConsoleUI {
 
     private void printRoute() {
         this.io.printLine("\nDo you wish to print the route?");
-        this.io.printLine("\nt = Print Tsp path");
-        this.io.printLine("n = Print TspNn path");
+        this.io.printLine("\ne = Print TspExact path");
+        this.io.printLine("n = Print TspNearestNeighbour path");
         this.io.printLine("Press enter or any other key to go back.");
         while (true) {
             String command = this.io.readLine("\nPrint path: ");
-            if (command.equals("t")) {
-                int[] route = algo.getCurrentTspRoute();
+            if (command.equals("e")) {
+                int[] route = algo.getCurrentTspExactRoute();
                 this.io.printLine(graphs.printPlaces(route));
             } else if (command.equals("n")) {
-                int[] path = algo.getCurrentTspNnRoute();
+                int[] path = algo.getCurrentTspNearestNeighbourRoute();
                 this.io.printLine(graphs.printPlaces(path));
             } else {
                 break;

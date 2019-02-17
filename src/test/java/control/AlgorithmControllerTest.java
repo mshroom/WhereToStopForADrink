@@ -48,7 +48,7 @@ public class AlgorithmControllerTest {
     @Test
     public void comparingRouteAlgorithmsncludesDataOfAllAlgorithms() throws Throwable {
         String result = algo.compareShortestRouteAlgorithms(graphs.createSmallCompleteGraph());
-        assertTrue(result.contains("Tsp") && result.contains("TspNn"));
+        assertTrue(result.contains("TspExact") && result.contains("TspNearestNeighbour"));
     }
 
     @Test

@@ -1,7 +1,8 @@
 package control;
 
-import dataStructures.ObjectQueue;
+import dataStructures.Queue;
 import dataStructures.Place;
+import dataStructures.Queueable;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -16,12 +17,12 @@ public class PlaceControllerTest {
 
     PlaceController pc;
     AddressFinder mockFinder;
-    ObjectQueue queue;
+    Queue queue;
 
     @Before
     public void setUp() {
         mockFinder = mock(AddressFinder.class);
-        queue = new ObjectQueue(10);
+        queue = new Queue(new Queueable[10]);
     }
 
     @Test
@@ -84,7 +85,7 @@ public class PlaceControllerTest {
         queue.add(new Place(1, "New Place 2", "Example address 2", "x", "y"));
         pc = new PlaceController(mockFinder, queue);
         pc.savePlaces("data/testData/testSaved.txt");
-        PlaceController newPc = new PlaceController(mockFinder, new ObjectQueue(10));
+        PlaceController newPc = new PlaceController(mockFinder, new Queue<Queueable>(new Queueable[10]));
         newPc.useSavedPlaces("data/testData/testSaved.txt");
         Place[] places = newPc.getPlaces();
         assertEquals("0;New Place 1;Example address 1;x;y||1;New Place 2;Example address 2;x;y", places[0].toString() + "||" + places[1].toString());

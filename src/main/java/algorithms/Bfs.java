@@ -27,7 +27,7 @@ public class Bfs extends ShortestPath {
     protected void convertGraph(int[][] graph) {
         Queue[] neigbourList = new Queue[graph.length];
         for (int i = 0; i < graph.length; i++) {
-            Queue nodes = new Queue(10);
+            Queue<Integer> nodes = new Queue<>(new Integer[10]);
             for (int j = 0; j < graph.length; j++) {
                 if (i != j && graph[i][j] >= 0) {
                     nodes.add(j);
@@ -51,12 +51,12 @@ public class Bfs extends ShortestPath {
     @Override
     public void calculateShortestPath() throws Throwable {
         this.initialize();
-        Queue queue = new Queue(this.neighbours.length);
+        Queue<Integer> queue = new Queue<>(new Integer[this.neighbours.length]);
         queue.add(0);
         while (!queue.isEmpty()) {
             int node = queue.poll();
             while (!neighbours[node].isEmpty()) {
-                int neighbour = neighbours[node].poll();
+                Integer neighbour = (Integer) neighbours[node].poll();
                 if (visited[neighbour] == 0) {
                     visited[neighbour] = 1;
                     distance[neighbour] = distance[node] + 1;

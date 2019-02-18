@@ -46,7 +46,7 @@ public abstract class ShortestPath {
      * @return A String describing the path.
      */
     public String getShortestPath(int goal) throws Throwable {
-        Queue stack = new Queue(10);
+        Queue<Integer> stack = new Queue<>(new Integer[10]);
         int previous = path[goal];
         if (previous == -1) {
             return "There is no path";

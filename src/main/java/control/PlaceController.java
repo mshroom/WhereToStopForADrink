@@ -2,7 +2,8 @@ package control;
 
 import dataStructures.Place;
 import web.AddressFinder;
-import dataStructures.ObjectQueue;
+import dataStructures.Queue;
+import dataStructures.Queueable;
 import io.FileIO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class PlaceController {
 
-    private ObjectQueue queue;
+    private Queue queue;
     private Place[] places;
     private AddressFinder finder;
     private FileIO io;
@@ -25,7 +26,7 @@ public class PlaceController {
      * Create a new PlaceController with an empty list of places.
      */
     public PlaceController() {
-        this.queue = new ObjectQueue(10);
+        this.queue = new Queue<Queueable>(new Queueable[10]);
         this.finder= new AddressFinder();
         this.io = new FileIO();
         this.homeAddress = "Viides linja 11";
@@ -37,7 +38,7 @@ public class PlaceController {
      * @param queue ObjectQueue can be empty or contain Place objects that will be
      * added to the place list.
      */
-    public PlaceController(AddressFinder finder, ObjectQueue queue) {
+    public PlaceController(AddressFinder finder, Queue queue) {
         this.queue = queue;
         this.convertQueueToArray();
         this.finder = finder;
@@ -55,7 +56,7 @@ public class PlaceController {
      */
     public void importPlaces(String file) throws Exception {
         System.out.println("Getting coordinates...");
-        this.queue = new ObjectQueue(10);
+        this.queue = new Queue<Queueable>(new Queueable[10]);
         int index;
         if (this.addHomeToPlaces(this.homeAddress)) {
             index = 1;
@@ -128,7 +129,7 @@ public class PlaceController {
      * @throws Exception if an error occurs while importing saved data.
      */
     public void useSavedPlaces(String file) throws Exception {
-        this.queue = new ObjectQueue(10);
+        this.queue = new Queue<Queueable>(new Queueable[10]);
         io.setFile(file);
         while (true) {            
             String data = io.readLine("");
@@ -170,8 +171,8 @@ public class PlaceController {
         if (queue.getSize() < 1) {
             return;
         }
-        this.places = new Place[queue.getSize()];
-        ObjectQueue copy = queue.copy();
+        this.places = new Place[queue.getSize()];      
+        Queue<Queueable> copy = queue.copy();
         while (!copy.isEmpty()) {
             Place place = (Place) copy.poll();
             this.places[place.getIndex()] = place;

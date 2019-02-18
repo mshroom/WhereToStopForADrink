@@ -1,7 +1,7 @@
 package control;
 
-import dataStructures.Place;
 import dataStructures.Queue;
+import dataStructures.Place;
 import web.DistanceFinder;
 import io.FileIO;
 import java.util.Arrays;
@@ -309,7 +309,8 @@ public class GraphController {
      * @throws Throwable if an error occurs.
      */
     public String printPlaces(int[] path, int goal) throws Throwable {
-        Queue stack = new Queue(10);
+        Integer[] q = new Integer[10];
+        Queue<Integer> stack = new Queue<>(q);
         int previous = path[goal];
         if (previous == -1) {
             return "\nThere is no path";

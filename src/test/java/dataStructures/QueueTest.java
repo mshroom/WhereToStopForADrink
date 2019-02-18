@@ -1,7 +1,5 @@
 package dataStructures;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -16,7 +14,7 @@ public class QueueTest {
 
     @Before
     public void setUp() {
-        this.queue = new Queue(5);
+        this.queue = new Queue(new Queueable[5]);
     }
 
     @Test
@@ -25,51 +23,82 @@ public class QueueTest {
     }
 
     @Test
-    public void noIntegerIsReturnedIfTheQueueIsEmpty() {
-        int i = 0;
-        try {
-            i = this.queue.poll();
-        } catch (Throwable ex) {
-            i = -1;
-        }
-        assertEquals(-1, i);
+    public void noObjectIsReturnedIfTheQueueIsEmpty() {
+        assertEquals(null, queue.poll());
     }
 
     @Test
-    public void anIntegerCanBeAddedToTheQueue() throws Throwable {
-        queue.add(5);
-        assertEquals(5, queue.poll());
+    public void anObjectCanBeAddedToTheQueue() {
+        Node node = new Node(0, 5);
+        queue.add(node);
+        Node same = (Node) queue.poll();
+        assertEquals("0, 5", "" + same.getIndex() + ", " + same.getDistance());
     }
 
     @Test
-    public void anIntegerCanBeAddedToTheHeadOfTheQueue() throws Throwable {
-        queue.add(5);
-        queue.push(4);
-        assertEquals(4, queue.poll());
+    public void anObjectCanBeAddedToTheHeadOfTheQueue() {
+        Node node = new Node(0, 5);
+        Node node2 = new Node(1, 4);
+        queue.add(node);
+        queue.push(node2);
+        Node first = (Node) queue.poll();
+        assertEquals(1, first.getIndex());
     }
 
     @Test
-    public void anIntegerCanBeAddedToTheTailOfTheQueue() throws Throwable {
-        queue.add(5);
-        queue.add(4);
-        assertEquals(5, queue.poll());
+    public void anObjectCanBeAddedToTheTailOfTheQueue() {
+        Node node = new Node(0, 5);
+        Node node2 = new Node(1, 4);
+        queue.add(node);
+        queue.add(node2);
+        Node first = (Node) queue.poll();
+        assertEquals(0, first.getIndex());
     }
 
     @Test
-    public void anIntegerCanBeRemovedFromTheQueue() throws Throwable {
-        queue.add(5);
+    public void anObjectCanBeRemovedFromTheQueue() {
+        queue.add(new Node(0, 5));
         queue.poll();
         assertTrue(queue.isEmpty());
     }
 
     @Test
-    public void integersCanStillBeAddedToTheQueueWhenTheOriginalSizeOfTheQueueIsExceeded() throws Throwable {
+    public void objectsCanStillBeAddedToTheQueueWhenTheOriginalSizeOfTheQueueIsExceeded() {
         for (int i = 0; i < 10; i++) {
-            queue.add(i);
+            queue.add(new Node(i, 1));
         }
         for (int i = 0; i < 9; i++) {
             queue.poll();
         }
-        assertEquals(9, queue.poll());
+        Node n = (Node) queue.poll();
+        assertEquals(9, n.getIndex());
+    }
+
+    @Test
+    public void objectsCanStillBePushedToTheQueueWhenTheOriginalSizeOfTheQueueIsExceeded() {
+        for (int i = 0; i < 10; i++) {
+            queue.push(new Node(i, 1));
+        }
+        for (int i = 0; i < 9; i++) {
+            queue.poll();
+        }
+        Node n = (Node) queue.poll();
+        assertEquals(0, n.getIndex());
+    }
+
+    @Test
+    public void peekingReturnsButDoesNotRemoveFirstObject() {
+        queue.add(new Node(0, 5));
+        Node n = (Node) queue.peek();
+        assertEquals(0, n.getIndex());
+        assertFalse(queue.isEmpty());
+    }
+    
+    @Test
+    public void queueCanBeCopied() {
+        queue.add(new Node(0, 5));
+        Queue newQueue = queue.copy();
+        Node n = (Node) newQueue.poll();
+        assertEquals(0, n.getIndex());
     }
 }

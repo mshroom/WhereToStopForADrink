@@ -2,7 +2,8 @@ package algorithms;
 
 import dataStructures.Node;
 import dataStructures.MinHeap;
-import dataStructures.ObjectQueue;
+import dataStructures.Queue;
+import dataStructures.Queueable;
 
 /**
  * Class calculates the shortest path from starting node to all other nodes in a
@@ -12,7 +13,7 @@ import dataStructures.ObjectQueue;
  */
 public class Dijkstra extends ShortestPath {
 
-    private ObjectQueue[] neighbours;
+    private Queue[] neighbours;
 
     public Dijkstra(int[][] graph) {
         super(graph);
@@ -25,9 +26,9 @@ public class Dijkstra extends ShortestPath {
      */
     @Override
     protected void convertGraph(int[][] graph) {
-        ObjectQueue[] neighboursList = new ObjectQueue[graph.length];
+        Queue[] neighboursList = new Queue[graph.length];
         for (int i = 0; i < graph.length; i++) {
-            ObjectQueue nodes = new ObjectQueue(10);
+            Queue nodes = new Queue(new Queueable[10]);
             for (int j = 0; j < graph.length; j++) {
                 if (i != j && graph[i][j] >= 0) {
                     nodes.add(new Node(j, graph[i][j]));
@@ -44,7 +45,7 @@ public class Dijkstra extends ShortestPath {
     @Override
     public void calculateShortestPath() {
         this.initialize();
-        ObjectQueue[] neighboursCopy = this.neighbours.clone();
+        Queue[] neighboursCopy = this.neighbours.clone();
         MinHeap heap = new MinHeap(neighbours.length * neighbours.length);
         heap.add(new Node(0, 0));
         while (!heap.isEmpty()) {

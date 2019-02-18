@@ -1,29 +1,30 @@
 package dataStructures;
 
-import java.util.EmptyStackException;
+import java.lang.reflect.Array;
 
 /**
- * An Integer queue with dynamically growing size.
+ * A generic type queue with dynamically growing size.
  * The queue supports both first-in-first-out and last-in-first-out operations.
- *
  * @author mshroom
  */
-public class Queue {
-
-    int[] queue;
+public class Queue<T> {
+    
+    T[] queue;
     int head;
     int tail;
+    int size;
 
     /**
-     * Create an empty Queue object.
+     * Create a Queue with given array.
      *
-     * @param size The starting size of the queue must be at least 1. The size
-     * will be automatically increased if the queue is full.
+     * @param queue An empty array of generic type with which the queue will be initialized. The size
+     * of the array will be automatically increased if the queue is full.
      */
-    public Queue(int size) {
-        this.queue = new int[size];
+    public Queue(T[] queue) {        
+        this.queue = queue;
         this.head = 0;
         this.tail = 0;
+        this.size = 0;
     }
 
     /**
@@ -49,12 +50,13 @@ public class Queue {
     }
 
     /**
-     * Method adds an integer to the end of the queue.
+     * Method adds an object to the end of the queue.
      *
-     * @param integer Integer to be added.
+     * @param object Object to be added.
      */
-    public void add(int integer) {
-        queue[this.tail] = integer;
+    public void add(T object) {
+        this.size ++;        
+        queue[this.tail] = object;
         this.tail++;
         if (this.tail == this.queue.length) {
             this.tail = 0;
@@ -65,16 +67,17 @@ public class Queue {
     }
 
     /**
-     * Method adds an integer to the head of the queue.
+     * Method adds an object to the head of the queue.
      *
-     * @param integer Integer to be added.
+     * @param object Object to be added.
      */    
-    public void push(int integer) {
+    public void push(T object) {
+        this.size ++;        
         if (this.head > 0) {
-            queue[this.head - 1] = integer;
+            queue[this.head - 1] = object;
             this.head --;
         } else {
-            queue[queue.length - 1] = integer;
+            queue[queue.length - 1] = object;
             this.head = queue.length - 1;
         }
         if (this.full()) {
@@ -82,28 +85,34 @@ public class Queue {
         }
     }
     /**
-     * Method returns the integer at the head of the queue and removes it from
+     * Method returns the object at the head of the queue and removes it from
      * the queue.
      *
-     * @return the integer at the head of the queue.
+     * @return The object at the head of the queue.
      */
-    public int poll() throws Throwable {
-        if (this.isEmpty()) {
-            throw new EmptyStackException();
-        }
-        int first = this.queue[this.head];
+    public T poll() {
+        this.size --;
+        T first = this.queue[this.head];
         this.head++;
         if (this.head == this.queue.length) {
             this.head = 0;
         }
         return first;
     }
+    
+    /**
+     * Method returns the object at the head of the queue but does not remove it from the queue.
+     * @return The object at the head of the queue.
+     */
+    public T peek() {
+        return this.queue[this.head];
+    }
 
     /**
      * Method doubles the size of the queue.
      */
-    private void doubleSize() {
-        int[] newQueue = new int[this.queue.length * 2];
+    private void doubleSize() {        
+        T[] newQueue = (T[]) Array.newInstance(queue[head].getClass(), this.queue.length * 2);  
         int copy = this.head;
         int newTail = 0;
         for (int i = 0; i < this.queue.length; i++) {
@@ -121,5 +130,27 @@ public class Queue {
         this.queue = newQueue;
         this.tail = newTail;
         this.head = 0;
+    }
+    
+    private void setAttributes(int newHead, int newTail, int newSize) {
+        this.head = newHead;
+        this.tail = newTail;
+        this.size = newSize;
+    }
+    
+    /**
+     * Creates a copy of this queue.
+     * @return a new Queue object
+     */
+    public Queue<T> copy() {
+        T[] newQ = queue.clone();
+        Queue copy = new Queue(newQ);      
+        copy.setAttributes(head, tail, size);
+        return copy;
+    }
+    
+    
+    public int getSize() {
+        return this.size;
     }
 }

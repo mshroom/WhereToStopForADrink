@@ -3,8 +3,8 @@ package algorithms;
 import dataStructures.NodeWithEstimate;
 import dataStructures.Node;
 import dataStructures.MinHeap;
-import dataStructures.ObjectQueue;
 import dataStructures.Queue;
+import dataStructures.Queueable;
 
 /**
  * AStar algorithm calculates the shortest path to a specific node in a graph.
@@ -17,7 +17,7 @@ public class AStar extends ShortestPath {
     private int[] distanceSaved;
     private int[] distanceEstimate;
     private int[] pathSaved;
-    private ObjectQueue[] neighbours;
+    private Queue[] neighbours;
     private int goal;
 
     /**
@@ -58,17 +58,17 @@ public class AStar extends ShortestPath {
      */
     @Override
     protected void convertGraph(int[][] graph) {
-        ObjectQueue[] n = new ObjectQueue[graph.length];
+        Queue[] newNeighbours = new Queue[graph.length];
         for (int i = 0; i < graph.length; i++) {
-            ObjectQueue nodes = new ObjectQueue(10);
+            Queue<Queueable> nodes = new Queue<>(new Queueable[10]);
             for (int j = 0; j < graph.length; j++) {
                 if (i != j && graph[i][j] >= 0) {
                     nodes.add(new NodeWithEstimate(j, graph[i][j], distanceEstimate[j]));
                 }
             }
-            n[i] = nodes;
+            newNeighbours[i] = nodes;
         }
-        this.neighbours = n;
+        this.neighbours = newNeighbours;
     }
 
     /**
@@ -77,7 +77,7 @@ public class AStar extends ShortestPath {
     @Override
     public void calculateShortestPath() {
         this.initialize();
-        ObjectQueue[] neighboursCopy = this.neighbours.clone();
+        Queue[] neighboursCopy = this.neighbours.clone();
         MinHeap heap = new MinHeap(neighbours.length * neighbours.length);
         heap.add(new NodeWithEstimate(0, 0, 0));
         while (!heap.isEmpty()) {
@@ -125,7 +125,7 @@ public class AStar extends ShortestPath {
      */
     @Override
     public String getShortestPath(int node) throws Throwable {
-        Queue stack = new Queue(10);
+        Queue<Integer> stack = new Queue<>(new Integer[10]);
         int previous = pathSaved[node];
         if (previous == -1) {
             return "Algorithm has not yet searched a path to this node."

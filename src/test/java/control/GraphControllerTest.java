@@ -5,8 +5,9 @@
  */
 package control;
 
-import dataStructures.ObjectQueue;
+import dataStructures.Queue;
 import dataStructures.Place;
+import dataStructures.Queueable;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -23,13 +24,13 @@ public class GraphControllerTest {
     GraphController gc;
     AddressFinder mockAddress;
     PlaceController pc;
-    ObjectQueue queue;
+    Queue queue;
     DistanceFinder mockDistance;
     
     @Before
     public void setUp() {
         mockAddress = mock(AddressFinder.class);
-        queue = new ObjectQueue(10);
+        queue = new Queue<Queueable>(new Queueable[10]);
         mockDistance = mock(DistanceFinder.class);
     }
 
@@ -126,8 +127,8 @@ public class GraphControllerTest {
     @Test
     public void graphAndPlacesCanBeSavedAndReaccessedLater() throws Exception {
         this.createTestDataForGraphController();              
-        gc.save("data/testData/testSaved.txt", "data/testData/testSavedGraph.txt");                
-        PlaceController newPc = new PlaceController(mockAddress, new ObjectQueue(10));
+        gc.save("data/testData/testSaved.txt", "data/testData/testSavedGraph.txt"); 
+        PlaceController newPc = new PlaceController(mockAddress, new Queue<Queueable>(new Queueable[10]));
         GraphController newGc = new GraphController(mockDistance, newPc, new int[1][1]);
         newGc.useSaved("data/testData/testSaved.txt", "data/testData/testSavedGraph.txt");
         int[][] graph2 = newGc.getGraph();

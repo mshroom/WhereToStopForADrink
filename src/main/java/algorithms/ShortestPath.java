@@ -27,6 +27,7 @@ public abstract class ShortestPath {
             visited[i] = 0;
         }
         distance[0] = 0;
+        path[0] = 0;
     }
 
     public abstract void calculateShortestPath() throws Throwable;
@@ -46,7 +47,10 @@ public abstract class ShortestPath {
      * @return A String describing the path.
      */
     public String getShortestPath(int goal) throws Throwable {
-        Queue<Integer> stack = new Queue<>(new Integer[10]);
+        if (goal < 0) {
+            return "There is no path";
+        }
+        Queue<Integer> stack = new Queue<>(new Integer[10]);        
         int previous = path[goal];
         if (previous == -1) {
             return "There is no path";

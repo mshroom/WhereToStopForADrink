@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * A console user interface.
  * @author mshroom
  */
 public class ConsoleUI {
@@ -19,6 +19,10 @@ public class ConsoleUI {
     private GraphStore testGraphs;
     private boolean customGraphIsSet;
 
+    /**
+     * Creates the UI with given IO object.
+     * @param io IO object for user input/output.
+     */
     public ConsoleUI(IO io) {
         this.io = io;
         this.algo = new AlgorithmController();
@@ -26,7 +30,10 @@ public class ConsoleUI {
         this.testGraphs = new GraphStore();
         this.customGraphIsSet = false;
     }
-
+    
+    /**
+     * Starts the UI.
+     */
     public void start() {
         this.printGreeting();
         this.menu();
@@ -41,6 +48,9 @@ public class ConsoleUI {
         this.io.printLine("Thank you and see you soon!");
     }
 
+    /**
+     * Main menu.
+     */
     private void menu() {
         boolean goOn = true;
         while (goOn) {
@@ -68,6 +78,10 @@ public class ConsoleUI {
         this.io.printLine("quit = Quit the application");
     }
 
+    /**
+     * Compare shortest path algorithms menu.
+     * @return false if user wants to quit the application, otherwise true.
+     */
     private boolean shortestPath() {
         printPathInstructions();
         while (true) {
@@ -82,6 +96,8 @@ public class ConsoleUI {
                 this.comparePathAlgorithmsWithBigTestGraph();
             } else if (command.equals("custom")) {
                 this.comparePathAlgorithmsWithCustomGraph();
+            } else if (command.equals("find")) {    
+                this.findPlace();
             } else {
                 io.printLine("Unknown command");
                 printPathInstructions();
@@ -94,10 +110,15 @@ public class ConsoleUI {
         this.io.printLine("small = Compare algorithms with a small test graph");
         this.io.printLine("big = Compare algorithms with a big test graph");
         this.io.printLine("custom = Compare algorithms with an imported graph");
+        this.io.printLine("find = Find a path to a specific place in custom graph");
         this.io.printLine("back = Go back to main menu");
         this.io.printLine("quit = Quit the application");
     }
 
+    /**
+     * Compare shortest route algorithms menu.
+     * @return false if user wants to quit the application, otherwise true.
+     */
     private boolean shortestRoute() {
         printRouteInstructions();
         while (true) {
@@ -128,6 +149,10 @@ public class ConsoleUI {
         this.io.printLine("quit = Quit the application");
     }
 
+    /**
+     * Settings menu.
+     * @return false if user wants to quit the application, otherwise true.
+     */
     private boolean graphSettings() {
         printSettingsInstructions();
         while (true) {
@@ -207,6 +232,9 @@ public class ConsoleUI {
         }
     }
 
+    /**
+     * Imports addresses from a text file.
+     */
     private void newFile() {
         String file = this.io.readLine("Give the name of the file");
         try {
@@ -218,6 +246,9 @@ public class ConsoleUI {
         }
     }
 
+    /**
+     * Imports places that have been saved.
+     */
     private void readMemory() {
         try {
             graphs.useSaved("data/userData/savedPlaces.txt", "data/userData/savedGraph.txt");
@@ -267,6 +298,10 @@ public class ConsoleUI {
             this.io.printLine("Not a valid number.");
             return;
         }
+        this.customPathSearch(node);        
+    }
+    
+    private void customPathSearch(int node) {
         int maxDistance = this.io.readInt("Enter the maximum walking distance between two points (meters)");
         try {
             this.io.printLine(algo.compareShortestPathAlgorithms(graphs.getReducedGraph(maxDistance), node, graphs.getDistances(node)));
@@ -278,6 +313,9 @@ public class ConsoleUI {
         }
     }
 
+    /**
+     * Saves current graph if there is one.
+     */
     private void saveData() {
         if (!this.customGraphIsSet) {
             this.io.printLine("You have not imported any graph.");
@@ -291,12 +329,19 @@ public class ConsoleUI {
         }
     }
     
+    /**
+     * Defines a new home address.
+     */
     private void setHome() {
         if (!this.customGraphIsSet) {
             this.io.printLine("You have not imported any graph.");
             return;
         }
-        io.printLine("Current home address is " + graphs.getHomeAddress());
+        String confirm = io.readLine("Current home address is " + graphs.getHomeAddress() + ".\n"
+                + "Enter yes to change the address, leave empty to cancel:");
+        if (!confirm.equals("yes")) {
+            return;
+        }
         String newAddress = io.readLine("New address: (leave empty to skip)");
         if (newAddress.equals("")) {
             return;
@@ -309,7 +354,7 @@ public class ConsoleUI {
             io.printLine("There was an error somewhere.");
         }
     }
-
+    
     private void printPath(int goal) throws Throwable {
         this.io.printLine("\nDo you wish to print the path?");
         this.io.printLine("\nd = Print Dijkstra path");
@@ -352,6 +397,9 @@ public class ConsoleUI {
         }
     }
     
+    /**
+     * Adds a new place to current graph if there is one.
+     */
     private void addPlace() {
         if (!this.customGraphIsSet) {
             this.io.printLine("You have not imported any graph.");
@@ -368,5 +416,23 @@ public class ConsoleUI {
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
         }
+    }
+    
+    private void findPlace() {
+        if (!this.customGraphIsSet) {
+            this.io.printLine("You have not imported any graph.");
+            return;
+        }
+        String search = this.io.readLine("Search by name or the address: (leave empty to cancel)");
+        if (search.equals("")) return;
+        String found = graphs.findPlaces(search);
+        if (found.equals("")) {
+            this.io.printLine("Place was not found.");
+            return;
+        }
+        this.io.printLine("Search results:\n");
+        this.io.printLine(found);
+        int index = this.io.readInt("Choose an index: ");
+        this.customPathSearch(index);
     }
 }

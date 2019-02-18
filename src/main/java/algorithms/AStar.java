@@ -50,6 +50,8 @@ public class AStar extends ShortestPath {
             distanceSaved[i] = -1;
             pathSaved[i] = -1;
         }
+        pathSaved[0] = 0;
+        distanceSaved[0] = 0;
     }
 
     /**
@@ -125,6 +127,9 @@ public class AStar extends ShortestPath {
      */
     @Override
     public String getShortestPath(int node) throws Throwable {
+        if (node < 0) {
+            return "There is no path";
+        }
         Queue<Integer> stack = new Queue<>(new Integer[10]);
         int previous = pathSaved[node];
         if (previous == -1) {

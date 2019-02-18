@@ -6,6 +6,8 @@ import web.DistanceFinder;
 import io.FileIO;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * GraphController controls the graph and the places belonging to the graph,
@@ -402,7 +404,7 @@ public class GraphController {
      * @throws Throwable if an error occurs.
      * @return True if the graph was updated, otherwise false.
      */
-    public boolean addPlace(String name, String address) throws Throwable {
+    public boolean addPlace(String name, String address) {
         if (this.placeController.addPlace(name, address)) {
             this.places = placeController.getPlaces();
             int[][] newGraph = new int[graph.length + 1][graph.length + 1];
@@ -414,7 +416,12 @@ public class GraphController {
             Place newPlace = this.places[places.length - 1];
             for (int i = 0; i < newGraph.length - 1; i ++) {
                 Place otherPlace = places[i];
-                int length = this.finder.findDistance(newPlace.getX(), newPlace.getY(), otherPlace.getX(), otherPlace.getY());
+                int length;
+                try {
+                    length = this.finder.findDistance(newPlace.getX(), newPlace.getY(), otherPlace.getX(), otherPlace.getY());
+                } catch (Exception ex) {
+                    return false;
+                }
                 newGraph[newGraph.length - 1][i] = length;
                 newGraph[i][newGraph.length - 1] = length; 
             }
@@ -422,5 +429,18 @@ public class GraphController {
             return true;
         }
         return false;
+    }
+    
+    public String findPlaces(String search) {
+        String find = search.toLowerCase().trim();
+        String ret = "";
+        for (Place p : this.places) {
+            if (p.getAddress().toLowerCase().trim().contains(find)) {
+                ret += "[" + p.getIndex() + "] " + p.getName() + ", " + p.getAddress() + "\n";
+            } else if (p.getName().toLowerCase().trim().contains(find)) {
+                ret += "[" + p.getIndex() + "] " + p.getName() + ", " + p.getAddress() + "\n";
+            }
+        }        
+        return ret;
     }
 }

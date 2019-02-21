@@ -11,15 +11,17 @@ import static org.junit.Assert.*;
  */
 public class BfsTest {
 
+    GraphStore graphs;
     Bfs bfsSmall;
     Bfs bfsBig;
     Bfs bfsNoPath;
+    Bfs bfsBigRandom;
 
     @Before
     public void setUp() {
-        GraphStore graphs = new GraphStore();
+        graphs = new GraphStore();
         this.bfsSmall = new Bfs(graphs.createSmallGraphForPathfinding());
-        this.bfsBig = new Bfs(graphs.createBigGraphForPathfinding());
+        this.bfsBig = new Bfs(graphs.createBigSimpleGraphForPathfinding());
         this.bfsNoPath = new Bfs(graphs.createGraphWithNoPath());
     }
 
@@ -57,5 +59,12 @@ public class BfsTest {
     public void noPathMessageIsPrintedWhenThereIsNoPath() throws Throwable {
         this.bfsNoPath.calculateShortestPath();
         assertEquals("There is no path", this.bfsNoPath.getShortestPath(6));
+    }
+    
+    @Test
+    public void bfsFindsPathEvenWithBigRandomInput() throws Throwable {
+        this.bfsBigRandom = new Bfs(graphs.createBigRandomGraphForPathfinding());
+        this.bfsBigRandom.calculateShortestPath();
+        assertTrue(bfsBigRandom.pathWasFound(1999));
     }
 }

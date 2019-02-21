@@ -37,6 +37,7 @@ jacocoTestReport {
                               'web/AddressFinder.class',
                               'io/ConsoleIO.class',
                               'io/FileIO.class',
+                              'io/StubIO.class',
                               'control/Main.class',
                               'web/DistanceFinder.class'])
         })

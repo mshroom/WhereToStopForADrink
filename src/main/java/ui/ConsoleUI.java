@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 /**
  * A console user interface.
+ *
  * @author mshroom
  */
 public class ConsoleUI {
@@ -21,6 +22,7 @@ public class ConsoleUI {
 
     /**
      * Creates the UI with given IO object.
+     *
      * @param io IO object for user input/output.
      */
     public ConsoleUI(IO io) {
@@ -31,6 +33,14 @@ public class ConsoleUI {
         this.customGraphIsSet = false;
     }
     
+    public ConsoleUI(IO io, AlgorithmController algo, GraphController graphs, GraphStore testGraphs) {
+        this.io = io;
+        this.algo = algo;
+        this.graphs = graphs;
+        this.testGraphs = testGraphs;
+        this.customGraphIsSet = false;
+    }
+
     /**
      * Starts the UI.
      */
@@ -63,13 +73,13 @@ public class ConsoleUI {
             } else if (command.equals("route")) {
                 goOn = this.shortestRoute();
             } else if (command.equals("settings")) {
-                goOn = this.graphSettings();            
+                goOn = this.graphSettings();
             } else {
                 io.printLine("Unknown command");
             }
         }
     }
-
+    
     private void printMenuInstructions() {
         this.io.printLine("\nThis is the main menu. What would you like to do?\n");
         this.io.printLine("path = Compare shortest path algorithms");
@@ -80,6 +90,7 @@ public class ConsoleUI {
 
     /**
      * Compare shortest path algorithms menu.
+     *
      * @return false if user wants to quit the application, otherwise true.
      */
     private boolean shortestPath() {
@@ -96,7 +107,7 @@ public class ConsoleUI {
                 this.comparePathAlgorithmsWithBigTestGraph();
             } else if (command.equals("custom")) {
                 this.comparePathAlgorithmsWithCustomGraph();
-            } else if (command.equals("find")) {    
+            } else if (command.equals("find")) {
                 this.findPlace();
             } else {
                 io.printLine("Unknown command");
@@ -117,6 +128,7 @@ public class ConsoleUI {
 
     /**
      * Compare shortest route algorithms menu.
+     *
      * @return false if user wants to quit the application, otherwise true.
      */
     private boolean shortestRoute() {
@@ -151,6 +163,7 @@ public class ConsoleUI {
 
     /**
      * Settings menu.
+     *
      * @return false if user wants to quit the application, otherwise true.
      */
     private boolean graphSettings() {
@@ -170,7 +183,7 @@ public class ConsoleUI {
             } else if (command.equals("home")) {
                 this.setHome();
             } else if (command.equals("add")) {
-                this.addPlace();    
+                this.addPlace();
             } else {
                 io.printLine("Unknown command");
                 printSettingsInstructions();
@@ -196,20 +209,22 @@ public class ConsoleUI {
             return;
         }
         try {
-            this.io.printLine(algo.compareShortestPathAlgorithms(testGraphs.createSmallGraphForAStar(), node, testGraphs.createDistancesForSmallGraphForAStar(node)));
+            int[][] smallGraph = testGraphs.createSmallGraphForPathfinding2();
+            this.io.printLine(algo.compareShortestPathAlgorithms(smallGraph, node, testGraphs.createFakeDistancesForAStarGraph(smallGraph, node)));
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
         }
     }
 
     private void comparePathAlgorithmsWithBigTestGraph() {
-        int node = this.io.readInt("Choose the index of the node (1-99)");
-        if (node < 1 || node > 99) {
+        int node = this.io.readInt("Choose the index of the node (1-1999)");
+        if (node < 1 || node > 1999) {
             this.io.printLine("Not a valid index.");
             return;
         }
         try {
-            this.io.printLine(algo.compareShortestPathAlgorithms(testGraphs.createBigGraphForPathfinding(), node, testGraphs.createDistancesForBigGraphForPathFinding()));
+            int[][] bigGraph = testGraphs.createBigRandomGraphForPathfinding();
+            this.io.printLine(algo.compareShortestPathAlgorithms(bigGraph, node, new int[2000]));
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
         }
@@ -217,16 +232,34 @@ public class ConsoleUI {
 
     private void compareRouteAlgorithmsWithSmallTestGraph() {
         try {
-            this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createSmallCompleteGraph()));
+            this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createSmallCompleteGraph(), true));
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
         }
     }
 
     private void compareRouteAlgorithmsWithBigTestGraph() {
-        io.printLine("Processing...");
+        boolean all = false;
+        while (true) {
+            String command = this.io.readLine("Choose a graph:\n"
+                    + "simple = Use simple graph (suitable for both algorithms)"
+                    + "\nrandom = a big random graph (suitable only for TspNearestNeighbour)");
+            if (command.equals("simple")) {
+                all = true;
+                break;
+            } else if (command.equals("random")) {
+                all = false;
+                break;
+            } else {
+                this.io.printLine("Not a valid command.");
+            }
+        }
         try {
-            this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createBigCompleteGraph()));
+            if (all) {
+                this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createBigCompleteGraph(), true));
+            } else {
+                this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createBigRandomCompleteGraph(), false));
+            }
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
         }
@@ -267,7 +300,7 @@ public class ConsoleUI {
         int max = graphs.getSizeOfCurrentGraph();
         String warning = "";
         if (max > 15) {
-            warning = "\nNote that TspExact will run VERY slow with more than 15 places.";
+            warning = "\nWith more than 15 places only the approximation algorithm will be used.";
         }
         int howMany = this.io.readInt("How many places do you want to use? "
                 + "(maximum for this graph is " + max + ") " + warning);
@@ -279,8 +312,14 @@ public class ConsoleUI {
             this.io.printLine("Processing...");
         }
         try {
-            this.io.printLine(algo.compareShortestRouteAlgorithms(graphs.getSmallerGraph(howMany)));
-            this.printRoute();
+            if (howMany > 15) {
+                this.io.printLine(algo.compareShortestRouteAlgorithms(graphs.getSmallerGraph(howMany), false));
+                this.printRoute(false);
+            } else {
+                this.io.printLine(algo.compareShortestRouteAlgorithms(graphs.getSmallerGraph(howMany), true));
+                this.printRoute(true);
+            }
+
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
         }
@@ -298,9 +337,9 @@ public class ConsoleUI {
             this.io.printLine("Not a valid number.");
             return;
         }
-        this.customPathSearch(node);        
+        this.customPathSearch(node);
     }
-    
+
     private void customPathSearch(int node) {
         int maxDistance = this.io.readInt("Enter the maximum walking distance between two points (meters)");
         try {
@@ -328,7 +367,7 @@ public class ConsoleUI {
             this.io.printLine("Could not save data.");
         }
     }
-    
+
     /**
      * Defines a new home address.
      */
@@ -354,7 +393,7 @@ public class ConsoleUI {
             io.printLine("There was an error somewhere.");
         }
     }
-    
+
     private void printPath(int goal) throws Throwable {
         this.io.printLine("\nDo you wish to print the path?");
         this.io.printLine("\nd = Print Dijkstra path");
@@ -378,14 +417,16 @@ public class ConsoleUI {
         }
     }
 
-    private void printRoute() {
+    private void printRoute(boolean all) {
         this.io.printLine("\nDo you wish to print the route?");
-        this.io.printLine("\ne = Print TspExact path");
+        if (all) {
+            this.io.printLine("\ne = Print TspExact path");
+        }
         this.io.printLine("n = Print TspNearestNeighbour path");
         this.io.printLine("Press enter or any other key to go back.");
         while (true) {
             String command = this.io.readLine("\nPrint path: ");
-            if (command.equals("e")) {
+            if (command.equals("e") && all) {
                 int[] route = algo.getCurrentTspExactRoute();
                 this.io.printLine(graphs.printPlaces(route));
             } else if (command.equals("n")) {
@@ -396,7 +437,7 @@ public class ConsoleUI {
             }
         }
     }
-    
+
     /**
      * Adds a new place to current graph if there is one.
      */
@@ -406,9 +447,13 @@ public class ConsoleUI {
             return;
         }
         String name = this.io.readLine("Enter the name of the place: (leave empty to cancel)");
-        if (name.equals("")) return;
+        if (name.equals("")) {
+            return;
+        }
         String address = this.io.readLine("Enter the address: (leave empty to cancel)");
-        if (address.equals("")) return;
+        if (address.equals("")) {
+            return;
+        }
         this.io.printLine("Getting data for new address...");
         try {
             this.graphs.addPlace(name, address);
@@ -417,14 +462,16 @@ public class ConsoleUI {
             this.io.printLine("There was an error somewhere.");
         }
     }
-    
+
     private void findPlace() {
         if (!this.customGraphIsSet) {
             this.io.printLine("You have not imported any graph.");
             return;
         }
         String search = this.io.readLine("Search by name or the address: (leave empty to cancel)");
-        if (search.equals("")) return;
+        if (search.equals("")) {
+            return;
+        }
         String found = graphs.findPlaces(search);
         if (found.equals("")) {
             this.io.printLine("Place was not found.");

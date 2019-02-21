@@ -10,15 +10,17 @@ import static org.junit.Assert.*;
  * @author mshroom
  */
 public class DijkstraTest {
+    GraphStore graphs;
     Dijkstra dijkstraSmall;
     Dijkstra dijkstraBig;
     Dijkstra dijkstraNoPath;
+    Dijkstra dijkstraBigRandom;
     
     @Before
     public void setUp() {
-        GraphStore graphs = new GraphStore();        
+        graphs = new GraphStore();        
         this.dijkstraSmall = new Dijkstra(graphs.createSmallGraphForPathfinding());
-        this.dijkstraBig = new Dijkstra(graphs.createBigGraphForPathfinding());
+        this.dijkstraBig = new Dijkstra(graphs.createBigSimpleGraphForPathfinding());
         this.dijkstraNoPath = new Dijkstra(graphs.createGraphWithNoPath());
     }
 
@@ -56,5 +58,14 @@ public class DijkstraTest {
     public void noPathMessageIsPrintedWhenThereIsNoPath() throws Throwable {
         this.dijkstraNoPath.calculateShortestPath();
         assertEquals("There is no path", this.dijkstraNoPath.getShortestPath(6));
+    }
+    
+    @Test
+    public void dijkstraFindsPathEvenWithBigRandomInput() {
+        this.dijkstraBigRandom = new Dijkstra(graphs.createBigRandomGraphForPathfinding());
+        this.dijkstraBigRandom.calculateShortestPath();
+        assertTrue(dijkstraBigRandom.pathWasFound(1999));
+        assertTrue(dijkstraBigRandom.getDistanceTo(1999) <= 18000);
+        assertTrue(dijkstraBigRandom.getDistanceTo(1999) >= 40);
     }
 }

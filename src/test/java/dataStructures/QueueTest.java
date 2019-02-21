@@ -101,4 +101,19 @@ public class QueueTest {
         Node n = (Node) newQueue.poll();
         assertEquals(0, n.getIndex());
     }
+    
+    @Test
+    public void anExistingObjectIsFoundInTheQueue() {
+        Node node = new Node(0, 5);
+        queue.add(node);
+        assertTrue(queue.contains(node));
+    }
+    
+    @Test
+    public void aNonExistingObjectIsNotFoundInTheQueue() {
+        Node node = new Node(0, 5);
+        Node other = new Node(1, 5);
+        queue.add(node);
+        assertFalse(queue.contains(other));
+    }
 }

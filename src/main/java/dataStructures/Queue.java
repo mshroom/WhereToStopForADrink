@@ -3,12 +3,13 @@ package dataStructures;
 import java.lang.reflect.Array;
 
 /**
- * A generic type queue with dynamically growing size.
- * The queue supports both first-in-first-out and last-in-first-out operations.
+ * A generic type queue with dynamically growing size. The queue supports both
+ * first-in-first-out and last-in-first-out operations.
+ *
  * @author mshroom
  */
 public class Queue<T> {
-    
+
     T[] queue;
     int head;
     int tail;
@@ -17,10 +18,11 @@ public class Queue<T> {
     /**
      * Create a Queue with given array.
      *
-     * @param queue An empty array of generic type with which the queue will be initialized. The size
-     * of the array will be automatically increased if the queue is full.
+     * @param queue An empty array of generic type with which the queue will be
+     * initialized. The size of the array will be automatically increased if the
+     * queue is full.
      */
-    public Queue(T[] queue) {        
+    public Queue(T[] queue) {
         this.queue = queue;
         this.head = 0;
         this.tail = 0;
@@ -55,7 +57,7 @@ public class Queue<T> {
      * @param object Object to be added.
      */
     public void add(T object) {
-        this.size ++;        
+        this.size++;
         queue[this.tail] = object;
         this.tail++;
         if (this.tail == this.queue.length) {
@@ -70,12 +72,12 @@ public class Queue<T> {
      * Method adds an object to the head of the queue.
      *
      * @param object Object to be added.
-     */    
+     */
     public void push(T object) {
-        this.size ++;        
+        this.size++;
         if (this.head > 0) {
             queue[this.head - 1] = object;
-            this.head --;
+            this.head--;
         } else {
             queue[queue.length - 1] = object;
             this.head = queue.length - 1;
@@ -84,6 +86,7 @@ public class Queue<T> {
             this.doubleSize();
         }
     }
+
     /**
      * Method returns the object at the head of the queue and removes it from
      * the queue.
@@ -91,7 +94,7 @@ public class Queue<T> {
      * @return The object at the head of the queue.
      */
     public T poll() {
-        this.size --;
+        this.size--;
         T first = this.queue[this.head];
         this.head++;
         if (this.head == this.queue.length) {
@@ -99,9 +102,11 @@ public class Queue<T> {
         }
         return first;
     }
-    
+
     /**
-     * Method returns the object at the head of the queue but does not remove it from the queue.
+     * Method returns the object at the head of the queue but does not remove it
+     * from the queue.
+     *
      * @return The object at the head of the queue.
      */
     public T peek() {
@@ -111,8 +116,8 @@ public class Queue<T> {
     /**
      * Method doubles the size of the queue.
      */
-    private void doubleSize() {        
-        T[] newQueue = (T[]) Array.newInstance(queue[head].getClass(), this.queue.length * 2);  
+    private void doubleSize() {
+        T[] newQueue = (T[]) Array.newInstance(queue[head].getClass(), this.queue.length * 2);
         int copy = this.head;
         int newTail = 0;
         for (int i = 0; i < this.queue.length; i++) {
@@ -131,26 +136,53 @@ public class Queue<T> {
         this.tail = newTail;
         this.head = 0;
     }
-    
+
     private void setAttributes(int newHead, int newTail, int newSize) {
         this.head = newHead;
         this.tail = newTail;
         this.size = newSize;
     }
-    
+
     /**
      * Creates a copy of this queue.
+     *
      * @return a new Queue object
      */
     public Queue<T> copy() {
         T[] newQ = queue.clone();
-        Queue copy = new Queue(newQ);      
+        Queue copy = new Queue(newQ);
         copy.setAttributes(head, tail, size);
         return copy;
     }
-    
-    
+
     public int getSize() {
         return this.size;
+    }
+
+    /**
+     * Tells if the given object is in the queue.
+     * @param t Object to check.
+     * @return true if the object is in the queue, false otherwise.
+     */
+    public boolean contains(T t) {
+        if (head < tail) {
+            for (int i = head; i < tail; i++) {
+                if (queue[i].equals(t)) {
+                    return true;
+                }
+            }
+        } else if (head > tail) {
+            for (int i = head; i < queue.length; i++) {
+                if (queue[i].equals(t)) {
+                    return true;
+                }
+            }
+            for (int i = 0; i < tail; i ++) {
+                if (queue[i].equals(t)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

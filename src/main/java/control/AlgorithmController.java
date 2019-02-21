@@ -119,13 +119,16 @@ public class AlgorithmController {
      * @return A String describing the results and the time elapsed for each
      * algorithm.
      */
-    public String compareShortestRouteAlgorithms(int[][] graph) throws Throwable {
+    public String compareShortestRouteAlgorithms(int[][] graph, boolean all) throws Throwable {
         String ret = "";
-        this.currentTspExact = new TspExact(graph);
-        this.currentTspNearestNeighbour = new TspNearestNeighbour(graph);
         ret += "\n" + String.format("%-20s", "Algorithm") + String.format("%-20s", "Time elapsed") 
                 + String.format("%-20s", "Route length") + "Shortest route";
-        ret += this.routeStatistics(currentTspExact);
+        if (all) {
+           this.currentTspExact = new TspExact(graph); 
+           ret += this.routeStatistics(currentTspExact);
+        }
+        
+        this.currentTspNearestNeighbour = new TspNearestNeighbour(graph);   
         ret += this.routeStatistics(currentTspNearestNeighbour);
         return ret;
     }

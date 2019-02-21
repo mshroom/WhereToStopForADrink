@@ -39,6 +39,7 @@ jacocoTestReport {
                               'io/FileIO.class',
                               'io/StubIO.class',
                               'control/Main.class',
+                              'control/GraphStore.class',
                               'web/DistanceFinder.class'])
         })
     }

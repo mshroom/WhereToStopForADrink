@@ -42,7 +42,7 @@ The performance of the algorithms can be measured by running the application. Bo
 | 20* | 5069347869 ns | 45082 ns |
 | 2000 | not possible | 57104728 ns |
 
-* A simple graph where the branch-and-bound method is effective
+( * A simple graph where the branch-and-bound method is effective )
 
 ### Path algorithms
 
@@ -52,7 +52,7 @@ The performance of the algorithms can be measured by running the application. Bo
 | 84/496 | 1792496 ns | 211254 ns | 403095 ns |
 | 2000/802500* | 130900416 ns | 123038295 ns | 50364073 ns |
 
-* Used a randomized graph where the number of edges varied with some hundreds each time, this being the average.
+( * Used a randomized graph where the number of edges varied with some hundreds each time, this being the average. )
 
 ## Algorithm accuracy
 

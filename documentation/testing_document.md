@@ -10,7 +10,9 @@
 
 ## Unit tests
 
-Unit test coverage for the project is good, except for the ui and web packages that, at the moment, have no automatic tests. One reason for that is that there will probably still be big changes to the text ui design (the texts to be printed etc). The classes in the web package, on the other hand, are not very suitable for Unit testing because they require web connection and the responses to the http requests might vary from time to time, depending on the server. These classes are therefore excluded from the test coverage reports.
+Unit test coverage for the project is good. The UI class has the worst coverage but even there the tests include the most crucial parts of the code. The focus there is mainly to check that the UI calls the methods of other classes in correct situations and with correct parameters. The textual output of the console ui is of less significance.
+
+Some classes have been excluded from the test coverage reports. The classes in the web package, for example, are not very suitable for Unit testing because they require web connection and the responses to the http requests might vary from time to time, depending on the server. The io classes and the GraphStore class that only creates graphs for testing purposes, are also excluded.
 
 ## Manual tests
 
@@ -24,7 +26,7 @@ The itinerary planning of the Routing API works also well for finding distances 
 
 ### User interface
 
-TODO
+User interface has been tested not just with automatic tests, but also by manual testing, trying to find bugs by inserting invalid input or trying to do operations that are not allowed. The ui was also tested by an outsider, in order to find out any faults or bad designs in the ui that the programmer would have missed.
 
 ## Performance
 
@@ -37,13 +39,18 @@ The performance of the algorithms can be measured by running the application. Bo
 | 5 | 286225 ns | 13425 ns |
 | 10 | 33708838 ns | 20221 ns |
 | 15 | 15321250008 ns | 29430 ns |
+| 20* | 5069347869 ns | 45082 ns |
+| 2000 | not possible | 57104728 ns |
+
+* A simple graph where the branch-and-bound method is effective
 
 ### Path algorithms
 
-| Graph size | Dijkstra | AStar | Bfs |
+| Graph size (V/E) | Dijkstra | AStar | Bfs |
 |---|---|---|---|
-| 5 | 244554 ns | 150111 ns | 53405 ns |
-| 83 | 1792496 ns | 211254 ns | 403095 ns |
+| 5/17 | 244554 ns | 150111 ns | 53405 ns |
+| 84/496 | 1792496 ns | 211254 ns | 403095 ns |
+| 2000/n.802500 | 130900416 ns | 123038295 ns | 50364073 ns |
 
 ## Algorithm accuracy
 

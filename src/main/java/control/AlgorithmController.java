@@ -15,6 +15,7 @@ import algorithms.TspNearestNeighbour;
  * @author mshroom
  */
 public class AlgorithmController {
+
     private ShortestPath currentDijkstra;
     private ShortestPath currentAStar;
     private ShortestPath currentBfs;
@@ -36,12 +37,13 @@ public class AlgorithmController {
      * algorithm.
      * @throws Throwable if there is an exception while processing the data.
      */
-    public String compareShortestPathAlgorithms(int[][] graph, int goal, int[] distances) throws Throwable {
-        String ret = "";
+    public String compareShortestPathAlgorithms(int[][] graph, int goal, int[] distances) throws Throwable {        
+        int edges = countEdges(graph);
+        String ret = "Graph size: " + graph.length + " nodes, " + edges + " edges\n";
         this.currentDijkstra = new Dijkstra(graph);
         this.currentBfs = new Bfs(graph);
         this.currentAStar = new AStar(graph, distances, goal);
-        ret += "\n" + String.format("%-20s", "Algorithm") + String.format("%-20s", "Time elapsed") 
+        ret += "\n" + String.format("%-20s", "Algorithm") + String.format("%-20s", "Time elapsed")
                 + String.format("%-20s", "Distance to goal") + "Shortest path";
         ret += this.pathStatistics(currentDijkstra, goal);
         ret += this.pathStatistics(currentAStar, goal);
@@ -74,7 +76,7 @@ public class AlgorithmController {
             ret += String.format("%-20s", "infinite");
         } else {
             ret += String.format("%-20s", (shortestPath.getDistanceTo(node) + " " + unit));
-        }        
+        }
         ret += shortestPath.getShortestPath(node);
         return ret;
     }
@@ -94,19 +96,19 @@ public class AlgorithmController {
         long completedTime = System.nanoTime();
         return completedTime - startingTime;
     }
-    
+
     public int[] getCurrentAStarPath() {
         return this.currentAStar.getPath();
     }
-    
+
     public int[] getCurrentDijkstraPath() {
         return this.currentDijkstra.getPath();
     }
-    
+
     public int[] getCurrentBfsPath() {
         return this.currentBfs.getPath();
     }
-    
+
     public boolean pathWasFound(int goal) {
         return this.currentAStar.pathWasFound(goal);
     }
@@ -120,15 +122,16 @@ public class AlgorithmController {
      * algorithm.
      */
     public String compareShortestRouteAlgorithms(int[][] graph, boolean all) throws Throwable {
-        String ret = "";
-        ret += "\n" + String.format("%-20s", "Algorithm") + String.format("%-20s", "Time elapsed") 
+        int edges = countEdges(graph);
+        String ret = "Graph size: " + graph.length + " nodes, " + edges + " edges\n";
+        ret += "\n" + String.format("%-20s", "Algorithm") + String.format("%-20s", "Time elapsed")
                 + String.format("%-20s", "Route length") + "Shortest route";
         if (all) {
-           this.currentTspExact = new TspExact(graph); 
-           ret += this.routeStatistics(currentTspExact);
+            this.currentTspExact = new TspExact(graph);
+            ret += this.routeStatistics(currentTspExact);
         }
-        
-        this.currentTspNearestNeighbour = new TspNearestNeighbour(graph);   
+
+        this.currentTspNearestNeighbour = new TspNearestNeighbour(graph);
         ret += this.routeStatistics(currentTspNearestNeighbour);
         return ret;
     }
@@ -145,13 +148,13 @@ public class AlgorithmController {
         String ret = "";
         long time = this.getPerformanceTime(shortestRoute);
         ret += "\n" + String.format("%-20s", shortestRoute.getClass().getSimpleName());
-        ret += String.format("%-20s", (time + " ns"));        
+        ret += String.format("%-20s", (time + " ns"));
         ret += String.format("%-20s", (shortestRoute.getLengthOfShortestRoute() + " meters"));
         ret += shortestRoute.printShortestRoute();
         return ret;
     }
-    
-     /**
+
+    /**
      * Runs the shortest route algorithm once and returns the time elapsed in
      * nanoseconds.
      *
@@ -165,13 +168,30 @@ public class AlgorithmController {
         long completedTime = System.nanoTime();
         return completedTime - startingTime;
     }
-    
+
     public int[] getCurrentTspExactRoute() {
         return currentTspExact.getShortestRoute();
     }
-    
+
     public int[] getCurrentTspNearestNeighbourRoute() {
         return currentTspNearestNeighbour.getShortestRoute();
+    }
+
+    /**
+     * Counts the edges of the given graph.
+     * @param graph The graph array.
+     * @return The number of edges in the graph.
+     */
+    private int countEdges(int[][] graph) {
+        int sum = 0;
+        for (int i = 0; i < graph.length; i++) {
+            for (int j = 0; j < graph.length; j++) {
+                if (graph[i][j] > 0) {
+                    sum++;
+                }
+            }
+        }
+        return sum;
     }
 
 }

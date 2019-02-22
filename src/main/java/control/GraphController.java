@@ -431,6 +431,11 @@ public class GraphController {
         return false;
     }
     
+    /**
+     * Finds places that include the given search word in their name or address.
+     * @param search The word to find.
+     * @return A String listing all results.
+     */
     public String findPlaces(String search) {
         String find = search.toLowerCase().trim();
         String ret = "";

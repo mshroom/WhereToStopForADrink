@@ -50,7 +50,9 @@ The performance of the algorithms can be measured by running the application. Bo
 |---|---|---|---|
 | 5/17 | 244554 ns | 150111 ns | 53405 ns |
 | 84/496 | 1792496 ns | 211254 ns | 403095 ns |
-| 2000/n.802500 | 130900416 ns | 123038295 ns | 50364073 ns |
+| 2000/802500* | 130900416 ns | 123038295 ns | 50364073 ns |
+
+* Used a randomized graph where the number of edges varied with some hundreds each time, this being the average.
 
 ## Algorithm accuracy
 

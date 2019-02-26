@@ -39,7 +39,7 @@ public class TspExact extends ShortestRoute {
             return;
         }
         for (int i = 1; i < distance.length; i ++) {
-            if ((visited[i] == 0) && (length + distance[currentNode][i] < lengthOfShortestRoute)) {
+            if ((visited[i] == 0) && (length + distance[currentNode][i] < lengthOfShortestRoute) && (distance[currentNode][i] > -1)) {
                 int[] visited2 = visited.clone();
                 int[] deque2 = route.clone();
                 visited2[i] = 1;

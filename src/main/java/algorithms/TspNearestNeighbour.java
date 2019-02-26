@@ -25,7 +25,7 @@ public class TspNearestNeighbour extends ShortestRoute {
             int nearest = Integer.MAX_VALUE;
             int next = -1;
             for (int i = 0; i < distance.length; i ++) {
-                if (visited[i] == 0 && distance[current][i] < nearest) {
+                if (visited[i] == 0 && distance[current][i] < nearest && distance[current][i] > -1) {
                     nearest = distance[current][i];
                     next = i;
                 }

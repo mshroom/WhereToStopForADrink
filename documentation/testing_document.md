@@ -34,13 +34,16 @@ The performance of the algorithms can be measured by running the application. Bo
 
 ### Route algorithms
 
-| Graph size | Tsp | TspNn |
+| Graph size | TspExact | TspNearestNeighbour |
 |---|---|---|
-| 5 | 286225 ns | 13425 ns |
-| 10 | 33708838 ns | 20221 ns |
-| 15 | 15321250008 ns | 29430 ns |
-| 20* | 5069347869 ns | 45082 ns |
-| 2000 | not possible | 57104728 ns |
+| 5 | 0.29 ms | 0.01 ms |
+| 10 | 33.71 ms | 0.02 ms |
+| 15 | 15321.25 ms | 0.03 ms |
+| 20* | 5069.35 ms | 0.05 ms |
+| 500 | not tested | 1.77 ms |
+| 1000 | not tested | 14.63 ms |
+| 1500 | not tested | 19.83 ms |
+| 2000 | not tested | 57.10 ms |
 
 ( * A simple graph where the branch-and-bound method is effective )
 

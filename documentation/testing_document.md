@@ -34,6 +34,8 @@ The performance of the algorithms can be measured by running the application. Bo
 
 ### Route algorithms
 
+As can be seen in the table and the diagrams, Tsp Exact is very slow except with very small graphs. Tsp Nearest Neighbour, on the other hand, is very fast even with big input.
+
 | Graph size (V) | Tsp Exact | Tsp Nearest Neighbour |
 |---|---|---|
 | 5 | 0.29 ms | 0.01 ms |
@@ -54,22 +56,29 @@ The performance of the algorithms can be measured by running the application. Bo
 ![Tsp Exact diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspExact.png)
 ![Tsp Nearest Neighbour diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspNearestNeighbour.png)
 
-The diagrams show only the results of the tests made with a complex graph. Tsp Exact was faster with a simple graph of 20 nodes, as can be seen in the table. All the graphs used with route algorithms were complete.
+The diagrams show only the results of the tests made with a complex graph. All the graphs used with route algorithms were complete. Tsp Exact was not tested with graphs bigger than 15 nodes, as it was too slow. An exception was a simple graph of 20 nodes, which Tsp Exact could solve quite fast. As this is a special case and not directly compareable with the other results, it is not shown in the diagram. 
 
 ### Path algorithms
 
-| Graph size (V/E) | Dijkstra | AStar | Bfs |
+The path algorithms all perform well even with big input. There are not that radical differences between the algorithms, except that Bfs begins to be faster with big graphs. A* is usually a little faster than Dijkstra, though not always.
+
+| Graph size (V/E) | Dijkstra | A* | Bfs |
 |---|---|---|---|
-| 5/17 | 244554 ns | 150111 ns | 53405 ns |
-| 84/496 | 1792496 ns | 211254 ns | 403095 ns |
-| 2000/802500* | 130900416 ns | 123038295 ns | 50364073 ns |
+| 5/17 | 0.24 ms | 0.15 ms | 0.05 ms |
+| 84/496 | 1.79 ms | 0.21 ms | 0.40 ms |
+| 500/51000* | 8.37 ms | 6.16 ms | 9.71 ms |
+| 1000/202000* | 19.22 ms | 54.35 ms | 13.45 ms |
+| 1500/452000* | 118.82 ms | 104.19 ms | 35.56 ms |
+| 2000/802500* | 130.90 ms | 123.04 ms | 50.36 ms |
 
 ( * Used a randomized graph where the number of edges varied with some hundreds each time, this being the average. )
 
+![Path algorithms performance diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/PathAlgorithms.png)
+
 ## Algorithm accuracy
 
-The algorithms should in principle always find the shortest path or route (except TspNn, which is an approximation algorithm). However, by making experiments I have noticed that this is not always the case. Because I use the Digitransit platform to get the distances between addresses, the accuracy of each distance is approximately 1 meter. Sometimes if there is a direct path from place A to place B, and place C lies somewhere in the middle, the path A -> C -> B could be 1 meter shorter than the path A -> B. This is, of course, not realistic, but this is how the API behaves.
+The algorithms should in principle always find the shortest path or route (except Tsp Nearest Neighbour, which is an approximation algorithm). However, by making experiments I have noticed that this is not always the case. Because I use the Digitransit platform to get the distances between addresses, the accuracy of each distance is approximately 1 meter. Sometimes if there is a direct path from place A to place B, and place C lies somewhere in the middle, the path A -> C -> B could be 1 meter shorter than the path A -> B. This is, of course, not realistic, but this is how the API behaves.
 
-Because of this inaccuracy, the Bfs algorithm sometimes finds a path that goes directly from place A to place B, while Dijkstra and AStar find a path that goes from place A via place C to place B. The path found by Bfs is shorter in reality, but the API and therefore my application believes it to be 1 meter longer than the path found by Dijkstra and AStar.
+Because of this inaccuracy, Bfs sometimes finds a path that goes directly from place A to place B, while Dijkstra and AStar find a path that goes from place A via place C to place B. The path found by Bfs is shorter in reality, but the API and therefore my application believes it to be 1 meter longer than the path found by Dijkstra and AStar.
 
 For the same reason AStar sometimes finds a path that is 1 meter longer than the path found by Dijkstra. AStar uses Digitransit's distances as distance estimates between places. In the case where there is a path A -> C -> B that is shorter than the direct path A -> B, AStar still uses the A -> B as an estimate. Because the estimate could be longer than the actual shortest path, the algorithm does not in these cases always find the shortest path.

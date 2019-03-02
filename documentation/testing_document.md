@@ -34,7 +34,7 @@ The performance of the algorithms can be measured by running the application. Bo
 
 ### Route algorithms
 
-| Graph size | TspExact | TspNearestNeighbour |
+| Graph size (V) | Tsp Exact | Tsp Nearest Neighbour |
 |---|---|---|
 | 5 | 0.29 ms | 0.01 ms |
 | 10 | 33.71 ms | 0.02 ms |
@@ -50,6 +50,11 @@ The performance of the algorithms can be measured by running the application. Bo
 | 2000 | not tested | 57.10 ms |
 
 ( * A simple graph where the branch-and-bound method is effective )
+
+![Tsp Exact diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspExact.png)
+![Tsp Nearest Neighbour diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspNearestNeighbour.png)
+
+The diagrams show only the results of the tests made with a complex graph. Tsp Exact was faster with a simple graph of 20 nodes, as can be seen in the table. All the graphs used with route algorithms were complete.
 
 ### Path algorithms
 

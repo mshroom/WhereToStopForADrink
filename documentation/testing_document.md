@@ -38,6 +38,10 @@ The performance of the algorithms can be measured by running the application. Bo
 |---|---|---|
 | 5 | 0.29 ms | 0.01 ms |
 | 10 | 33.71 ms | 0.02 ms |
+| 11 | 222.03 ms | 0.02 ms |
+| 12 | 3866.77 ms | 0.02 ms |
+| 13 | 5386.09 ms | 0.03 ms |
+| 14 | 8730.24 ms | 0.03 ms |
 | 15 | 15321.25 ms | 0.03 ms |
 | 20* | 5069.35 ms | 0.05 ms |
 | 500 | not tested | 1.77 ms |

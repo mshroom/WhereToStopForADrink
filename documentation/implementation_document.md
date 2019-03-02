@@ -21,7 +21,19 @@ The control classes and the ui use the services of the _**io**_ package, either 
   
 ## Performance
   
-TODO compare and analyze performance of algorithms
+The time and space complexities of the algorithms are described in the [Project definition document](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/project_definition.md). Below is a table summarizing the complexities for each algorithm.
+
+| Algorithm | Time complexity | Space complexity |
+|---|---|---|
+| Tsp Exact | O(V!) | O(V²) |
+| Tsp Nearest Neighbour | O(V²) | O(V) |
+| Dijkstra | O((V + E) log V) | O(V) |
+| A* | O((V + E) log V) | O(V) |
+| Bfs | O((V + E) |  O(V) |
+
+### Shortest route algorithms 
+
+The actual performance of Tsp Exact is very slow, like the time complexity suggests. With graph sizes 11-15, the time required to run the algorithm almost doubles when the graph size is increased by 1. The time complexity O(V!) suggests that the time would not only double but grow exponentially. If the algorithm could be tested with bigger input, it would therefore be expected that the performance would get exponentially slower.
   
 ## Possible improvements
   

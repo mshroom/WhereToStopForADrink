@@ -35,6 +35,8 @@ The time and space complexities of the algorithms are described in the [Project 
 
 [The actual performance](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/testing_document.md#route-algorithms) of Tsp Exact declines fast when a bigger graph is used - just like the time complexity suggests. With graph sizes 11-15, the time required to run the algorithm almost doubles when the graph size is increased by 1. The time complexity O(V!) suggests that the time would not only double but grow exponentially. If the algorithm could be tested with bigger input, it would therefore be expected that the performance would decline even more dramatically than with these small test graphs.
 
+The tests also show that the complexity of the graph has a great impact on the performance of Tsp Exact: With a simple graph of 20 nodes the algorithm is much faster than with a complex graph of 15 nodes. If the shortest path is very straightforward, the branch-and-bound method can discard many branches effectively and thus find the path without going through all the possible permutations.
+
 
   
 ## Possible improvements

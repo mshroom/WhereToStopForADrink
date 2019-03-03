@@ -33,11 +33,19 @@ The time and space complexities of the algorithms are described in the [Project 
 
 ### Shortest route algorithms 
 
-[The actual performance](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/testing_document.md#route-algorithms) of Tsp Exact declines fast when a bigger graph is used - just like the time complexity suggests. With graph sizes 11-15, the time required to run the algorithm almost doubles when the graph size is increased by 1. The time complexity O(V!) suggests that the time would not only double but grow factorially. If the algorithm could be tested with bigger input, it would therefore be expected that the performance would decline even more dramatically than with these small test graphs.
+[The actual performance](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/testing_document.md#route-algorithms) of Tsp Exact declines fast when a bigger graph is used - just like the time complexity suggests. With graph sizes 11-15, the time required to run the algorithm approximately doubles when the graph size is increased by 1. The time complexity O(V!) suggests that the time would not only double but grow factorially. If the algorithm could be tested with bigger input, it would therefore be expected that the performance would decline even more dramatically than with these small test graphs.
 
 The tests also show that the complexity of the graph has a great impact on the performance of Tsp Exact: With a simple graph of 20 nodes the algorithm is much faster than with a complex graph of 15 nodes. If the shortest path is very straightforward, the branch-and-bound method can discard many branches effectively and thus find the path without going through all the possible permutations.
 
-Tsp Nearest Neighbour is much faster: even with a graph of 2000 nodes it runs less than 1/10 seconds. On the other hand, the algorithm is not very clever and rarely finds the shortest route, unlike Tsp Exact which always finds the shortest route.
+Tsp Nearest Neighbour is much faster: even with a graph of 2000 nodes it runs less than 1/10 seconds. On the other hand, the algorithm is not very clever. With simple graphs and graphs of less than 5 nodes it usually finds the shortest route, but with complex graphs of 12 or more nodes it is already very unlikely. With bigger graphs, the difference in the length of the optimal route and the route found by Tsp Nearest Neighbour also tends to get bigger. Thus the accuracy of Tsp Nearest Neighbour is poor when compared to Tsp Exact, which always finds the optimal route.
+
+### Shortest path algorithms
+
+There are not that radical differences between [the performace of the path algorithms](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/testing_document.md#path-algorithms). As suggested by the time complexity, Bfs is  the fastest of the three. As can be seen in the diagram behind the link above, the time required by Bfs grows almost in a linear way, when the graph gets bigger. The time required by A* or Dijkstra grows faster, but not nearly as steeply as was the case with Tsp Exact.
+
+Dijkstra and A* both perform very similarly. With 6 different graphs, 5 graphs were solved in average faster by A* than by Dijkstra. Thus, it looks like the heuristics of A* are making it more effective than Dijkstra. However, with my test graphs the differences are so small (less than 50 milliseconds) that no big conclusions can be made.
+
+Even though Bfs, Dijkstra and A* all find the shortest path in the normal case, there are some exceptions caused by faults or incoherence in the graph data. These are discussed in the [testing document](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/testing_document.md#algorithm-accuracy).
   
 ## Possible improvements
   

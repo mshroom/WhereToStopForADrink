@@ -49,7 +49,9 @@ Even though Bfs, Dijkstra and A* all find the shortest path in the normal case, 
   
 ## Possible improvements
   
-TODO
+More algorithms could be added to the application. Especially another route algorithm would be useful, as Tsp Exact is impossible to use with bigger graphs, and Tsp Nearest Neighbour is in some ways too simple. A more intelligent approximation algorithm could probably be created, and anyway it would be more interesting to make comparisons if there was one more algorithm. One idea, which I had no time to implement, is to start creating the route with those nodes that are furthest away from all other nodes, trying to connect them to others with as short edges as possible.
+
+The application itself would be more user friendly and useful if there was an interface to show the places on a map. It would also be useful to have a web app or a mobile app so that paths and routes could be found on the road. A mobile app would make it possible to set the home address according to the location of the mobile phone, not needing to give the address.
   
 ## Sources
   

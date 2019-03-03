@@ -52,6 +52,7 @@ As can be seen in the table and the diagrams, Tsp Exact is very slow except with
 | 2000 | not tested | 23.53 ms | - | - |
 
 ( * A simple graph where the branch-and-bound method is effective )
+
 ( ** A couple of times the test was interrupted after waiting more than 2 minutes )
 
 ![Tsp Exact diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspExact.png)

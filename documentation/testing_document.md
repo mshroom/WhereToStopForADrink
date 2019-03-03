@@ -34,24 +34,25 @@ The performance of the algorithms can be measured by running the application. Bo
 
 ### Route algorithms
 
-As can be seen in the table and the diagrams, Tsp Exact is very slow except with very small graphs. Tsp Nearest Neighbour, on the other hand, is very fast even with big input.
+As can be seen in the table and the diagrams, Tsp Exact is very slow except with very small graphs. Tsp Nearest Neighbour, on the other hand, is very fast even with big input. Yet the accuracy of Tsp Nearest Neighbour tends to get worse when the graph size grows.
 
-| Graph size (V) | Tsp Exact | Tsp Nearest Neighbour |
-|---|---|---|
-| 5 | 0.29 ms | 0.01 ms |
-| 10 | 33.71 ms | 0.02 ms |
-| 11 | 222.03 ms | 0.02 ms |
-| 12 | 3866.77 ms | 0.02 ms |
-| 13 | 5386.09 ms | 0.03 ms |
-| 14 | 8730.24 ms | 0.03 ms |
-| 15 | 15321.25 ms | 0.03 ms |
-| 20* | 5069.35 ms | 0.05 ms |
-| 500 | not tested | 1.77 ms |
-| 1000 | not tested | 14.63 ms |
-| 1500 | not tested | 19.83 ms |
-| 2000 | not tested | 23.53 ms |
+| Graph size (V) | Tsp Exact | Tsp Nearest Neighbour | Tsp NN found the shortest route (% of all cases)  | Average difference in route length |
+|---|---|---|---|---|
+| 5 | 0.29 ms | 0.01 ms | 50 % | 2,0 % |
+| 10 | 33.71 ms | 0.02 ms | 10 % | 10,5 % |
+| 11 | 222.03 ms | 0.02 ms | 20 % | 9,3 % |
+| 12 | 3866.77 ms | 0.02 ms | 0 % | 7,7 % |
+| 13 | 5386.09 ms | 0.03 ms | 0 % | 13,2 % |
+| 14 | 8730.24 ms | 0.03 ms | 0 % | 12,9 % |
+| 15 | 25321.25 ms** | 0.03 ms | 0 % | 14,4 % |
+| 20* | 5069.35 ms | 0.05 ms | 100 % | 0 % |
+| 500 | not tested | 1.77 ms | - | - |
+| 1000 | not tested | 14.63 ms | - | - |
+| 1500 | not tested | 19.83 ms | - | - |
+| 2000 | not tested | 23.53 ms | - | - |
 
 ( * A simple graph where the branch-and-bound method is effective )
+( ** A couple of times the test was interrupted after waiting more than 2 minutes )
 
 ![Tsp Exact diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspExact.png)
 ![Tsp Nearest Neighbour diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspNearestNeighbour.png)

@@ -49,7 +49,7 @@ As can be seen in the table and the diagrams, Tsp Exact is very slow except with
 | 500 | not tested | 1.77 ms |
 | 1000 | not tested | 14.63 ms |
 | 1500 | not tested | 19.83 ms |
-| 2000 | not tested | 57.10 ms |
+| 2000 | not tested | 23.53 ms |
 
 ( * A simple graph where the branch-and-bound method is effective )
 

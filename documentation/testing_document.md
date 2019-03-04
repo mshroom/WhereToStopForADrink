@@ -8,11 +8,11 @@
 
 [![codecov](https://codecov.io/gh/mshroom/WhereToStopForADrink/branch/master/graph/badge.svg)](https://codecov.io/gh/mshroom/WhereToStopForADrink)
 
-## Unit tests
+## Automatic tests
 
-Unit test coverage for the project is good. The UI class has the worst coverage but even there the tests include the most crucial parts of the code. The focus there is mainly to check that the UI calls the methods of other classes in correct situations and with correct parameters. The textual output of the console ui is of less significance.
+JUnit tests are used to test the application automatically. Test coverage for the project is good. The UI class has the worst coverage but even there the tests include the most crucial parts of the code. The focus there is mainly to check that the UI calls the methods of other classes in correct situations and with correct parameters. The textual output of the console ui is of less significance.
 
-Some classes have been excluded from the test coverage reports. The classes in the web package, for example, are not very suitable for Unit testing because they require web connection and the responses to the http requests might vary from time to time, depending on the server. The io classes and the GraphStore class that only creates graphs for testing purposes, are also excluded.
+Some classes have been excluded from the test coverage reports. The classes in the web package, for example, are not very suitable for JUnit testing because they require web connection and the responses to the http requests might vary from time to time, depending on the server. The io classes and the GraphStore class that only creates graphs for testing purposes, are also excluded.
 
 ## Manual tests
 
@@ -30,7 +30,7 @@ User interface has been tested not just with automatic tests, but also by manual
 
 ## Performance
 
-The performance of the algorithms can be measured by running the application. Both shortest route algorithms and shortest path algorithms can be compared with various sizes of graphs. Below are the results of tests that have been run 10 times each to get the average speed.
+The performance of the algorithms can be measured by running the application. Both shortest route algorithms and shortest path algorithms can be compared with various sizes of graphs. Below are the results of tests that have been run 10 times each to get the average speed. Graphs were created either from real data (using the addresses of 84 bars as an example) or, in case of bigger graphs, by generating graphs with random distances.
 
 ### Route algorithms
 
@@ -53,7 +53,7 @@ As can be seen in the table and the diagrams, Tsp Exact is very slow except with
 
 ( * A simple graph where the branch-and-bound method is effective )
 
-( ** A couple of times the test was interrupted after waiting more than 2 minutes )
+( ** A couple of times the test was interrupted after waiting more than 5 minutes. These tests are excluded from the average time, as it was unclear whether this was because the algorithm was just slow or because there were some faults in the graph data (see algorithm accuracy section below) )
 
 ![Tsp Exact diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspExact.png)
 ![Tsp Nearest Neighbour diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspNearestNeighbour.png)
@@ -84,3 +84,5 @@ The algorithms should in principle always find the shortest path or route (excep
 Because of this inaccuracy, Bfs sometimes finds a path that goes directly from place A to place B, while Dijkstra and A* find a path that goes from place A via place C to place B. The path found by Bfs is shorter in reality, but the API and therefore my application believes it to be 1 meter longer than the path found by Dijkstra and A*.
 
 For the same reason A* sometimes finds a path that is 1 meter longer than the path found by Dijkstra. A* uses Digitransit's distances as distance estimates between places. In the case where there is a path A -> C -> B that is shorter than the direct path A -> B, A* still uses the A -> B as an estimate. Because the estimate could be longer than the actual shortest path, the algorithm does not in these cases always find the shortest path.
+
+Tsp Exact, too, seems to be affected by this incoherence in graph data. Using real data with route algorithms causes problems, because the graph might not be complete if all distances are not found. This might be the reason why the algorithm sometimes gets slower or even stuck.

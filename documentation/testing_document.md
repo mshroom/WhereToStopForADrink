@@ -30,7 +30,7 @@ User interface has been tested not just with automatic tests, but also by manual
 
 ## Performance
 
-The performance of the algorithms can be measured by running the application. Both shortest route algorithms and shortest path algorithms can be compared with various sizes of graphs. Below are the results of tests that have been run 10 times each to get the average speed. Graphs were created either from real data (using the addresses of 84 bars as an example) or, in case of bigger graphs, by generating graphs with random distances.
+The performance of the algorithms can be measured by running the application. Both shortest route algorithms and shortest path algorithms can be compared with various sizes of graphs. Below are the results of tests that have been run 10 times each to get the average speed. Graphs were created either from real data (using the addresses of 84 bars as an example) or, in case of bigger graphs, by generating graphs with random distances. Complete graphs were used with route algorithms and incomplete graphs with path algorithms.
 
 ### Route algorithms
 
@@ -58,7 +58,7 @@ As can be seen in the table and the diagrams, Tsp Exact is very slow except with
 ![Tsp Exact diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspExact.png)
 ![Tsp Nearest Neighbour diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspNearestNeighbour.png)
 
-The diagrams show only the results of the tests made with a complex graph. All the graphs used with route algorithms were complete. Tsp Exact was not tested with graphs bigger than 15 nodes, as it was too slow. An exception was a simple graph of 20 nodes, which Tsp Exact could solve quite fast. As this is a special case and not directly compareable with the other results, it is not shown in the diagram. 
+The diagrams show only the results of the tests made with a complex graph. Tsp Exact was not tested with graphs bigger than 15 nodes, as it was too slow. An exception was a simple graph of 20 nodes, which Tsp Exact could solve quite fast. As this is a special case and not directly compareable with the other results, it is not shown in the diagram. 
 
 ### Path algorithms
 

@@ -63,7 +63,7 @@ public class BfsTest {
     
     @Test
     public void bfsFindsPathEvenWithBigRandomInput() throws Throwable {
-        this.bfsBigRandom = new Bfs(graphs.createBigRandomGraphForPathfinding());
+        this.bfsBigRandom = new Bfs(graphs.createRandomGraphForPathfinding(2000));
         this.bfsBigRandom.calculateShortestPath();
         assertTrue(bfsBigRandom.pathWasFound(1999));
     }

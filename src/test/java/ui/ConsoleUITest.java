@@ -66,8 +66,9 @@ public class ConsoleUITest {
     }
 
     @Test
-    public void commandSmallInPathMenuComparesAlgorithmsWithSmallTestGraph() throws Throwable {
+    public void commandSimpleSmallInPathMenuComparesAlgorithmsWithSmallTestGraph() throws Throwable {
         inputs.add("path");
+        inputs.add("simple");
         inputs.add("small");
         inputs.add("3");
         inputs.add("quit");
@@ -75,21 +76,34 @@ public class ConsoleUITest {
         verify(algo, times(1)).compareShortestPathAlgorithms(any(int[][].class), eq(3), any(int[].class));
         verify(store, times(1)).createSmallGraphForPathfinding2();
     }
+    
+    @Test
+    public void commandSimpleBigInPathMenuComparesAlgorithmsWithBigTestGraph() throws Throwable {
+        inputs.add("path");
+        inputs.add("simple");
+        inputs.add("big");
+        inputs.add("99");
+        inputs.add("quit");
+        createUi();
+        verify(algo, times(1)).compareShortestPathAlgorithms(any(int[][].class), eq(99), any(int[].class));
+        verify(store, times(1)).createBigSimpleGraphForPathfinding();
+    }
 
     @Test
-    public void commandBigInPathMenuComparesAlgorithmsWithBigTestGraph() throws Throwable {
+    public void commandRandomInPathMenuComparesAlgorithmsWithRandomTestGraph() throws Throwable {
         inputs.add("path");
-        inputs.add("big");
-        inputs.add("1999");
+        inputs.add("random");
+        inputs.add("2000");
         inputs.add("quit");
         createUi();
         verify(algo, times(1)).compareShortestPathAlgorithms(any(int[][].class), eq(1999), any(int[].class));
-        verify(store, times(1)).createBigRandomGraphForPathfinding();
+        verify(store, times(1)).createRandomGraphForPathfinding(eq(2000));
     }
     
     @Test
-    public void commandSmallInPathMenuRequiresValidIndex() throws Throwable {
+    public void commandSimpleSmallInPathMenuRequiresValidIndex() throws Throwable {
         inputs.add("path");
+        inputs.add("simple");
         inputs.add("small");
         inputs.add("100");
         inputs.add("quit");
@@ -100,8 +114,9 @@ public class ConsoleUITest {
     }
     
     @Test
-    public void commandBigInPathMenuRequiresValidIndex() throws Throwable {
+    public void commandSimpleBigInPathMenuRequiresValidIndex() throws Throwable {
         inputs.add("path");
+        inputs.add("simple");
         inputs.add("big");
         inputs.add("-1");
         inputs.add("quit");
@@ -112,8 +127,9 @@ public class ConsoleUITest {
     }
     
     @Test
-    public void commandSmallInRouteMenuComparesAlgorithmsWithSmallTestGraph() throws Throwable {
+    public void commandSimpleSmallInRouteMenuComparesAlgorithmsWithSmallTestGraph() throws Throwable {
         inputs.add("route");
+        inputs.add("simple");
         inputs.add("small");
         inputs.add("3");
         inputs.add("quit");
@@ -123,10 +139,10 @@ public class ConsoleUITest {
     }
     
     @Test
-    public void commandBigSimpleInRouteMenuComparesAlgorithmsWithBigSimpleTestGraph() throws Throwable {
+    public void commandSimpleBigInRouteMenuComparesAlgorithmsWithBigSimpleTestGraph() throws Throwable {
         inputs.add("route");
-        inputs.add("big");
         inputs.add("simple");
+        inputs.add("big");
         inputs.add("10");
         inputs.add("quit");
         createUi();
@@ -135,15 +151,25 @@ public class ConsoleUITest {
     }
     
     @Test
-    public void commandBigRandomInRouteMenuComparesOnlyApproximationAlgorithmsWithBigRandomTestGraph() throws Throwable {
+    public void commandRandomInRouteMenuComparesBothAlgorithmsIfSizeIsSmall() throws Throwable {
         inputs.add("route");
-        inputs.add("big");
         inputs.add("random");
         inputs.add("10");
         inputs.add("quit");
         createUi();
+        verify(algo, times(1)).compareShortestRouteAlgorithms(any(int[][].class), eq(true));
+        verify(store, times(1)).createRandomCompleteGraph(eq(10));
+    }
+    
+    @Test
+    public void commandRandomInRouteMenuComparesOnlyApproximationAlgorithmsIfSizeIsBig() throws Throwable {
+        inputs.add("route");
+        inputs.add("random");
+        inputs.add("20");
+        inputs.add("quit");
+        createUi();
         verify(algo, times(1)).compareShortestRouteAlgorithms(any(int[][].class), eq(false));
-        verify(store, times(1)).createBigRandomCompleteGraph();
+        verify(store, times(1)).createRandomCompleteGraph(eq(20));
     }
     
     @Test
@@ -394,11 +420,12 @@ public class ConsoleUITest {
 
     private void setValuesForMocks() {
         when(store.createSmallGraphForPathfinding2()).thenReturn(new int[1][1]);
-        when(store.createBigRandomGraphForPathfinding()).thenReturn(new int[1][1]);
-        when(store.createFakeDistancesForAStarGraph(any(int[][].class), anyInt())).thenReturn(new int[1]);
+        when(store.createBigSimpleGraphForPathfinding()).thenReturn(new int[1][1]);        
+        when(store.createRandomGraphForPathfinding(anyInt())).thenReturn(new int[1][1]);
+        when(store.createFakeDistancesForAStarGraph(any(int[][].class), anyInt())).thenReturn(new int[1]).thenReturn(new int[1]);
         when(store.createSmallCompleteGraph()).thenReturn(new int[1][1]);
         when(store.createBigCompleteGraph()).thenReturn(new int[1][1]);
-        when(store.createBigRandomCompleteGraph()).thenReturn(new int[1][1]);
+        when(store.createRandomCompleteGraph(anyInt())).thenReturn(new int[1][1]);
         when(graphs.getSizeOfCurrentGraph()).thenReturn(20);
         when(graphs.getSmallerGraph(anyInt())).thenReturn(new int[1][1]);   
         when(graphs.getReducedGraph(anyInt())).thenReturn(new int[1][1]);

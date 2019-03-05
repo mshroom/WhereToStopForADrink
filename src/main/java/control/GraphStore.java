@@ -71,15 +71,15 @@ public class GraphStore {
     }
 
     /**
-     * Creates a big graph for pathfinding algorithms, where the shortest path.
-     *
+     * Creates a random graph for pathfinding algorithms.
+     *@param size The size of the graph (number of nodes).
      * @return Graph in the form of a two-dimensional array.
      */
-    public int[][] createBigRandomGraphForPathfinding() {
+    public int[][] createRandomGraphForPathfinding(int size) {
         Random random = new Random();
-        int[][] graph = new int[2000][2000];
-        for (int i = 0; i < 2000; i++) {
-            for (int j = 0; j < 2000; j++) {
+        int[][] graph = new int[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 if (i != j) {
                     if (graph[j][i] != 0) {
                         graph[i][j] = graph[j][i];
@@ -186,15 +186,14 @@ public class GraphStore {
     }
 
     /**
-     * Creates a big random complete graph for travelling salesman algorithms.
-     * Can be used only with approximation algorithms, way too big for exact algorithms.
+     * Creates a random complete graph for travelling salesman algorithms.
      * @return Graph in the form of a two-dimensional array.
      */
-    public int[][] createBigRandomCompleteGraph() {
+    public int[][] createRandomCompleteGraph(int size) {
         Random random = new Random();
-        int[][] graph = new int[2000][2000];
-        for (int i = 0; i < 2000; i++) {
-            for (int j = 0; j < 2000; j++) {
+        int[][] graph = new int[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 if (i != j) {
                     if (graph[j][i] != 0) {
                         graph[i][j] = graph[j][i];

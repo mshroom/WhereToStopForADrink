@@ -62,7 +62,7 @@ public class DijkstraTest {
     
     @Test
     public void dijkstraFindsPathEvenWithBigRandomInput() {
-        this.dijkstraBigRandom = new Dijkstra(graphs.createBigRandomGraphForPathfinding());
+        this.dijkstraBigRandom = new Dijkstra(graphs.createRandomGraphForPathfinding(2000));
         this.dijkstraBigRandom.calculateShortestPath();
         assertTrue(dijkstraBigRandom.pathWasFound(1999));
         assertTrue(dijkstraBigRandom.getDistanceTo(1999) <= 18000);

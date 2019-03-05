@@ -32,7 +32,7 @@ public class ConsoleUI {
         this.testGraphs = new GraphStore();
         this.customGraphIsSet = false;
     }
-    
+
     public ConsoleUI(IO io, AlgorithmController algo, GraphController graphs, GraphStore testGraphs) {
         this.io = io;
         this.algo = algo;
@@ -79,7 +79,7 @@ public class ConsoleUI {
             }
         }
     }
-    
+
     private void printMenuInstructions() {
         this.io.printLine("\nThis is the main menu. What would you like to do?\n");
         this.io.printLine("path = Compare shortest path algorithms");
@@ -101,10 +101,10 @@ public class ConsoleUI {
                 return true;
             } else if (command.equals("quit")) {
                 return false;
-            } else if (command.equals("small")) {
-                this.comparePathAlgorithmsWithSmallTestGraph();
-            } else if (command.equals("big")) {
-                this.comparePathAlgorithmsWithBigTestGraph();
+            } else if (command.equals("simple")) {
+                this.comparePathAlgorithmsWithSimpleTestGraphs();
+            } else if (command.equals("random")) {
+                this.comparePathAlgorithmsWithRandomTestGraph();
             } else if (command.equals("custom")) {
                 this.comparePathAlgorithmsWithCustomGraph();
             } else if (command.equals("find")) {
@@ -118,8 +118,8 @@ public class ConsoleUI {
 
     private void printPathInstructions() {
         this.io.printLine("\nCompare shortest path algorithms\n");
-        this.io.printLine("small = Compare algorithms with a small test graph");
-        this.io.printLine("big = Compare algorithms with a big test graph");
+        this.io.printLine("simple = Compare algorithms with simple test graphs");
+        this.io.printLine("random = Compare algorithms with a random test graph");
         this.io.printLine("custom = Compare algorithms with an imported graph");
         this.io.printLine("find = Find a path to a specific place in custom graph");
         this.io.printLine("back = Go back to main menu");
@@ -139,10 +139,10 @@ public class ConsoleUI {
                 return true;
             } else if (command.equals("quit")) {
                 return false;
-            } else if (command.equals("small")) {
-                this.compareRouteAlgorithmsWithSmallTestGraph();
-            } else if (command.equals("big")) {
-                this.compareRouteAlgorithmsWithBigTestGraph();
+            } else if (command.equals("random")) {
+                this.compareRouteAlgorithmsWithRandomTestGraph();
+            } else if (command.equals("simple")) {
+                this.compareRouteAlgorithmsWithSimpleTestGraph();
             } else if (command.equals("custom")) {
                 this.compareRouteAlgorithmsWithCustomGraph();
             } else {
@@ -154,8 +154,8 @@ public class ConsoleUI {
 
     private void printRouteInstructions() {
         this.io.printLine("\nCompare shortest route algorithms\n");
-        this.io.printLine("small = Compare algorithms with a small test graph");
-        this.io.printLine("big = Compare algorithms with a big test graph");
+        this.io.printLine("simple = Compare algorithms with simple test graphs");
+        this.io.printLine("random = Compare algorithms with a randomized test graph");
         this.io.printLine("custom = Compare algorithms with an imported graph");
         this.io.printLine("back = Go back to main menu");
         this.io.printLine("quit = Quit the application");
@@ -202,66 +202,92 @@ public class ConsoleUI {
         this.io.printLine("quit = Quit the application");
     }
 
-    private void comparePathAlgorithmsWithSmallTestGraph() {
-        int node = this.io.readInt("Choose the index of the node (1-4)");
-        if (node < 1 || node > 4) {
+    private void comparePathAlgorithmsWithSimpleTestGraphs() {
+        int[][] graphToTest = new int[1][1];
+        int maxIndex = 0;
+        while (true) {
+            String which = this.io.readLine("small = Use a small test graph\n"
+                    + "big = Use a big test graph");
+            if (which.equals("small")) {
+                graphToTest = testGraphs.createSmallGraphForPathfinding2();
+                maxIndex = 4;                
+            } else if (which.equals("big")) {
+                graphToTest = testGraphs.createBigSimpleGraphForPathfinding();
+                maxIndex = 99;
+            } else {
+                this.io.printLine("Invalid command.\n");
+                continue;
+            }
+            int node = this.io.readInt("Choose the index of the node (1-" + maxIndex + ")");
+            if (node < 1 || node > maxIndex) {
+                this.io.printLine("Not a valid index.");
+                return;
+            }
+            try {                
+                this.io.printLine(algo.compareShortestPathAlgorithms(graphToTest, node, testGraphs.createFakeDistancesForAStarGraph(graphToTest, node)));
+            } catch (Throwable ex) {
+                this.io.printLine("There was an error somewhere.");
+            }
+            break;
+        }
+
+    }
+
+    private void comparePathAlgorithmsWithRandomTestGraph() {
+        int size = this.io.readInt("Choose the size of the graph");
+        if (size < 1) {
             this.io.printLine("Not a valid index.");
             return;
         }
         try {
-            int[][] smallGraph = testGraphs.createSmallGraphForPathfinding2();
-            this.io.printLine(algo.compareShortestPathAlgorithms(smallGraph, node, testGraphs.createFakeDistancesForAStarGraph(smallGraph, node)));
+            int[][] bigGraph = testGraphs.createRandomGraphForPathfinding(size);
+            this.io.printLine(algo.compareShortestPathAlgorithms(bigGraph, size - 1, new int[size]));
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
         }
     }
 
-    private void comparePathAlgorithmsWithBigTestGraph() {
-        int node = this.io.readInt("Choose the index of the node (1-1999)");
-        if (node < 1 || node > 1999) {
-            this.io.printLine("Not a valid index.");
+    private void compareRouteAlgorithmsWithRandomTestGraph() {
+        int size = this.io.readInt("Give the graph size.\nWith more than 17 nodes only the approximation algorithm will be used.");
+        if (size < 2) {
+            this.io.printLine("Invalid size.");
             return;
         }
+        boolean all = false;
+        if (size <= 17) {
+            all = true;
+        }
         try {
-            int[][] bigGraph = testGraphs.createBigRandomGraphForPathfinding();
-            this.io.printLine(algo.compareShortestPathAlgorithms(bigGraph, node, new int[2000]));
+            this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createRandomCompleteGraph(size), all));
         } catch (Throwable ex) {
             this.io.printLine("There was an error somewhere.");
         }
     }
 
-    private void compareRouteAlgorithmsWithSmallTestGraph() {
-        try {
-            this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createSmallCompleteGraph(), true));
-        } catch (Throwable ex) {
-            this.io.printLine("There was an error somewhere.");
-        }
-    }
-
-    private void compareRouteAlgorithmsWithBigTestGraph() {
+    private void compareRouteAlgorithmsWithSimpleTestGraph() {
         boolean all = false;
         while (true) {
             String command = this.io.readLine("Choose a graph:\n"
-                    + "simple = Use simple graph (suitable for both algorithms)"
-                    + "\nrandom = a big random graph (suitable only for TspNearestNeighbour)");
-            if (command.equals("simple")) {
-                all = true;
+                    + "small = a small simple graph"
+                    + "\nbig = a big simple graph");
+            if (command.equals("small")) {
+                try {
+                    this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createSmallCompleteGraph(), true));
+                } catch (Throwable ex) {
+                    this.io.printLine("There was an error somewhere.");
+                }
                 break;
-            } else if (command.equals("random")) {
-                all = false;
+            } else if (command.equals("big")) {
+                try {
+                    this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createBigCompleteGraph(), true));
+
+                } catch (Throwable ex) {
+                    this.io.printLine("There was an error somewhere.");
+                }
                 break;
             } else {
                 this.io.printLine("Not a valid command.");
             }
-        }
-        try {
-            if (all) {
-                this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createBigCompleteGraph(), true));
-            } else {
-                this.io.printLine(algo.compareShortestRouteAlgorithms(testGraphs.createBigRandomCompleteGraph(), false));
-            }
-        } catch (Throwable ex) {
-            this.io.printLine("There was an error somewhere.");
         }
     }
 

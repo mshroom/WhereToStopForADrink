@@ -93,7 +93,7 @@ public class AStarTest {
     }
 
     private void createBigRandomGraph() {
-        int[][] graph = graphs.createBigRandomGraphForPathfinding();
+        int[][] graph = graphs.createRandomGraphForPathfinding(2000);
         int[] distances = new int[graph.length];
         this.aStarBigRandom = new AStar(graph, distances, 1999);
     }

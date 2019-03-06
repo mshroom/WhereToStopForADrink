@@ -87,7 +87,7 @@ The simple test graphs have one unambiguous shortest route that is quite easy to
 
 ### Path algorithms
 
-The path algorithms all perform well even with big input. There are not that radical differences between the algorithms, except that Bfs begins to be faster with big graphs. A* is usually a little faster than Dijkstra, though not always.
+The path algorithms all perform well even with big input. There were no noticeable differences in the performance when using real data or random graphs. In the table below, the first two rows show the average speed when using real data, but a check was made later that the results are much the same with random graphs. The rest of the rows show bigger graphs which were generated randomly.
 
 | Graph size (V/E) | Dijkstra | A* | Bfs |
 |---|---|---|---|
@@ -98,9 +98,11 @@ The path algorithms all perform well even with big input. There are not that rad
 | 1500/452000* | 118.82 ms | 104.19 ms | 35.56 ms |
 | 2000/802500* | 130.90 ms | 123.04 ms | 50.36 ms |
 
-( * Used a randomized graph where the number of edges varied with some hundreds each time, this being the average. )
+( * In the randomized graph, the number of edges varied with some hundreds each time, this being the average. )
 
 ![Path algorithms performance diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/PathAlgorithms.png)
+
+There are not that radical differences between the algorithms, except that Bfs begins to be faster with big graphs. A* is usually a little faster than Dijkstra, though not always.
 
 ## Algorithm accuracy
 

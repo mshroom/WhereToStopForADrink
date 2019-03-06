@@ -30,21 +30,9 @@ User interface has been tested not just with automatic tests, but also by manual
 
 ## Performance
 
-The performance of the algorithms can be measured by running the application. Both shortest route algorithms and shortest path algorithms can be compared with various sizes of graphs. Below are the results of tests that have been run 10 times each to get the average speed. Graphs were created either from real data (using the addresses of 84 bars as an example) or, in case of bigger graphs, by generating graphs with random distances. Complete graphs were used with route algorithms and incomplete graphs with path algorithms.
+The performance of the algorithms can be measured by running the application. Both shortest route algorithms and shortest path algorithms can be compared with various sizes of graphs. Below are the results of tests that have been run 10 times each to get the average speed. Graphs were created either from real data (using the addresses of 84 bars as an example) or by generating graphs with random distances. Complete graphs were used with route algorithms and incomplete graphs with path algorithms.
 
 ### Route algorithms
-
-As can be seen in the table and the diagrams, Tsp Exact is very slow except with very small graphs. Tsp Nearest Neighbour, on the other hand, is very fast even with big input. Yet the accuracy of Tsp Nearest Neighbour tends to get worse when the graph size grows.
-
-#### Tests made with simple test graphs
-
-| Graph size (V) | Tsp Exact | Tsp Nearest Neighbour | Tsp NN found the shortest route (% of all cases)  | Average difference in route length |
-|---|---|---|---|---|
-| 5 | 0.11 ms | 0.00 ms | 100 % | 0 % |
-| 20 | 5069.35 ms | 0.05 ms | 100 % | 0 % |
-
-The test graph with 20 nodes is simple graph where the branch-and-bound method is effective. That is why even Tsp Exact is 
-quite fast.
 
 ### Tests made with random test graphs
 
@@ -54,13 +42,19 @@ quite fast.
 | 10 | 38.17 ms | 0.02 ms | 10 % | 22,8 % |
 | 11 | 32.08 ms | 0.02 ms | 0 % | 26,15 % |
 | 12 | 52.78 ms | 0.03 ms | 10 % | 22.3 % |
-| 13 | 239.30 ms | 0.03 ms |  |  |
-| 14 | 902.02 ms | 0.03 ms | 0 % |  |
-| 15 | 2991.65 ms | 0.03 ms | 0 % |  |
+| 13 | 239.30 ms | 0.03 ms | 20 % | 29,14 % |
+| 14 | 902.02 ms | 0.03 ms | 0 % | 34,8 % |
+| 15 | 2991.65 ms | 0.03 ms | 0 % | 35,8 % |
+| 16 | 10014.27 ms | 0.03 ms | 0 % | 37,2 % |
+| 17 | 62968.15 ms | 0.04 ms | 0 % | 37,4 % |
 | 500 | not tested | 1.77 ms | - | - |
 | 1000 | not tested | 14.63 ms | - | - |
 | 1500 | not tested | 19.83 ms | - | - |
-| 2000 | not tested | 23.53 ms | - | - |
+| 2000 | not tested | 23.53 ms | - | - 
+
+![Tsp Nearest Neighbour diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspNearestNeighbour.png)
+
+As can be seen in the tables and the diagrams, Tsp Exact is very slow except with very small graphs. Tsp Nearest Neighbour, on the other hand, is very fast even with big input. Yet the accuracy of Tsp Nearest Neighbour tends to get worse when the graph size grows. Tsp Exact was not tested with graphs bigger than 17 nodes, as it was too slow.
 
 ### Tests made with graphs using real imported data
 
@@ -77,9 +71,17 @@ quite fast.
 ( ** A couple of times the test was interrupted after waiting more than 5 minutes. These tests are excluded from the average time, as it was unclear whether this was because the algorithm was just slow or because there were some faults in the graph data (see algorithm accuracy section below) )
 
 ![Tsp Exact diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspExact.png)
-![Tsp Nearest Neighbour diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspNearestNeighbour.png)
 
-The diagrams show only the results of the tests made with a complex graph. Tsp Exact was not tested with graphs bigger than 15 nodes, as it was too slow. An exception was a simple graph of 20 nodes, which Tsp Exact could solve quite fast. As this is a special case and not directly compareable with the other results, it is not shown in the diagram. 
+The same trends are visible here: Tsp Exact slows down quickly, while Tsp Nearest Neighbour remains fast but its accuracy gets worse. However, theses results show that that Tsp Exact slows down even more steeply when real data is used. It is not quite clear why; the mentioned faults in the graph data could affect the performance. On the other hand, Tsp Nearest Neighbour seems to be more accurate with these graphs. This could be because the differences between all the possible routes are smaller in real data than in randomly created graphs.
+
+#### Tests made with simple test graphs
+
+The simple test graphs have one unambiguous shortest route that is quite easy to find. With these graphs, the branch-and-bound method is effective. That is why even Tsp Exact is quite fast with a graph of 20 nodes. 
+
+| Graph size (V) | Tsp Exact | Tsp Nearest Neighbour | Tsp NN found the shortest route (% of all cases)  | Average difference in route length |
+|---|---|---|---|---|
+| 5 | 0.11 ms | 0.00 ms | 100 % | 0 % |
+| 20 | 5069.35 ms | 0.05 ms | 100 % | 0 % |
 
 ### Path algorithms
 

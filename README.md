@@ -1,4 +1,5 @@
 # WhereToStopForADrink
+
 Data structures and algorithms course project
 
 ## Documentation
@@ -6,6 +7,7 @@ Data structures and algorithms course project
 - [Project definition](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/project_definition.md)
 - [Testing document](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/testing_document.md)
 - [Implementation document](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/implementation_document.md)
+- [User's guide](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/users_guide.md)
 
 ## Week reports
 

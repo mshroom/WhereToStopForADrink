@@ -34,7 +34,7 @@ The performance of the algorithms can be measured by running the application. Bo
 
 ### Route algorithms
 
-### Tests made with random test graphs
+#### Tests made with random test graphs
 
 | Graph size (V) | Tsp Exact | Tsp Nearest Neighbour | Tsp NN found the shortest route (% of all cases)  | Average difference in route length |
 |---|---|---|---|---|
@@ -57,7 +57,7 @@ The performance of the algorithms can be measured by running the application. Bo
 
 As can be seen in the tables and the diagrams, Tsp Exact is very slow except with very small graphs. Tsp Nearest Neighbour, on the other hand, is very fast even with big input. Yet the accuracy of Tsp Nearest Neighbour tends to get worse when the graph size grows. Tsp Exact was not tested with graphs bigger than 17 nodes, as it was too slow.
 
-### Tests made with graphs using real imported data
+#### Tests made with graphs using real imported data
 
 | Graph size (V) | Tsp Exact | Tsp Nearest Neighbour | Tsp NN found the shortest route (% of all cases)  | Average difference in route length |
 |---|---|---|---|---|

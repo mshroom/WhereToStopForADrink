@@ -15,7 +15,7 @@ java -jar WhereToStopForADrink.jar
 
 ### B) Downloading the jar file
 
-You can also just download the [jar file](TODO:link). Navigate to the folder where you placed the jar file and copy the folder [data](https://github.com/mshroom/WhereToStopForADrink/tree/master/data) there. The application will use this folder to access saved data. After that, run the command:
+You can also just download the [jar file](https://github.com/mshroom/WhereToStopForADrink/blob/master/WhereToStopForADrink.jar). Navigate to the folder where you placed the jar file and copy the folder [data](https://github.com/mshroom/WhereToStopForADrink/tree/master/data) there. The application will use this folder to access saved data. After that, run the command:
 
 ```
 java -jar WhereToStopForADrink.jar

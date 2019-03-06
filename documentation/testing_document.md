@@ -36,6 +36,34 @@ The performance of the algorithms can be measured by running the application. Bo
 
 As can be seen in the table and the diagrams, Tsp Exact is very slow except with very small graphs. Tsp Nearest Neighbour, on the other hand, is very fast even with big input. Yet the accuracy of Tsp Nearest Neighbour tends to get worse when the graph size grows.
 
+#### Tests made with simple test graphs
+
+| Graph size (V) | Tsp Exact | Tsp Nearest Neighbour | Tsp NN found the shortest route (% of all cases)  | Average difference in route length |
+|---|---|---|---|---|
+| 5 | 0.11 ms | 0.00 ms | 100 % | 0 % |
+| 20 | 5069.35 ms | 0.05 ms | 100 % | 0 % |
+
+The test graph with 20 nodes is simple graph where the branch-and-bound method is effective. That is why even Tsp Exact is 
+quite fast.
+
+### Tests made with random test graphs
+
+| Graph size (V) | Tsp Exact | Tsp Nearest Neighbour | Tsp NN found the shortest route (% of all cases)  | Average difference in route length |
+|---|---|---|---|---|
+| 5 | 0.23 ms | 0.01 ms | 40 % | 13,4 % |
+| 10 | 38.17 ms | 0.02 ms | 10 % | 22,8 % |
+| 11 | 32.08 ms | 0.02 ms | 0 % | 26,15 % |
+| 12 | 52.78 ms | 0.03 ms | 10 % | 22.3 % |
+| 13 | 239.30 ms | 0.03 ms |  |  |
+| 14 | 902.02 ms | 0.03 ms | 0 % |  |
+| 15 | 2991.65 ms | 0.03 ms | 0 % |  |
+| 500 | not tested | 1.77 ms | - | - |
+| 1000 | not tested | 14.63 ms | - | - |
+| 1500 | not tested | 19.83 ms | - | - |
+| 2000 | not tested | 23.53 ms | - | - |
+
+### Tests made with graphs using real imported data
+
 | Graph size (V) | Tsp Exact | Tsp Nearest Neighbour | Tsp NN found the shortest route (% of all cases)  | Average difference in route length |
 |---|---|---|---|---|
 | 5 | 0.29 ms | 0.01 ms | 50 % | 2,0 % |
@@ -45,13 +73,6 @@ As can be seen in the table and the diagrams, Tsp Exact is very slow except with
 | 13 | 5386.09 ms | 0.03 ms | 0 % | 13,2 % |
 | 14 | 8730.24 ms | 0.03 ms | 0 % | 12,9 % |
 | 15 | 25321.25 ms** | 0.03 ms | 0 % | 14,4 % |
-| 20* | 5069.35 ms | 0.05 ms | 100 % | 0 % |
-| 500 | not tested | 1.77 ms | - | - |
-| 1000 | not tested | 14.63 ms | - | - |
-| 1500 | not tested | 19.83 ms | - | - |
-| 2000 | not tested | 23.53 ms | - | - |
-
-( * A simple graph where the branch-and-bound method is effective )
 
 ( ** A couple of times the test was interrupted after waiting more than 5 minutes. These tests are excluded from the average time, as it was unclear whether this was because the algorithm was just slow or because there were some faults in the graph data (see algorithm accuracy section below) )
 

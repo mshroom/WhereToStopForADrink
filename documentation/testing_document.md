@@ -52,7 +52,8 @@ The performance of the algorithms can be measured by running the application. Bo
 | 1500 | not tested | 19.83 ms | - | - |
 | 2000 | not tested | 23.53 ms | - | - 
 
-![Tsp Nearest Neighbour diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspNearestNeighbour.png)
+![Tsp Exact diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspExact_random.png)
+![Tsp Nearest Neighbour diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspNearestNeighbour_random.png)
 
 As can be seen in the tables and the diagrams, Tsp Exact is very slow except with very small graphs. Tsp Nearest Neighbour, on the other hand, is very fast even with big input. Yet the accuracy of Tsp Nearest Neighbour tends to get worse when the graph size grows. Tsp Exact was not tested with graphs bigger than 17 nodes, as it was too slow.
 
@@ -70,9 +71,10 @@ As can be seen in the tables and the diagrams, Tsp Exact is very slow except wit
 
 ( ** A couple of times the test was interrupted after waiting more than 5 minutes. These tests are excluded from the average time, as it was unclear whether this was because the algorithm was just slow or because there were some faults in the graph data (see algorithm accuracy section below) )
 
-![Tsp Exact diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspExact.png)
+![Tsp Exact diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspExact_custom.png)
+![Tsp Nearest Neighbour diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspNearestNeighbour_custom.png)
 
-The same trends are visible here: Tsp Exact slows down quickly, while Tsp Nearest Neighbour remains fast but its accuracy gets worse. However, theses results show that that Tsp Exact slows down even more steeply when real data is used. It is not quite clear why; the mentioned faults in the graph data could affect the performance. On the other hand, Tsp Nearest Neighbour seems to be more accurate with these graphs. This could be because the differences between all the possible routes are smaller in real data than in randomly created graphs.
+The same trends are visible here: Tsp Exact slows down quickly, while Tsp Nearest Neighbour remains fast but its accuracy gets worse. However, these results show that that Tsp Exact gets impractically slow with already more than 15 nodes when real data is used. It is not quite clear why; the mentioned faults in the graph data could affect the performance. On the other hand, Tsp Nearest Neighbour seems to be more accurate with these graphs. This could be because the differences between all the possible routes are smaller in real data than in randomly created graphs.
 
 #### Tests made with simple test graphs
 

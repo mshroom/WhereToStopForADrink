@@ -67,9 +67,9 @@ As can be seen in the tables and the diagrams, Tsp Exact is very slow except wit
 | 12 | 3866.77 ms | 0.02 ms | 0 % | 7,7 % |
 | 13 | 5386.09 ms | 0.03 ms | 0 % | 13,2 % |
 | 14 | 8730.24 ms | 0.03 ms | 0 % | 12,9 % |
-| 15 | 25321.25 ms** | 0.03 ms | 0 % | 14,4 % |
+| 15 | 25321.25 ms* | 0.03 ms | 0 % | 14,4 % |
 
-( ** A couple of times the test was interrupted after waiting more than 5 minutes. These tests are excluded from the average time, as it was unclear whether this was because the algorithm was just slow or because there were some faults in the graph data (see algorithm accuracy section below) )
+( * A couple of times the test was interrupted after waiting more than 5 minutes. These tests are excluded from the average time, as it was unclear whether this was because the algorithm was just slow or because there were some faults in the graph data (see algorithm accuracy section below) )
 
 ![Tsp Exact diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspExact_custom.png)
 ![Tsp Nearest Neighbour diagram](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/diagrams/TspNearestNeighbour_custom.png)

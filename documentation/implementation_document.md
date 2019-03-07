@@ -37,6 +37,8 @@ The time and space complexities of the algorithms are described in the [Project 
 
 The tests also show that the complexity of the graph has a great impact on the performance of Tsp Exact: With a simple graph of 20 nodes the algorithm is much faster than with a complex graph of 15 nodes. If the shortest path is very straightforward, the branch-and-bound method can discard many branches effectively and thus find the path without going through all the possible permutations.
 
+Another interesting result is that Tsp Exact is a little slower with graphs that use real data than with randomly created graphs. The reasons for this are discussed in the [testing document](https://github.com/mshroom/WhereToStopForADrink/blob/master/documentation/testing_document.md#tests-made-with-graphs-using-real-imported-data). 
+
 Tsp Nearest Neighbour is much faster: even with a graph of 2000 nodes it runs less than 1/10 seconds. On the other hand, the algorithm is not very clever. With simple graphs and graphs of less than 5 nodes it usually finds the shortest route, but with complex graphs of 12 or more nodes it is already very unlikely. With bigger graphs, the difference in the length of the optimal route and the route found by Tsp Nearest Neighbour also tends to get bigger. Thus the accuracy of Tsp Nearest Neighbour is poor when compared to Tsp Exact, which always finds the optimal route.
 
 ### Shortest path algorithms

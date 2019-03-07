@@ -3,7 +3,7 @@ package web;
 import java.net.URLEncoder;
 
 /**
- *
+ * Creates and sends HTTP requests to the Geocoding API of Digitransit.
  * @author mshroom
  */
 public class AddressFinder {
@@ -15,6 +15,12 @@ public class AddressFinder {
         this.connection = new Connection();
     }
     
+    /**
+     * Creates and sends a HTTP request that finds the coordinates for the given address.
+     * @param address The address to be searched.
+     * @return An array containing the coordinates.
+     * @throws Exception if the connection fails.
+     */
     public String[] findCoordinates(String address) throws Exception {
         String[] coordinates = new String[2];
         String url = this.baseUrl;

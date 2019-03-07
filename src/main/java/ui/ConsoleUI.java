@@ -33,6 +33,13 @@ public class ConsoleUI {
         this.customGraphIsSet = false;
     }
 
+    /**
+     * Creates the UI that will be initialized with given attribute objects (used in tests).
+     * @param io The IO object.
+     * @param algo The AlgorithmController object.
+     * @param graphs The GraphController object.
+     * @param testGraphs The GraphStore object.
+     */
     public ConsoleUI(IO io, AlgorithmController algo, GraphController graphs, GraphStore testGraphs) {
         this.io = io;
         this.algo = algo;
@@ -202,6 +209,9 @@ public class ConsoleUI {
         this.io.printLine("quit = Quit the application");
     }
 
+    /**
+     * Allows the user to compare the path algorithms with simple test graphs.
+     */
     private void comparePathAlgorithmsWithSimpleTestGraphs() {
         int[][] graphToTest = new int[1][1];
         int maxIndex = 0;
@@ -233,6 +243,9 @@ public class ConsoleUI {
 
     }
 
+    /**
+     * Allows the user to compare path algorithms with random test graphs.
+     */
     private void comparePathAlgorithmsWithRandomTestGraph() {
         int size = this.io.readInt("Choose the size of the graph");
         if (size < 1) {
@@ -247,6 +260,9 @@ public class ConsoleUI {
         }
     }
 
+    /**
+     * Allows the user to compare route algorithms with random test graphs.
+     */
     private void compareRouteAlgorithmsWithRandomTestGraph() {
         int size = this.io.readInt("Give the graph size.\nWith more than 17 nodes only the approximation algorithm will be used.");
         if (size < 2) {
@@ -264,6 +280,9 @@ public class ConsoleUI {
         }
     }
 
+    /**
+     * Allows the user to compare route algorithms with simple test graphs.
+     */
     private void compareRouteAlgorithmsWithSimpleTestGraph() {
         boolean all = false;
         while (true) {
@@ -318,6 +337,9 @@ public class ConsoleUI {
         }
     }
 
+    /**
+     * Allows the user to compare route algorithms with custom graph.
+     */
     private void compareRouteAlgorithmsWithCustomGraph() {
         if (!this.customGraphIsSet) {
             this.io.printLine("You have not imported any graph.");
@@ -351,6 +373,9 @@ public class ConsoleUI {
         }
     }
 
+    /**
+     * Allows the user to compare path algorithms with custom graph.
+     */
     private void comparePathAlgorithmsWithCustomGraph() {
         if (!this.customGraphIsSet) {
             this.io.printLine("You have not imported any graph.");
@@ -366,6 +391,10 @@ public class ConsoleUI {
         this.customPathSearch(node);
     }
 
+    /**
+     * Makes a search to the given node in the custom graph.
+     * @param node 
+     */
     private void customPathSearch(int node) {
         int maxDistance = this.io.readInt("Enter the maximum walking distance between two points (meters)");
         try {
@@ -420,6 +449,11 @@ public class ConsoleUI {
         }
     }
 
+    /**
+     * Allows the user to print the path to the given node.
+     * @param goal The index of the goal node.
+     * @throws Throwable if an error occurs.
+     */
     private void printPath(int goal) throws Throwable {
         this.io.printLine("\nDo you wish to print the path?");
         this.io.printLine("\nd = Print Dijkstra path");
@@ -443,6 +477,10 @@ public class ConsoleUI {
         }
     }
 
+    /**
+     * Allows the user to print the route.
+     * @param all True if all algorithms are used, false if only approximation algorithms are used.
+     */
     private void printRoute(boolean all) {
         this.io.printLine("\nDo you wish to print the route?");
         if (all) {
@@ -489,6 +527,10 @@ public class ConsoleUI {
         }
     }
 
+    /**
+     * Allows the user to search a place by name and address before comparing shortest path algorithms 
+     * with custom graph.
+     */
     private void findPlace() {
         if (!this.customGraphIsSet) {
             this.io.printLine("You have not imported any graph.");

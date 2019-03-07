@@ -82,6 +82,12 @@ public class PlaceController {
         this.convertQueueToArray();
     }
 
+    /**
+     * Method tries to find coordinates for the new home address and add the new home 
+     * place to the head of the queue..
+     * @param address The home address
+     * @return True if coordinates were found and the new home address was added, false otherwise.
+     */
     private boolean addHomeToPlaces(String address) {         
         String[] homeCoordinates;
         try {
@@ -97,6 +103,11 @@ public class PlaceController {
         }        
     }
     
+    /**
+     * Changes the home address.
+     * @param newAddress The new home address.
+     * @return True if the change was successful, false otherwise.
+     */
     public boolean changeHome(String newAddress) {
         Place oldHome = (Place) queue.poll();
         if (this.addHomeToPlaces(newAddress)) {

@@ -1,7 +1,7 @@
 package dataStructures;
 
 /**
- * MinHeap is a priority queue with for Node objects. The size of the queue is predefined and
+ * MinHeap is a priority queue for Node objects. The capacity of the queue is predefined and
  * cannot be altered. Nodes can be added to the queue and
  * the smallest one is the first to be removed. Node sizes are defined and compared
  * in the Node class and its subclasses.
@@ -12,8 +12,12 @@ public class MinHeap {
     private Node[] heap;
     private int heapSize;
     
-    public MinHeap(int size) {
-        this.heap = new Node[size + 1];
+    /**
+     * Creates a new MinHeap with the given capacity. The capacity cannot be altered later.
+     * @param capazity The capacity of the heap.
+     */
+    public MinHeap(int capacity) {
+        this.heap = new Node[capacity + 1];
         this.heapSize = 0;
     }
     /**

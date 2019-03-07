@@ -1,7 +1,7 @@
 package dataStructures;
 
 /**
- *
+ * Place object represents a geographical place.
  * @author mshroom
  */
 public class Place implements Queueable {
@@ -12,6 +12,14 @@ public class Place implements Queueable {
     private String y;
     private boolean home;
     
+    /**
+     * Creates a new Place object.
+     * @param index The index of the place.
+     * @param name The name of the place.
+     * @param address The address.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     */
     public Place(int index, String name, String address, String x, String y) {
         this.index = index;
         this.name = name;

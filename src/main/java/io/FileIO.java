@@ -57,7 +57,7 @@ public class FileIO implements IO {
     /**
      * Reads and returns the next line in the file.
      * @param instruction Any String (it will not be used)
-     * @return 
+     * @return The next line in the file.
      */
     @Override
     public String readLine(String instruction) {

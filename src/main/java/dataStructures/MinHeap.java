@@ -14,7 +14,7 @@ public class MinHeap {
     
     /**
      * Creates a new MinHeap with the given capacity. The capacity cannot be altered later.
-     * @param capazity The capacity of the heap.
+     * @param capacity The capacity of the heap.
      */
     public MinHeap(int capacity) {
         this.heap = new Node[capacity + 1];
